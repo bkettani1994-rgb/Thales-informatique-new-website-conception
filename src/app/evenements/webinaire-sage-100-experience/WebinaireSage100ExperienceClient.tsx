@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ChevronRight, Calendar, Video, Users, CheckCircle2, ArrowRight } from "lucide-react";
+import { ChevronRight, Calendar, Video, Users, CheckCircle2, ArrowRight, PlayCircle } from "lucide-react";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 
@@ -43,11 +43,15 @@ const takeaways = [
   "Un temps d'échange avec l'équipe Thalès Informatique pour répondre aux questions",
 ];
 
+const REPLAY_SRC = "https://res.cloudinary.com/dmutnjgp8/video/upload/v1789382886/3578804153755530757_d6xmCRgf_o8bhvu.mp4";
+
 export default function WebinaireSage100ExperienceClient() {
+  const replayRef = useRef(null);
   const introRef = useRef(null);
   const changesRef = useRef(null);
   const takeawaysRef = useRef(null);
   const ctaRef = useRef(null);
+  const replayInView = useInView(replayRef, { once: true, margin: "-100px" });
   const introInView = useInView(introRef, { once: true, margin: "-100px" });
   const changesInView = useInView(changesRef, { once: true, margin: "-100px" });
   const takeawaysInView = useInView(takeawaysRef, { once: true, margin: "-100px" });
@@ -91,6 +95,35 @@ export default function WebinaireSage100ExperienceClient() {
             <span className="flex items-center gap-2"><Video size={16} className="text-accent" aria-hidden="true" /> En ligne</span>
             <span className="flex items-center gap-2"><Users size={16} className="text-accent" aria-hidden="true" /> Webinaire</span>
           </div>
+        </div>
+      </section>
+
+      {/* Replay */}
+      <section className="py-16 bg-white" ref={replayRef}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeUp} initial="hidden" animate={replayInView ? "visible" : "hidden"}>
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-cta tracking-widest bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full mb-4">
+                <PlayCircle size={12} aria-hidden="true" />
+                REPLAY
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-primary">Revoir le webinaire en entier</h2>
+              <p className="text-secondary max-w-2xl mx-auto mt-3 leading-relaxed">
+                Vous n&apos;avez pas pu assister en direct ? Retrouvez l&apos;intégralité du webinaire en replay ci-dessous.
+              </p>
+            </div>
+            <div className="relative aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-bg-base shadow-sm">
+              <video
+                src={REPLAY_SRC}
+                title="Replay — Webinaire Sage 100 Expérience"
+                controls
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                Votre navigateur ne prend pas en charge la lecture vidéo.
+              </video>
+            </div>
+          </motion.div>
         </div>
       </section>
 
