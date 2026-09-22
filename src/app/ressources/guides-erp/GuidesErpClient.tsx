@@ -50,6 +50,48 @@ const guides = [
     pages: "20 pages",
     category: "Stratégie",
   },
+  {
+    icon: "🔄",
+    title: "Checklist migration de données ERP",
+    description: "Inventaire, nettoyage, correspondance des champs et plan de bascule pour une migration sans risque.",
+    pages: "16 pages",
+    category: "Technique",
+  },
+  {
+    icon: "🧾",
+    title: "Guide facturation électronique au Maroc",
+    description: "Comprendre l'obligation DGI et les étapes de mise en conformité pour votre entreprise.",
+    pages: "18 pages",
+    category: "Conformité",
+  },
+  {
+    icon: "🔐",
+    title: "Checklist sécurité & sauvegarde ERP",
+    description: "Points de contrôle essentiels : accès par rôles, sauvegardes, plan de reprise d'activité.",
+    pages: "14 pages",
+    category: "Sécurité",
+  },
+  {
+    icon: "🧑‍💼",
+    title: "Guide SIRH & paie conforme Maroc",
+    description: "Checklist de mise en conformité CNSS/AMO et fonctionnalités clés d'un bon SIRH.",
+    pages: "22 pages",
+    category: "RH",
+  },
+  {
+    icon: "☁️",
+    title: "Guide Cloud vs On-Premise",
+    description: "Grille de décision factuelle : coûts, sécurité, autonomie IT et évolutivité pour choisir en connaissance de cause.",
+    pages: "16 pages",
+    category: "Technique",
+  },
+  {
+    icon: "✅",
+    title: "Checklist choix d'un intégrateur ERP",
+    description: "Les bonnes questions à poser avant de signer : méthodologie, références, SLA et réversibilité.",
+    pages: "12 pages",
+    category: "Conseil",
+  },
 ];
 
 export default function GuidesErpClient() {
