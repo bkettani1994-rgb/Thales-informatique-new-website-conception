@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ChevronRight, Download, FileText, Mail } from "lucide-react";
+import { ChevronRight, Download, FileText, Mail, X, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 
@@ -84,6 +84,7 @@ const guides = [
     description: "Grille de décision factuelle : coûts, sécurité, autonomie IT et évolutivité pour choisir en connaissance de cause.",
     pages: "16 pages",
     category: "Technique",
+    available: true,
   },
   {
     icon: "✅",
@@ -94,12 +95,95 @@ const guides = [
   },
 ];
 
+function DownloadModal({ guideTitle, onClose }: { guideTitle: string; onClose: () => void }) {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await fetch(process.env.NEXT_PUBLIC_GOOGLE_SHEET_GUIDES_URL!, {
+        method: "POST",
+        body: JSON.stringify({ email, nom: name, guide: guideTitle }),
+      });
+    } catch (_) {
+      // silently ignore network errors — still show confirmation
+    }
+    setLoading(false);
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-primary/60 backdrop-blur-sm" onClick={onClose}>
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        className="bg-white rounded-2xl p-8 max-w-md w-full relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Fermer"
+          className="absolute top-4 right-4 text-slate-400 hover:text-primary transition-colors cursor-pointer"
+        >
+          <X size={20} />
+        </button>
+
+        {submitted ? (
+          <div className="text-center py-6">
+            <CheckCircle2 size={40} className="text-emerald-500 mx-auto mb-4" />
+            <h3 className="text-lg font-bold text-primary mb-2">Vérifiez votre boîte mail !</h3>
+            <p className="text-secondary text-sm">Le guide « {guideTitle} » vient de vous être envoyé par email.</p>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-lg font-bold text-primary mb-1">Télécharger le guide</h3>
+            <p className="text-secondary text-sm mb-6">« {guideTitle} » — recevez-le directement par email.</p>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                type="text"
+                placeholder="Votre nom et prénom"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-cta"
+              />
+              <input
+                type="email"
+                placeholder="Votre email professionnel"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-border text-sm focus:outline-none focus:border-cta"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 bg-cta text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-60"
+              >
+                {loading ? "Envoi en cours..." : "Recevoir le guide par email"}
+              </button>
+              <p className="text-xs text-slate-400 text-center">
+                En soumettant ce formulaire, vous acceptez de recevoir des communications de Thalès Informatique.
+              </p>
+            </form>
+          </>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function GuidesErpClient() {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
   const heroInView = useInView(heroRef, { once: true });
   const contentInView = useInView(contentRef, { once: true });
   const [formData, setFormData] = useState({ name: "", email: "" });
+  const [activeGuide, setActiveGuide] = useState<string | null>(null);
 
   return (
     <main className="overflow-x-hidden bg-bg">
@@ -172,10 +256,20 @@ export default function GuidesErpClient() {
                   <p className="text-sm text-secondary mb-4 flex-1">{guide.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-slate-400">{guide.pages}</span>
-                    <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-400 cursor-not-allowed">
-                      <Download size={14} />
-                      Bientôt disponible
-                    </span>
+                    {guide.available ? (
+                      <button
+                        onClick={() => setActiveGuide(guide.title)}
+                        className="flex items-center gap-1.5 text-sm font-semibold text-cta hover:text-blue-700 transition-colors cursor-pointer"
+                      >
+                        <Download size={14} />
+                        Télécharger
+                      </button>
+                    ) : (
+                      <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-400 cursor-not-allowed">
+                        <Download size={14} />
+                        Bientôt disponible
+                      </span>
+                    )}
                   </div>
                 </motion.div>
               ))}
@@ -234,6 +328,12 @@ export default function GuidesErpClient() {
       </section>
 
       <Footer />
+
+      <AnimatePresence>
+        {activeGuide && (
+          <DownloadModal guideTitle={activeGuide} onClose={() => setActiveGuide(null)} />
+        )}
+      </AnimatePresence>
     </main>
   );
 }
