@@ -7,91 +7,120 @@ import { ChevronRight, Download, FileText, Mail, X, CheckCircle2 } from "lucide-
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 
-const guides = [
+type Guide = {
+  icon: string;
+  title: string;
+  description: string;
+  pages: string;
+  category: string;
+  available?: boolean;
+};
+
+const guides: Guide[] = [
   {
-    icon: "📋",
-    title: "Cahier des charges ERP",
-    description: "Guide complet pour rédiger votre CDC avant consultation des éditeurs.",
-    pages: "32 pages",
-    category: "Finance & Opérations",
+    icon: "🆕",
+    title: "Guide Sage 100 Expérience",
+    description: "Ce qui change concrètement pour vous avec la nouvelle édition de Sage 100.",
+    pages: "8 pages",
+    category: "Sage 100",
   },
   {
-    icon: "🔍",
-    title: "Guide d'audit des processus",
-    description: "Méthodologie d'audit interne avant déploiement ERP.",
-    pages: "24 pages",
-    category: "Conseil",
-  },
-  {
-    icon: "💰",
-    title: "Calculateur ROI ERP",
-    description: "Modèle Excel pour calculer le retour sur investissement de votre ERP.",
-    pages: "12 pages",
-    category: "Finance",
-  },
-  {
-    icon: "👥",
-    title: "Guide conduite du changement",
-    description: "Accompagnement des équipes lors d'une transformation ERP.",
-    pages: "28 pages",
-    category: "RH",
-  },
-  {
-    icon: "🏭",
-    title: "Guide ERP industrie marocaine",
-    description: "Spécificités sectorielles et meilleures pratiques pour l'industrie au Maroc et en Afrique.",
-    pages: "40 pages",
-    category: "Industrie",
-  },
-  {
-    icon: "📊",
-    title: "Benchmark ERP PME Maroc 2025",
-    description: "Comparatif des solutions ERP pour PME au Maroc et en Afrique.",
-    pages: "20 pages",
-    category: "Stratégie",
-  },
-  {
-    icon: "🔄",
-    title: "Checklist migration de données ERP",
-    description: "Inventaire, nettoyage, correspondance des champs et plan de bascule pour une migration sans risque.",
-    pages: "16 pages",
-    category: "Technique",
-  },
-  {
-    icon: "🧾",
-    title: "Guide facturation électronique au Maroc",
-    description: "Comprendre l'obligation DGI et les étapes de mise en conformité pour votre entreprise.",
-    pages: "18 pages",
-    category: "Conformité",
-  },
-  {
-    icon: "🔐",
-    title: "Checklist sécurité & sauvegarde ERP",
-    description: "Points de contrôle essentiels : accès par rôles, sauvegardes, plan de reprise d'activité.",
-    pages: "14 pages",
-    category: "Sécurité",
-  },
-  {
-    icon: "🧑‍💼",
-    title: "Guide SIRH & paie conforme Maroc",
-    description: "Checklist de mise en conformité CNSS/AMO et fonctionnalités clés d'un bon SIRH.",
-    pages: "22 pages",
-    category: "RH",
-  },
-  {
-    icon: "☁️",
-    title: "Guide Cloud vs On-Premise",
-    description: "Grille de décision factuelle : coûts, sécurité, autonomie IT et évolutivité pour choisir en connaissance de cause.",
-    pages: "16 pages",
-    category: "Technique",
-    available: true,
+    icon: "📄",
+    title: "1 système au lieu de 5",
+    description: "Fiche pratique sur la centralisation de votre gestion avec Sage 100 BMS.",
+    pages: "2 pages",
+    category: "Sage 100",
   },
   {
     icon: "✅",
-    title: "Checklist choix d'un intégrateur ERP",
-    description: "Les bonnes questions à poser avant de signer : méthodologie, références, SLA et réversibilité.",
+    title: "Votre PME est-elle prête pour un ERP ?",
+    description: "Checklist en 15 points pour évaluer la maturité de votre entreprise avant un projet ERP.",
+    pages: "15 points",
+    category: "ERP",
+  },
+  {
+    icon: "📊",
+    title: "Sortir d'Excel : le coût réel de votre gestion",
+    description: "Guide chiffré sur les coûts cachés d'une gestion sous Excel face à un vrai ERP.",
+    pages: "14 pages",
+    category: "Finance",
+  },
+  {
+    icon: "🗓️",
+    title: "Planning type d'une migration",
+    description: "Modèle de planning détaillé pour une migration ERP réussie en 8 semaines.",
+    pages: "1 page",
+    category: "Migration",
+  },
+  {
+    icon: "🧾",
+    title: "Checklist facturation électronique",
+    description: "18 points de contrôle transverses pour vous mettre en conformité avec l'obligation DGI.",
+    pages: "18 points",
+    category: "Conformité",
+  },
+  {
+    icon: "💰",
+    title: "Comparatif achat / abonnement",
+    description: "Analyse chiffrée sur 3 ans pour choisir le mode d'acquisition le plus rentable pour votre ERP.",
+    pages: "Calculateur + 1 page",
+    category: "Finance",
+  },
+  {
+    icon: "💡",
+    title: "Ce que vous n'exploitez pas encore",
+    description: "Fiche pratique sur les fonctionnalités Sage 100 sous-utilisées dans votre entreprise.",
+    pages: "Fiche pratique",
+    category: "Sage 100",
+  },
+  {
+    icon: "🤖",
+    title: "8 cas d'usage de l'IA dans Sage 100",
+    description: "Guide des nouveaux usages concrets de l'intelligence artificielle dans votre gestion commerciale et comptable.",
     pages: "12 pages",
-    category: "Conseil",
+    category: "IA",
+  },
+  {
+    icon: "📈",
+    title: "Calculateur de ROI Sage 100",
+    description: "Modèle pour calculer le retour sur investissement de votre solution Sage 100.",
+    pages: "Calculateur",
+    category: "Finance",
+  },
+  {
+    icon: "📁",
+    title: "Modèle de dossier d'investissement",
+    description: "Trame pour présenter et faire valider votre projet Sage 100 en interne.",
+    pages: "Modèle",
+    category: "Investissement",
+  },
+  {
+    icon: "🧑‍💼",
+    title: "12 points de contrôle avant de valider la paie",
+    description: "Checklist de vérification pour sécuriser chaque cycle de paie avec Sage 100 Paie & RH.",
+    pages: "12 points",
+    category: "Paie & RH",
+  },
+  {
+    icon: "📊",
+    title: "Sortir la paie d'Excel",
+    description: "Guide chiffré sur le coût réel d'une gestion de la paie sous Excel.",
+    pages: "10 pages",
+    category: "Paie & RH",
+  },
+  {
+    icon: "📆",
+    title: "Calendrier des obligations paie et sociales",
+    description: "CNSS, AMO, IR : toutes les échéances sociales à connaître (sous réserve des textes en vigueur).",
+    pages: "2 pages",
+    category: "Paie & RH",
+  },
+  {
+    icon: "✅",
+    title: "Checklist clôture annuelle de la paie",
+    description: "Les points de contrôle essentiels pour une clôture annuelle de paie sans erreur.",
+    pages: "Checklist",
+    category: "Paie & RH",
   },
 ];
 
