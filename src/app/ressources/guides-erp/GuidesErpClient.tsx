@@ -31,6 +31,7 @@ const guides: Guide[] = [
     description: "Fiche pratique sur la centralisation de votre gestion avec Sage 100 BMS.",
     pages: "2 pages",
     category: "Sage 100",
+    available: true,
   },
   {
     icon: "✅",
