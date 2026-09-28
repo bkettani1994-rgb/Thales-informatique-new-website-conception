@@ -23,6 +23,7 @@ const guides: Guide[] = [
     description: "Ce qui change concrètement pour vous avec la nouvelle édition de Sage 100.",
     pages: "8 pages",
     category: "Sage 100",
+    available: true,
   },
   {
     icon: "📄",
