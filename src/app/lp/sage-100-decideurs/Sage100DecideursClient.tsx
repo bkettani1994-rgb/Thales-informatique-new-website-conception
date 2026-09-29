@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
+import LogoMarquee from "@/components/sections/LogoMarquee";
 import { trackEvent } from "@/lib/analytics";
 import {
   ArrowRight,
@@ -69,9 +70,6 @@ const heroBenefits = [
   { icon: ShieldCheck, label: "Données sécurisées" },
   { icon: TrendingUp, label: "Croissance durable" },
 ];
-
-// Logos clients — placeholders textuels, à remplacer par de vrais logos dès validation.
-const clientLogos = ["SOCIMAR", "HEA Trade & Services", "SOREMAR GROUP", "POLLUCLEAN", "Client Thalès"];
 
 type PersonaKey = "dg" | "daf" | "dsi" | "achats" | "ventes";
 
@@ -682,19 +680,8 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── RÉASSURANCE / RÉFÉRENCES ── */}
-      <section className="py-8 bg-white border-b border-slate-100 overflow-hidden">
-        <p className="text-center text-xs font-bold text-slate-400 tracking-widest uppercase mb-5">Ils nous font confiance</p>
-        <div className="relative max-w-5xl mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-x-12 gap-y-4">
-            {clientLogos.map((logo) => (
-              <span key={logo} className="text-slate-400 font-bold text-lg tracking-tight opacity-70 hover:opacity-100 transition-opacity">
-                {logo}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── RÉASSURANCE / RÉFÉRENCES — même composant que la page d'accueil ── */}
+      <LogoMarquee />
 
       {/* ── SAGE 100 SELON LE PROFIL ── */}
       <section id="metiers" className="py-20 lg:py-24 bg-bg scroll-mt-16">
