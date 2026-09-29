@@ -37,6 +37,8 @@ import {
   RefreshCw,
   Wrench,
   Star,
+  PlayCircle,
+  Calendar,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -65,6 +67,9 @@ const navLinks = [
   { href: "#temoignages", label: "Témoignages" },
   { href: "#faq", label: "FAQ" },
 ];
+
+// ID YouTube du replay webinaire Sage 100 Expérience — laisser vide tant qu'aucune vidéo n'est confirmée.
+const WEBINAR_VIDEO_ID = "";
 
 const heroBenefits = [
   { icon: Landmark, label: "Finance maîtrisée" },
@@ -834,6 +839,68 @@ export default function Sage100DecideursClient() {
               <Users size={36} className="text-slate-300" aria-hidden="true" />
               <span className="text-sm">Photo à intégrer</span>
             </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── WEBINAIRE SAGE 100 EXPÉRIENCE ── */}
+      <section id="webinaire" className="py-20 lg:py-24 bg-primary scroll-mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <FadeIn>
+            <span className="text-xs font-bold text-accent tracking-widest uppercase">Sage 100 Expérience</span>
+            <h2 className="text-3xl font-bold text-white mt-2 mb-5">
+              Thalès Informatique vous informe en avant-première des nouveautés Sage 100
+            </h2>
+            <p className="text-white/70 leading-relaxed mb-7">
+              À travers nos webinaires Sage 100 Expérience, nos experts décryptent les dernières évolutions de la solution : nouvelles fonctionnalités, mises à jour réglementaires, bonnes pratiques et retours d&apos;expérience clients — pour vous permettre de garder une longueur d&apos;avance.
+            </p>
+            <ul className="space-y-3 mb-8">
+              {[
+                "Nouveautés et évolutions produit présentées en direct",
+                "Sessions animées par nos consultants certifiés Sage",
+                "Questions/réponses en direct avec nos experts",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-white/80">
+                  <CheckCircle2 size={16} className="text-accent shrink-0" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/evenements/webinaire-sage-100-experience"
+              className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold px-5 py-3 rounded-xl hover:bg-white/20 transition-colors"
+              data-track="webinar_link_click"
+            >
+              <Calendar size={16} aria-hidden="true" />
+              Voir le prochain webinaire
+            </Link>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            {/* Emplacement vidéo — à remplacer par le replay du webinaire Sage 100 Expérience (renseigner WEBINAR_VIDEO_ID) */}
+            {WEBINAR_VIDEO_ID ? (
+              <div className="aspect-video rounded-2xl overflow-hidden border border-white/10">
+                <iframe
+                  src={`https://www.youtube.com/embed/${WEBINAR_VIDEO_ID}`}
+                  title="Replay — Webinaire Sage 100 Expérience"
+                  className="w-full h-full"
+                  allow="accelerate-compute; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  onLoad={() => track("video_play", { video: "webinaire-sage-100-experience" })}
+                />
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => track("video_play", { video: "webinaire-sage-100-experience-placeholder" })}
+                className="group w-full aspect-video rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center gap-3 text-white/70 cursor-pointer hover:bg-white/10 transition-colors"
+              >
+                <span className="w-16 h-16 rounded-full bg-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <PlayCircle size={30} className="text-primary" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-medium">Vidéo du webinaire à intégrer</span>
+              </button>
+            )}
           </FadeIn>
         </div>
       </section>
