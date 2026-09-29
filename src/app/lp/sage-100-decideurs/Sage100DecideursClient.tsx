@@ -534,8 +534,7 @@ export default function Sage100DecideursClient() {
       {/* ── HERO ── */}
       <section id="pourquoi" className="pt-14 pb-16 lg:pt-20 lg:pb-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-slate-800 to-slate-900" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
-          {/* Colonne gauche */}
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className="inline-flex items-center gap-2 text-xs font-bold text-accent tracking-widest bg-accent/10 px-4 py-1.5 rounded-full mb-6">
               ERP DE GESTION POUR PME &amp; ETI
@@ -543,11 +542,11 @@ export default function Sage100DecideursClient() {
             <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
               Passez à une gestion plus <span className="text-accent">efficace</span> avec Sage 100
             </h1>
-            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
+            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-2xl mx-auto">
               Avec Sage 100 et l&apos;accompagnement de Thalès Informatique, centralisez vos données, automatisez vos processus et prenez des décisions plus rapides et plus fiables.
             </p>
 
-            <div className="grid grid-cols-2 gap-3 mb-9 max-w-md">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto">
               {heroBenefits.map((b) => (
                 <div key={b.label} className="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl px-3.5 py-3">
                   <b.icon size={18} className="text-accent shrink-0" aria-hidden="true" />
@@ -556,97 +555,15 @@ export default function Sage100DecideursClient() {
               ))}
             </div>
 
-            <div className="hidden lg:block max-w-md">
+            <button
+              onClick={() => scrollToForm("hero")}
+              className="inline-flex items-center gap-2 bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-600 transition-colors duration-200 cursor-pointer mb-12"
+            >
+              Demander une démo <ArrowRight size={18} aria-hidden="true" />
+            </button>
+
+            <div className="hidden lg:block max-w-2xl mx-auto">
               <InterfaceMock />
-            </div>
-          </motion.div>
-
-          {/* Colonne droite — formulaire */}
-          <motion.div
-            id="formulaire"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="scroll-mt-24"
-          >
-            <div className="bg-white rounded-3xl p-7 md:p-8 shadow-xl">
-              {submitted ? (
-                <div className="text-center py-10">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Send size={24} className="text-emerald-600" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-2">Merci, votre demande est envoyée !</h3>
-                  <p className="text-secondary">Un expert Thalès Informatique vous contacte très prochainement.</p>
-                </div>
-              ) : (
-                <>
-                  <span className="text-xs font-bold text-cta tracking-widest uppercase">Demandez une démonstration</span>
-                  <h2 className="text-xl font-bold text-primary mt-2 mb-2">Échangez avec un expert Thalès Informatique</h2>
-                  <p className="text-secondary text-sm mb-6 leading-relaxed">
-                    Remplissez le formulaire et découvrez comment Sage 100 peut répondre concrètement aux enjeux de votre entreprise.
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-3.5">
-                    <div className="grid grid-cols-2 gap-3">
-                      <input
-                        type="text" name="prenom" placeholder="Prénom *" value={form.prenom}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                      <input
-                        type="text" name="nom" placeholder="Nom *" value={form.nom}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                    </div>
-                    <select
-                      name="fonction" value={form.fonction} onChange={handleChange} onFocus={handleFieldFocus} required
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm bg-white focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                    >
-                      {personas.map((p) => <option key={p.key} value={p.fonction}>{p.fonction}</option>)}
-                      <option value="Autre">Autre</option>
-                    </select>
-                    <input
-                      type="text" name="entreprise" placeholder="Entreprise *" value={form.entreprise}
-                      onChange={handleChange} onFocus={handleFieldFocus} required
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                    />
-                    <div className="grid grid-cols-2 gap-3">
-                      <input
-                        type="tel" name="telephone" placeholder="Téléphone *" value={form.telephone}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                      <input
-                        type="email" name="email" placeholder="Email pro *" value={form.email}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                    </div>
-
-                    <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
-                      <input
-                        type="checkbox" name="consentement" checked={form.consentement} onChange={handleChange} required
-                        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
-                      />
-                      <span className="text-xs text-secondary leading-relaxed">
-                        J&apos;accepte d&apos;être contacté·e par Thalès Informatique au sujet de ma demande.
-                      </span>
-                    </label>
-
-                    <button
-                      type="submit" disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-60 cursor-pointer"
-                    >
-                      {loading ? "Envoi en cours..." : "Demander une démo"}
-                      {!loading && <ArrowRight size={16} aria-hidden="true" />}
-                    </button>
-                    <p className="text-xs text-slate-400 text-center">
-                      Vos données sont confidentielles et ne seront jamais partagées.
-                    </p>
-                  </form>
-                </>
-              )}
             </div>
           </motion.div>
         </div>
@@ -908,26 +825,102 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ── */}
-      <section className="py-20 lg:py-24 bg-primary relative overflow-hidden">
+      {/* ── CTA FINAL + FORMULAIRE ── */}
+      <section id="formulaire" className="py-20 lg:py-24 bg-primary relative overflow-hidden scroll-mt-16">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-primary to-primary" />
-        <div className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center">
-          <FadeIn>
+        <div className="relative max-w-2xl mx-auto px-4 sm:px-6">
+          <FadeIn className="text-center mb-10">
             <span className="text-xs font-bold text-accent tracking-widest uppercase">Prêt à aller plus loin ?</span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Découvrez Sage 100 en action.</h2>
-            <p className="text-white/70 leading-relaxed mb-8 max-w-xl mx-auto">
+            <p className="text-white/70 leading-relaxed mb-6 max-w-xl mx-auto">
               Échangez avec nos experts et découvrez comment Sage 100 peut répondre aux enjeux spécifiques de votre entreprise.
             </p>
-            <button
-              onClick={() => scrollToForm("cta-final")}
-              className="inline-flex items-center gap-2 bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
-            >
-              Demander une démo <ArrowRight size={18} aria-hidden="true" />
-            </button>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-8 text-sm text-white/60">
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-white/60">
               <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-accent" aria-hidden="true" /> Un expert dédié à votre projet</span>
               <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-accent" aria-hidden="true" /> Une démonstration personnalisée</span>
               <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-accent" aria-hidden="true" /> Une prise de contact rapide</span>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <div className="bg-white rounded-3xl p-7 md:p-10 shadow-xl">
+              {submitted ? (
+                <div className="text-center py-10">
+                  <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Send size={24} className="text-emerald-600" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-xl font-bold text-primary mb-2">Merci, votre demande est envoyée !</h3>
+                  <p className="text-secondary">Un expert Thalès Informatique vous contacte très prochainement.</p>
+                </div>
+              ) : (
+                <>
+                  <span className="text-xs font-bold text-cta tracking-widest uppercase">Demandez une démonstration</span>
+                  <h3 className="text-xl font-bold text-primary mt-2 mb-2">Échangez avec un expert Thalès Informatique</h3>
+                  <p className="text-secondary text-sm mb-6 leading-relaxed">
+                    Remplissez le formulaire et découvrez comment Sage 100 peut répondre concrètement aux enjeux de votre entreprise.
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-3.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="text" name="prenom" placeholder="Prénom *" value={form.prenom}
+                        onChange={handleChange} onFocus={handleFieldFocus} required
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                      />
+                      <input
+                        type="text" name="nom" placeholder="Nom *" value={form.nom}
+                        onChange={handleChange} onFocus={handleFieldFocus} required
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                      />
+                    </div>
+                    <select
+                      name="fonction" value={form.fonction} onChange={handleChange} onFocus={handleFieldFocus} required
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm bg-white focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                    >
+                      {personas.map((p) => <option key={p.key} value={p.fonction}>{p.fonction}</option>)}
+                      <option value="Autre">Autre</option>
+                    </select>
+                    <input
+                      type="text" name="entreprise" placeholder="Entreprise *" value={form.entreprise}
+                      onChange={handleChange} onFocus={handleFieldFocus} required
+                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <input
+                        type="tel" name="telephone" placeholder="Téléphone *" value={form.telephone}
+                        onChange={handleChange} onFocus={handleFieldFocus} required
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                      />
+                      <input
+                        type="email" name="email" placeholder="Email pro *" value={form.email}
+                        onChange={handleChange} onFocus={handleFieldFocus} required
+                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                      />
+                    </div>
+
+                    <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
+                      <input
+                        type="checkbox" name="consentement" checked={form.consentement} onChange={handleChange} required
+                        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
+                      />
+                      <span className="text-xs text-secondary leading-relaxed">
+                        J&apos;accepte d&apos;être contacté·e par Thalès Informatique au sujet de ma demande.
+                      </span>
+                    </label>
+
+                    <button
+                      type="submit" disabled={loading}
+                      className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-60 cursor-pointer"
+                    >
+                      {loading ? "Envoi en cours..." : "Demander une démo"}
+                      {!loading && <ArrowRight size={16} aria-hidden="true" />}
+                    </button>
+                    <p className="text-xs text-slate-400 text-center">
+                      Vos données sont confidentielles et ne seront jamais partagées.
+                    </p>
+                  </form>
+                </>
+              )}
             </div>
           </FadeIn>
         </div>
