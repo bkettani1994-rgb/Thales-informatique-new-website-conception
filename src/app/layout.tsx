@@ -3,6 +3,7 @@ import "./globals.css";
 import ChatBot from "@/components/ui/ChatBot";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import LinkedInInsightTag from "@/components/analytics/LinkedInInsightTag";
 import AnalyticsEvents from "@/components/analytics/AnalyticsEvents";
 
 const SITE_URL = "https://thales.ma";
@@ -120,6 +121,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-bg-base text-primary">
         <AnalyticsEvents />
+        <LinkedInInsightTag />
         {children}
         <ChatBot />
         <WhatsAppButton />
