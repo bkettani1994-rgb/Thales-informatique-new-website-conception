@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
 import LogoMarquee from "@/components/sections/LogoMarquee";
+import Awards from "@/components/sections/Awards";
 import Testimonials, { testimonials as allTestimonials } from "@/components/sections/Testimonials";
 import { trackEvent } from "@/lib/analytics";
 import {
@@ -752,6 +753,9 @@ export default function Sage100DecideursClient() {
           </div>
         </div>
       </section>
+
+      {/* ── TROPHÉES & DISTINCTIONS — même composant que la page d'accueil ── */}
+      <Awards />
 
       {/* ── TÉMOIGNAGES VIDÉO — même composant que la page d'accueil, sans Soremar (client Sage X3) ── */}
       <div id="temoignages" className="scroll-mt-16">
