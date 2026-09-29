@@ -35,6 +35,7 @@ import {
   LifeBuoy,
   RefreshCw,
   Wrench,
+  Star,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -533,40 +534,79 @@ export default function Sage100DecideursClient() {
       </header>
 
       {/* ── HERO ── */}
-      <section id="pourquoi" className="pt-14 pb-16 lg:pt-20 lg:pb-24 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-slate-800 to-slate-900" />
+      <section id="pourquoi" className="relative pt-16 pb-40 sm:pb-48 lg:pt-24 lg:pb-56 overflow-hidden">
+        {/* ciel dégradé — tons de la charte Thalès (navy → bleu CTA) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary via-cta to-blue-400" />
+        {/* nuages — formes floutées, pas d'image externe */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div className="absolute -bottom-24 -left-20 w-[28rem] h-64 bg-white/90 rounded-full blur-3xl opacity-70" />
+          <div className="absolute -bottom-16 left-1/4 w-96 h-56 bg-white/80 rounded-full blur-3xl opacity-60" />
+          <div className="absolute -bottom-28 right-0 w-[32rem] h-72 bg-white/90 rounded-full blur-3xl opacity-70" />
+          <div className="absolute bottom-10 right-1/4 w-72 h-40 bg-white/70 rounded-full blur-3xl opacity-50" />
+        </div>
+
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 text-xs font-bold text-accent tracking-widest bg-accent/10 px-4 py-1.5 rounded-full mb-6">
+            <span className="inline-flex items-center gap-2 text-xs font-bold text-white tracking-widest bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
               ERP DE GESTION POUR PME &amp; ETI
             </span>
-            <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
-              Passez à une gestion plus <span className="text-accent">efficace</span> avec Sage 100
+            <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold leading-tight mb-6">
+              <span className="text-white">Passez à une gestion plus efficace</span>
+              <br />
+              <span className="text-white/70">avec Sage 100</span>
             </h1>
-            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
               Avec Sage 100 et l&apos;accompagnement de Thalès Informatique, centralisez vos données, automatisez vos processus et prenez des décisions plus rapides et plus fiables.
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto">
-              {heroBenefits.map((b) => (
-                <div key={b.label} className="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl px-3.5 py-3">
-                  <b.icon size={18} className="text-accent shrink-0" aria-hidden="true" />
-                  <span className="text-sm font-medium text-white/90">{b.label}</span>
-                </div>
-              ))}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+              <a
+                href="#modules"
+                className="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm"
+              >
+                Découvrir Sage 100
+              </a>
+              <button
+                onClick={() => scrollToForm("hero")}
+                className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer"
+              >
+                Demander une démo <ArrowRight size={18} aria-hidden="true" />
+              </button>
             </div>
 
-            <button
-              onClick={() => scrollToForm("hero")}
-              className="inline-flex items-center gap-2 bg-cta text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-600 transition-colors duration-200 cursor-pointer mb-12"
-            >
-              Demander une démo <ArrowRight size={18} aria-hidden="true" />
-            </button>
-
-            <div className="hidden lg:block max-w-2xl mx-auto">
-              <InterfaceMock />
+            <div className="flex items-center justify-center gap-1.5 text-white/80 text-sm">
+              <span>Noté 4.7/5 par nos clients</span>
+              <span className="flex items-center gap-0.5 ml-1" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={14} className="fill-accent text-accent" />
+                ))}
+              </span>
             </div>
           </motion.div>
+        </div>
+
+        {/* cartes flottantes — bénéfices clés, en éventail */}
+        <div className="relative max-w-5xl mx-auto px-4 mt-14 sm:mt-16 hidden md:block" aria-hidden="true">
+          <div className="flex items-end justify-center gap-4 lg:gap-5">
+            {heroBenefits.map((b, i) => {
+              const rotations = ["-rotate-6", "-rotate-2", "rotate-2", "rotate-6"];
+              const offsets = ["translate-y-4", "-translate-y-2", "-translate-y-2", "translate-y-4"];
+              return (
+                <motion.div
+                  key={b.label}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+                  className={`${rotations[i]} ${offsets[i]} bg-white rounded-2xl shadow-xl border border-slate-100 px-4 py-4 w-40 lg:w-44 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300`}
+                >
+                  <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
+                    <b.icon size={18} className="text-accent" aria-hidden="true" />
+                  </div>
+                  <p className="text-sm font-semibold text-primary leading-snug">{b.label}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
