@@ -4,7 +4,19 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
-const testimonials = [
+export type Testimonial = {
+  videoId: string;
+  name: string;
+  role: string;
+  company: string;
+  sector: string;
+  quote: string;
+  rating: number;
+  accent: string;
+  accentLight: string;
+};
+
+export const testimonials: Testimonial[] = [
   {
     videoId: "p1FgI3unv2Y",
     name: "M. Laurent Chevreau",
@@ -101,7 +113,7 @@ function VideoModal({ videoId, onClose }: { videoId: string; onClose: () => void
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({ items = testimonials }: { items?: Testimonial[] }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [current, setCurrent] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -119,7 +131,7 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const pages = Math.max(1, testimonials.length - itemsPerView + 1);
+  const pages = Math.max(1, items.length - itemsPerView + 1);
 
   useEffect(() => {
     if (current > pages - 1) setCurrent(pages - 1);
@@ -180,7 +192,7 @@ export default function Testimonials() {
               className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              {testimonials.map((t) => (
+              {items.map((t) => (
                 <div
                   key={t.videoId}
                   className="group relative bg-primary/20 border border-white/15 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 flex-shrink-0 snap-start

@@ -4,17 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
 import LogoMarquee from "@/components/sections/LogoMarquee";
+import Testimonials, { testimonials as allTestimonials } from "@/components/sections/Testimonials";
 import { trackEvent } from "@/lib/analytics";
 import {
   ArrowRight,
   ChevronRight,
   ChevronDown,
-  ChevronLeft,
   Menu,
   X,
   Send,
   Phone,
-  PlayCircle,
   Crown,
   Wallet,
   ServerCog,
@@ -282,33 +281,8 @@ const kpis = [
   { value: "92%", label: "Taux de fidélisation clients" },
 ];
 
-// Témoignages vidéo — structure prête, à compléter avec les vraies vidéos. Contenu texte réel (skill témoignages Thalès).
-const videoTestimonials = [
-  {
-    company: "SOCIMAR",
-    person: "Laurent Chevreau",
-    role: "Directeur Général",
-    quote: "Sage est une solution parfaitement adaptée aux besoins des PME. Nous avons opté pour Thalès Informatique pour la réactivité de ses collaborateurs.",
-    duration: "—",
-    videoUrl: "",
-  },
-  {
-    company: "HEA Trade & Services",
-    person: "Rachid Oueski",
-    role: "DAF",
-    quote: "Thalès Informatique nous accompagne dans la mise à jour de notre solution dans les meilleures conditions en termes de délai et de qualité.",
-    duration: "—",
-    videoUrl: "",
-  },
-  {
-    company: "SOREMAR GROUP",
-    person: "Noureddine Gnaou",
-    role: "PDG",
-    quote: "Être entouré par des consultants expérimentés signifie que nous pouvons toujours trouver des solutions. Le produit est parfait !",
-    duration: "—",
-    videoUrl: "",
-  },
-];
+// Témoignages vidéo — les mêmes que la page d'accueil, sans Soremar (client Sage X3, hors périmètre de cette page dédiée à Sage 100).
+const sage100Testimonials = allTestimonials.filter((t) => t.company !== "SOREMAR GROUP");
 
 const differentiators = [
   { icon: Sparkles, label: "Conseil et cadrage du projet" },
@@ -422,8 +396,6 @@ export default function Sage100DecideursClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activePersona, setActivePersona] = useState<PersonaKey>("dg");
   const [activeFeature, setActiveFeature] = useState<FeatureKey>("finance");
-  const [videoIndex, setVideoIndex] = useState(0);
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [formStarted, setFormStarted] = useState(false);
 
   const persona = personas.find((p) => p.key === activePersona)!;
@@ -864,117 +836,10 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── TÉMOIGNAGES VIDÉO ── */}
-      <section id="temoignages" className="py-20 lg:py-24 bg-white scroll-mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <FadeIn>
-            <div className="text-center mb-12">
-              <span className="text-xs font-bold text-cta tracking-widest uppercase">Ils témoignent</span>
-              <h2 className="text-3xl font-bold text-primary mt-2 mb-3">Des entreprises comme la vôtre partagent leur expérience</h2>
-              <p className="text-secondary max-w-2xl mx-auto">
-                Découvrez comment Sage 100 et l&apos;accompagnement de Thalès Informatique répondent concrètement aux enjeux de nos clients.
-              </p>
-            </div>
-          </FadeIn>
-
-          {/* Desktop : 3 cartes visibles */}
-          <div className="hidden md:grid grid-cols-3 gap-6">
-            {videoTestimonials.map((t, i) => (
-              <FadeIn key={t.company} delay={i * 0.1}>
-                <button
-                  onClick={() => { setVideoIndex(i); setVideoModalOpen(true); track("video_play", { company: t.company }); }}
-                  className="group block w-full text-left cursor-pointer"
-                >
-                  <div className="relative aspect-video rounded-xl bg-primary overflow-hidden mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary via-slate-800 to-slate-900" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="w-14 h-14 rounded-full bg-white/95 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <PlayCircle size={28} className="text-cta" aria-hidden="true" />
-                      </span>
-                    </div>
-                    <span className="absolute bottom-3 right-3 text-[10px] font-bold text-white bg-black/40 px-2 py-1 rounded">{t.duration}</span>
-                  </div>
-                  <p className="text-sm text-primary leading-relaxed mb-3 line-clamp-3">&ldquo;{t.quote}&rdquo;</p>
-                  <p className="text-sm font-bold text-primary">{t.person}</p>
-                  <p className="text-xs text-secondary">{t.role} — {t.company}</p>
-                </button>
-              </FadeIn>
-            ))}
-          </div>
-
-          {/* Mobile : 1 visible, swipe */}
-          <div className="md:hidden">
-            <button
-              onClick={() => { setVideoIndex(videoIndex); setVideoModalOpen(true); track("video_play", { company: videoTestimonials[videoIndex].company }); }}
-              className="block w-full text-left cursor-pointer"
-            >
-              <div className="relative aspect-video rounded-xl bg-primary overflow-hidden mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-slate-800 to-slate-900" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="w-14 h-14 rounded-full bg-white/95 flex items-center justify-center">
-                    <PlayCircle size={28} className="text-cta" aria-hidden="true" />
-                  </span>
-                </div>
-              </div>
-              <p className="text-sm text-primary leading-relaxed mb-3">&ldquo;{videoTestimonials[videoIndex].quote}&rdquo;</p>
-              <p className="text-sm font-bold text-primary">{videoTestimonials[videoIndex].person}</p>
-              <p className="text-xs text-secondary">{videoTestimonials[videoIndex].role} — {videoTestimonials[videoIndex].company}</p>
-            </button>
-            <div className="flex items-center justify-center gap-4 mt-5">
-              <button onClick={() => setVideoIndex((videoIndex - 1 + videoTestimonials.length) % videoTestimonials.length)} className="p-2 rounded-full border border-slate-200 cursor-pointer" aria-label="Témoignage précédent">
-                <ChevronLeft size={16} />
-              </button>
-              <span className="text-xs text-secondary">{videoIndex + 1} / {videoTestimonials.length}</span>
-              <button onClick={() => setVideoIndex((videoIndex + 1) % videoTestimonials.length)} className="p-2 rounded-full border border-slate-200 cursor-pointer" aria-label="Témoignage suivant">
-                <ChevronRight size={16} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal vidéo */}
-      <AnimatePresence>
-        {videoModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-primary/80 backdrop-blur-sm"
-            onClick={() => setVideoModalOpen(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-              className="relative max-w-3xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setVideoModalOpen(false)}
-                aria-label="Fermer"
-                className="absolute -top-11 right-0 text-white/70 hover:text-white cursor-pointer"
-              >
-                <X size={26} />
-              </button>
-              <div className="aspect-video rounded-xl bg-primary flex flex-col items-center justify-center gap-3 text-white/60 border border-white/10">
-                <PlayCircle size={40} aria-hidden="true" />
-                <p className="text-sm">Vidéo à venir — {videoTestimonials[videoIndex].company}</p>
-              </div>
-              <button
-                onClick={() => setVideoIndex((videoIndex - 1 + videoTestimonials.length) % videoTestimonials.length)}
-                aria-label="Témoignage précédent"
-                className="absolute top-1/2 -left-12 -translate-y-1/2 hidden md:flex p-2 rounded-full bg-white/10 text-white hover:bg-white/20 cursor-pointer"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                onClick={() => setVideoIndex((videoIndex + 1) % videoTestimonials.length)}
-                aria-label="Témoignage suivant"
-                className="absolute top-1/2 -right-12 -translate-y-1/2 hidden md:flex p-2 rounded-full bg-white/10 text-white hover:bg-white/20 cursor-pointer"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ── TÉMOIGNAGES VIDÉO — même composant que la page d'accueil, sans Soremar (client Sage X3) ── */}
+      <div id="temoignages" className="scroll-mt-16">
+        <Testimonials items={sage100Testimonials} />
+      </div>
 
       {/* ── POURQUOI THALÈS INFORMATIQUE ── */}
       <section className="py-20 lg:py-24 bg-bg">
