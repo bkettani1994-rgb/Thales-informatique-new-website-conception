@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Awards from "@/components/sections/Awards";
 import Testimonials, { testimonials as allTestimonials } from "@/components/sections/Testimonials";
@@ -535,15 +536,18 @@ export default function Sage100DecideursClient() {
 
       {/* ── HERO ── */}
       <section id="pourquoi" className="relative pt-16 pb-40 sm:pb-48 lg:pt-24 lg:pb-56 overflow-hidden">
-        {/* ciel dégradé — tons de la charte Thalès (navy → bleu CTA) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary via-cta to-blue-400" />
-        {/* nuages — formes floutées, pas d'image externe */}
-        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute -bottom-24 -left-20 w-[28rem] h-64 bg-white/90 rounded-full blur-3xl opacity-70" />
-          <div className="absolute -bottom-16 left-1/4 w-96 h-56 bg-white/80 rounded-full blur-3xl opacity-60" />
-          <div className="absolute -bottom-28 right-0 w-[32rem] h-72 bg-white/90 rounded-full blur-3xl opacity-70" />
-          <div className="absolute bottom-10 right-1/4 w-72 h-40 bg-white/70 rounded-full blur-3xl opacity-50" />
-        </div>
+        {/* image de fond */}
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1790699961/Image_ChatGPT_29_sept._2026_17_37_30_sdbruh.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden="true"
+        />
+        {/* voile pour garantir la lisibilité du texte */}
+        <div className="absolute inset-0 bg-primary/40" aria-hidden="true" />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
