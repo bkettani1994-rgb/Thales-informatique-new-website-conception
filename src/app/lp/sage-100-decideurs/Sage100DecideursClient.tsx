@@ -70,11 +70,13 @@ const navLinks = [
 // ID YouTube du replay webinaire Sage 100 Expérience — laisser vide tant qu'aucune vidéo n'est confirmée.
 const WEBINAR_VIDEO_ID = "";
 
-const heroBenefits = [
-  { icon: Landmark, label: "Finance maîtrisée" },
-  { icon: RefreshCw, label: "Processus optimisés" },
-  { icon: ShieldCheck, label: "Données sécurisées" },
-  { icon: TrendingUp, label: "Croissance durable" },
+const heroAdvantages = [
+  { icon: Landmark, label: "Trésorerie" },
+  { icon: Boxes, label: "Immobilisations" },
+  { icon: Wallet, label: "Moyens de paiement" },
+  { icon: ShieldCheck, label: "Recouvrement" },
+  { icon: BarChart2, label: "BI Reporting" },
+  { icon: RefreshCw, label: "Automatisation comptable" },
 ];
 
 type PersonaKey = "dg" | "daf" | "dsi" | "achats" | "ventes";
@@ -597,28 +599,24 @@ export default function Sage100DecideursClient() {
           </motion.div>
         </div>
 
-        {/* cartes flottantes — bénéfices clés, en éventail */}
-        <div className="relative max-w-5xl mx-auto px-4 mt-14 sm:mt-16 hidden md:block" aria-hidden="true">
-          <div className="flex items-end justify-center gap-4 lg:gap-5">
-            {heroBenefits.map((b, i) => {
-              const rotations = ["-rotate-6", "-rotate-2", "rotate-2", "rotate-6"];
-              const offsets = ["translate-y-4", "-translate-y-2", "-translate-y-2", "translate-y-4"];
-              return (
-                <motion.div
-                  key={b.label}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
-                  className={`${rotations[i]} ${offsets[i]} bg-white rounded-2xl shadow-xl border border-slate-100 px-4 py-4 w-40 lg:w-44 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300`}
-                >
-                  <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
-                    <b.icon size={18} className="text-accent" aria-hidden="true" />
-                  </div>
-                  <p className="text-sm font-semibold text-primary leading-snug">{b.label}</p>
-                </motion.div>
-              );
-            })}
-          </div>
+        {/* avantages — rangée d'icônes sur fond vidéo */}
+        <div className="relative max-w-4xl mx-auto px-4 mt-12 sm:mt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-start justify-center gap-x-6 gap-y-6 sm:gap-x-8"
+          >
+            {heroAdvantages.map((a) => (
+              <div key={a.label} className="flex flex-col items-center gap-2 w-20">
+                <span className="w-11 h-11 rounded-full border border-white/30 bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                  <a.icon size={18} className="text-white" aria-hidden="true" />
+                </span>
+                <span className="text-xs text-white/80 text-center leading-snug">{a.label}</span>
+              </div>
+            ))}
+          </motion.div>
+          <p className="text-center text-sm text-white/60 mt-6">Et bien plus encore…</p>
         </div>
       </section>
 
