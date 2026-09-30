@@ -38,6 +38,7 @@ import {
   Star,
   PlayCircle,
   Calendar,
+  Cloud,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -71,12 +72,11 @@ const navLinks = [
 const WEBINAR_VIDEO_ID = "";
 
 const heroAdvantages = [
-  { icon: Landmark, label: "Trésorerie" },
-  { icon: Boxes, label: "Immobilisations" },
-  { icon: Wallet, label: "Moyens de paiement" },
-  { icon: ShieldCheck, label: "Recouvrement" },
-  { icon: BarChart2, label: "BI Reporting" },
-  { icon: RefreshCw, label: "Automatisation comptable" },
+  { icon: Cloud, label: "Cloud" },
+  { icon: Sparkles, label: "IA intégrée" },
+  { icon: RefreshCw, label: "Automatisation" },
+  { icon: BarChart2, label: "Pilotage en temps réel" },
+  { icon: Layers, label: "Évolutif & modulaire" },
 ];
 
 type PersonaKey = "dg" | "daf" | "dsi" | "achats" | "ventes";
@@ -539,7 +539,7 @@ export default function Sage100DecideursClient() {
       </header>
 
       {/* ── HERO ── */}
-      <section id="pourquoi" className="relative pt-16 pb-40 sm:pb-48 lg:pt-24 lg:pb-56 overflow-hidden">
+      <section id="pourquoi" className="relative pt-16 pb-14 sm:pb-16 lg:pt-24 lg:pb-20 overflow-hidden">
         {/* vidéo de fond */}
         <video
           autoPlay
@@ -616,7 +616,6 @@ export default function Sage100DecideursClient() {
               </div>
             ))}
           </motion.div>
-          <p className="text-center text-sm text-white/60 mt-6">Et bien plus encore…</p>
         </div>
       </section>
 
