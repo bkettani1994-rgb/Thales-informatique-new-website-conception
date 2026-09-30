@@ -472,10 +472,8 @@ export default function Sage100DecideursClient() {
             <img
               src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1780666585/thales_logo_blanc_petit_abarsy.png"
               alt="Thalès Informatique"
-              className="h-7 w-auto"
+              className="h-9 w-auto"
             />
-            <span className="hidden sm:inline text-white/40 text-sm">×</span>
-            <span className="hidden sm:inline text-white/80 text-sm font-semibold">Sage 100</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
