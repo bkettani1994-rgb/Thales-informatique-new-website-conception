@@ -567,7 +567,7 @@ export default function Sage100DecideursClient() {
             <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold leading-tight mb-6">
               <span className="text-white">Passez à une gestion plus efficace</span>
               <br />
-              <span className="text-white/70">avec Sage 100</span>
+              <span className="text-cta">avec Sage 100</span>
             </h1>
             <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
               Avec Sage 100 et l&apos;accompagnement de Thalès Informatique, centralisez vos données, automatisez vos processus et prenez des décisions plus rapides et plus fiables.
