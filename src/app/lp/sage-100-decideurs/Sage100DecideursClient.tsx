@@ -605,14 +605,14 @@ export default function Sage100DecideursClient() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-start justify-center gap-x-6 gap-y-6 sm:gap-x-8"
+            className="flex flex-nowrap items-start justify-start sm:justify-center gap-x-8 sm:gap-x-10 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:overflow-visible pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {heroAdvantages.map((a) => (
-              <div key={a.label} className="flex flex-col items-center gap-2 w-20">
+              <div key={a.label} className="flex flex-col items-center gap-2 w-28 shrink-0">
                 <span className="w-11 h-11 rounded-full border border-white/30 bg-white/10 flex items-center justify-center backdrop-blur-sm">
                   <a.icon size={18} className="text-white" aria-hidden="true" />
                 </span>
-                <span className="text-xs text-white/80 text-center leading-snug">{a.label}</span>
+                <span className="text-[11px] sm:text-xs text-white/80 text-center leading-snug whitespace-nowrap">{a.label}</span>
               </div>
             ))}
           </motion.div>
