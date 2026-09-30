@@ -461,10 +461,10 @@ export default function Sage100DecideursClient() {
 
   return (
     <main className="overflow-x-hidden bg-bg">
-      {/* ── HEADER MINIMALISTE ── */}
+      {/* ── HEADER MINIMALISTE — transparent au-dessus de la vidéo de la hero, solide au scroll ── */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-primary/95 backdrop-blur-md shadow-sm" : "bg-primary"
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled ? "bg-primary/95 backdrop-blur-md shadow-sm" : "bg-transparent"
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
