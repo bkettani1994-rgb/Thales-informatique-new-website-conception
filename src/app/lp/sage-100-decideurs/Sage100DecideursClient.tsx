@@ -817,7 +817,11 @@ export default function Sage100DecideursClient() {
 
       {/* ── TÉMOIGNAGES VIDÉO — même composant que la page d'accueil, sans Soremar (client Sage X3) ── */}
       <div id="temoignages" className="scroll-mt-16">
-        <Testimonials items={sage100Testimonials} />
+        <Testimonials
+          items={sage100Testimonials}
+          title="Ils ont vécu Sage 100 avec Thalès Informatique"
+          subtitle="Des clients témoignent en vidéo de leur expérience Sage 100 accompagnés par nos équipes."
+        />
       </div>
 
       {/* ── POURQUOI THALÈS INFORMATIQUE ── */}

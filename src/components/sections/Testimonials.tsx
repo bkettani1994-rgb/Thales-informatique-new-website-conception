@@ -113,7 +113,11 @@ function VideoModal({ videoId, onClose }: { videoId: string; onClose: () => void
   );
 }
 
-export default function Testimonials({ items = testimonials }: { items?: Testimonial[] }) {
+export default function Testimonials({
+  items = testimonials,
+  title = "Nos clients témoignent en vidéo",
+  subtitle = "Écoutez directement nos clients partager leur expérience avec Thalès Informatique.",
+}: { items?: Testimonial[]; title?: string; subtitle?: string }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [current, setCurrent] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -178,10 +182,10 @@ export default function Testimonials({ items = testimonials }: { items?: Testimo
               Témoignages vidéo
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Nos clients témoignent en vidéo
+              {title}
             </h2>
             <p className="mt-4 text-base text-white/65 max-w-xl mx-auto leading-relaxed">
-              Écoutez directement nos clients partager leur expérience avec Thalès Informatique.
+              {subtitle}
             </p>
           </motion.div>
 
