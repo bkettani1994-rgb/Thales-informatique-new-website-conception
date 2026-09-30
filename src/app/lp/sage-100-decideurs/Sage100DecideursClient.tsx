@@ -661,9 +661,9 @@ export default function Sage100DecideursClient() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3 }}
-              className="grid lg:grid-cols-2 gap-8 items-center"
+              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
             >
-              <div>
+              <div className="order-2 lg:order-1">
                 <h3 className="text-xl font-bold text-primary mb-5">{persona.title}</h3>
                 <ul className="space-y-3 mb-7">
                   {persona.benefits.map((b) => (
@@ -680,7 +680,16 @@ export default function Sage100DecideursClient() {
                   Découvrir les bénéfices pour les {persona.label} <ArrowRight size={14} aria-hidden="true" />
                 </button>
               </div>
-              <InterfaceMock />
+              <div className="relative order-1 lg:order-2">
+                <div className="absolute -inset-4 bg-cta/5 rounded-3xl -z-10 hidden lg:block" aria-hidden="true" />
+                <InterfaceMock />
+                <div className="hidden sm:flex absolute -bottom-5 -left-5 items-center gap-2.5 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3">
+                  <span className="w-8 h-8 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
+                    <persona.icon size={16} className="text-cta" aria-hidden="true" />
+                  </span>
+                  <span className="text-xs font-semibold text-primary">Vue {persona.label}</span>
+                </div>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
