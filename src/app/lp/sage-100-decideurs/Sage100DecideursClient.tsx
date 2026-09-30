@@ -466,15 +466,20 @@ export default function Sage100DecideursClient() {
       {/* ── HEADER MINIMALISTE — transparent au-dessus de la vidéo de la hero, solide au scroll ── */}
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-primary/95 backdrop-blur-md shadow-sm" : "bg-transparent"
+          scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-border" : "bg-transparent"
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <Link href="/" aria-label="Thalès Informatique" className="flex items-center gap-2 shrink-0">
+          <Link href="/" aria-label="Thalès Informatique" className="relative flex items-center gap-2 shrink-0 h-9">
+            <img
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1780666585/thales_logo_bleu_petit_bjyxww.png"
+              alt="Thalès Informatique"
+              className={`h-9 w-auto object-contain transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0"}`}
+            />
             <img
               src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1780666585/thales_logo_blanc_petit_abarsy.png"
               alt="Thalès Informatique"
-              className="h-9 w-auto"
+              className={`h-9 w-auto object-contain absolute inset-y-0 left-0 my-auto transition-opacity duration-300 ${scrolled ? "opacity-0" : "opacity-100"}`}
             />
           </Link>
 
@@ -483,7 +488,9 @@ export default function Sage100DecideursClient() {
               <a
                 key={l.href}
                 href={l.href}
-                className="px-3 py-2 text-sm font-medium text-white/70 hover:text-white rounded-md hover:bg-white/5 transition-colors"
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  scrolled ? "text-secondary hover:text-primary hover:bg-slate-100" : "text-white/70 hover:text-white hover:bg-white/5"
+                }`}
               >
                 {l.label}
               </a>
@@ -499,7 +506,7 @@ export default function Sage100DecideursClient() {
             </button>
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="lg:hidden text-white p-2 cursor-pointer"
+              className={`lg:hidden p-2 cursor-pointer transition-colors ${scrolled ? "text-primary" : "text-white"}`}
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -513,7 +520,7 @@ export default function Sage100DecideursClient() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-primary border-t border-white/10 overflow-hidden"
+              className={`lg:hidden overflow-hidden border-t ${scrolled ? "bg-white border-border" : "bg-primary border-white/10"}`}
             >
               <div className="px-4 py-3 flex flex-col gap-1">
                 {navLinks.map((l) => (
@@ -521,7 +528,9 @@ export default function Sage100DecideursClient() {
                     key={l.href}
                     href={l.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2.5 text-sm font-medium text-white/80 rounded-md hover:bg-white/5"
+                    className={`px-3 py-2.5 text-sm font-medium rounded-md ${
+                      scrolled ? "text-secondary hover:bg-slate-100" : "text-white/80 hover:bg-white/5"
+                    }`}
                   >
                     {l.label}
                   </a>
