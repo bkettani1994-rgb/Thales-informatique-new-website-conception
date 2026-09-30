@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Awards from "@/components/sections/Awards";
 import Testimonials, { testimonials as allTestimonials } from "@/components/sections/Testimonials";
@@ -541,16 +540,22 @@ export default function Sage100DecideursClient() {
 
       {/* ── HERO ── */}
       <section id="pourquoi" className="relative pt-16 pb-40 sm:pb-48 lg:pt-24 lg:pb-56 overflow-hidden">
-        {/* image de fond */}
-        <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1790699961/Image_ChatGPT_29_sept._2026_17_37_30_sdbruh.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        {/* vidéo de fond */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
-        />
+          poster="https://res.cloudinary.com/dmutnjgp8/image/upload/v1790699961/Image_ChatGPT_29_sept._2026_17_37_30_sdbruh.webp"
+        >
+          <source
+            src="https://res.cloudinary.com/dmutnjgp8/video/upload/v1790759642/From_Klickpin.com-_Bridesmaid_dress_inspiration_that_are_perfect_when_you_want_something_stylish_modern_and_easy_to_copy_for_creators_who_love_pol_zegred.mp4"
+            type="video/mp4"
+          />
+        </video>
         {/* voile pour garantir la lisibilité du texte */}
         <div className="absolute inset-0 bg-primary/40" aria-hidden="true" />
 
