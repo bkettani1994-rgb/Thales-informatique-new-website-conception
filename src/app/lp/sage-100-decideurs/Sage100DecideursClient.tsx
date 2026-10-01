@@ -40,6 +40,7 @@ import {
   Calendar,
   Cloud,
   Folder,
+  ArrowLeft,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -71,6 +72,13 @@ const navLinks = [
 
 // ID YouTube du replay webinaire Sage 100 Expérience — laisser vide tant qu'aucune vidéo n'est confirmée.
 const WEBINAR_VIDEO_ID = "";
+
+const formSteps = ["Entreprise", "Projet", "Contact"];
+
+const tailleOptions = ["1 à 10 salariés", "11 à 50 salariés", "51 à 200 salariés", "+200 salariés"];
+const moduleOptions = ["Comptabilité", "Gestion commerciale", "Paie & RH", "Trésorerie", "Immobilisations", "Moyens de paiement"];
+const outilOptions = ["Excel / manuel", "Ancienne version Sage", "Autre logiciel", "Aucun outil"];
+const horizonOptions = ["Immédiat", "Sous 3 mois", "3 à 6 mois", "Je me renseigne"];
 
 const heroAdvantages = [
   { icon: Cloud, label: "Cloud" },
@@ -420,14 +428,18 @@ export default function Sage100DecideursClient() {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [formStep, setFormStep] = useState(0);
   const [form, setForm] = useState({
-    prenom: "",
-    nom: "",
+    taille: "",
+    modulesInteret: [] as string[],
+    outil: "",
+    horizon: "",
+    nomComplet: "",
+    societe: "",
+    fonction: "",
+    ville: "",
     email: "",
     telephone: "",
-    fonction: personas[0].fonction,
-    entreprise: "",
-    consentement: false,
   });
 
   useEffect(() => {
@@ -452,6 +464,29 @@ export default function Sage100DecideursClient() {
     const { name, value, type, checked } = e.target as HTMLInputElement;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
+
+  const selectOption = (field: "taille" | "outil" | "horizon", value: string) => {
+    handleFieldFocus();
+    setForm((f) => ({ ...f, [field]: value }));
+  };
+
+  const toggleModule = (value: string) => {
+    handleFieldFocus();
+    setForm((f) => ({
+      ...f,
+      modulesInteret: f.modulesInteret.includes(value)
+        ? f.modulesInteret.filter((m) => m !== value)
+        : [...f.modulesInteret, value],
+    }));
+  };
+
+  const goToStep = (step: number) => {
+    setFormStep(step);
+    track("form_step", { step: step + 1 });
+  };
+
+  const canContinueStep0 = form.taille !== "" && form.modulesInteret.length > 0;
+  const canContinueStep1 = form.outil !== "" && form.horizon !== "";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1018,70 +1053,177 @@ export default function Sage100DecideursClient() {
                 </div>
               ) : (
                 <>
-                  <span className="text-xs font-bold text-cta tracking-widest uppercase">Demandez une démonstration</span>
-                  <h3 className="text-xl font-bold text-primary mt-2 mb-2">Échangez avec un expert Thalès Informatique</h3>
-                  <p className="text-secondary text-sm mb-6 leading-relaxed">
-                    Remplissez le formulaire et découvrez comment Sage 100 peut répondre concrètement aux enjeux de votre entreprise.
+                  <h3 className="text-xl font-bold text-primary mb-1.5">Demandez votre démo Sage 100</h3>
+                  <p className="text-secondary text-sm mb-5 leading-relaxed">
+                    Un consultant certifié prépare une démonstration adaptée à votre activité.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-3.5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input
-                        type="text" name="prenom" placeholder="Prénom *" value={form.prenom}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                      <input
-                        type="text" name="nom" placeholder="Nom *" value={form.nom}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                    </div>
-                    <select
-                      name="fonction" value={form.fonction} onChange={handleChange} onFocus={handleFieldFocus} required
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm bg-white focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                    >
-                      {personas.map((p) => <option key={p.key} value={p.fonction}>{p.fonction}</option>)}
-                      <option value="Autre">Autre</option>
-                    </select>
-                    <input
-                      type="text" name="entreprise" placeholder="Entreprise *" value={form.entreprise}
-                      onChange={handleChange} onFocus={handleFieldFocus} required
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                    />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input
-                        type="tel" name="telephone" placeholder="Téléphone *" value={form.telephone}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                      <input
-                        type="email" name="email" placeholder="Email pro *" value={form.email}
-                        onChange={handleChange} onFocus={handleFieldFocus} required
-                        className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
-                      />
-                    </div>
-
-                    <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
-                      <input
-                        type="checkbox" name="consentement" checked={form.consentement} onChange={handleChange} required
-                        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
-                      />
-                      <span className="text-xs text-secondary leading-relaxed">
-                        J&apos;accepte d&apos;être contacté·e par Thalès Informatique au sujet de ma demande.
+                  {/* Barre de progression */}
+                  <div className="flex gap-2 mb-2.5">
+                    {formSteps.map((_, i) => (
+                      <span key={i} className={`h-1 flex-1 rounded-full transition-colors ${i <= formStep ? "bg-cta" : "bg-slate-200"}`} />
+                    ))}
+                  </div>
+                  <div className="flex justify-between mb-7">
+                    {formSteps.map((label, i) => (
+                      <span key={label} className={`text-[11px] font-bold tracking-widest uppercase ${i <= formStep ? "text-cta" : "text-slate-400"}`}>
+                        0{i + 1} {label}
                       </span>
-                    </label>
+                    ))}
+                  </div>
 
-                    <button
-                      type="submit" disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-60 cursor-pointer"
-                    >
-                      {loading ? "Envoi en cours..." : "Demander une démo"}
-                      {!loading && <ArrowRight size={16} aria-hidden="true" />}
-                    </button>
-                    <p className="text-xs text-slate-400 text-center">
-                      Vos données sont confidentielles et ne seront jamais partagées.
-                    </p>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* ÉTAPE 1 — ENTREPRISE */}
+                    {formStep === 0 && (
+                      <div className="space-y-5">
+                        <div>
+                          <p className="font-bold text-primary text-sm mb-3">Taille de votre entreprise</p>
+                          <div className="grid grid-cols-2 gap-2.5">
+                            {tailleOptions.map((opt) => (
+                              <button
+                                key={opt} type="button" onClick={() => selectOption("taille", opt)}
+                                className={`px-3.5 py-3 rounded-lg border text-sm font-medium text-left transition-colors cursor-pointer ${
+                                  form.taille === opt ? "border-cta bg-blue-50 text-cta" : "border-slate-200 text-secondary hover:border-cta/40"
+                                }`}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="font-bold text-primary text-sm mb-3">Modules qui vous intéressent</p>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                            {moduleOptions.map((opt) => (
+                              <button
+                                key={opt} type="button" onClick={() => toggleModule(opt)}
+                                className={`px-3.5 py-3 rounded-lg border text-sm font-medium text-left transition-colors cursor-pointer ${
+                                  form.modulesInteret.includes(opt) ? "border-cta bg-blue-50 text-cta" : "border-slate-200 text-secondary hover:border-cta/40"
+                                }`}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <button
+                          type="button" disabled={!canContinueStep0} onClick={() => goToStep(1)}
+                          className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                        >
+                          Continuer <ArrowRight size={16} aria-hidden="true" />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* ÉTAPE 2 — PROJET */}
+                    {formStep === 1 && (
+                      <div className="space-y-5">
+                        <div>
+                          <p className="font-bold text-primary text-sm mb-3">Votre outil de gestion actuel</p>
+                          <div className="grid grid-cols-2 gap-2.5">
+                            {outilOptions.map((opt) => (
+                              <button
+                                key={opt} type="button" onClick={() => selectOption("outil", opt)}
+                                className={`px-3.5 py-3 rounded-lg border text-sm font-medium text-left transition-colors cursor-pointer ${
+                                  form.outil === opt ? "border-cta bg-blue-50 text-cta" : "border-slate-200 text-secondary hover:border-cta/40"
+                                }`}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="font-bold text-primary text-sm mb-3">Horizon de votre projet</p>
+                          <div className="grid grid-cols-2 gap-2.5">
+                            {horizonOptions.map((opt) => (
+                              <button
+                                key={opt} type="button" onClick={() => selectOption("horizon", opt)}
+                                className={`px-3.5 py-3 rounded-lg border text-sm font-medium text-left transition-colors cursor-pointer ${
+                                  form.horizon === opt ? "border-cta bg-blue-50 text-cta" : "border-slate-200 text-secondary hover:border-cta/40"
+                                }`}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <button
+                            type="button" onClick={() => goToStep(0)}
+                            className="inline-flex items-center gap-1.5 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
+                          >
+                            <ArrowLeft size={14} aria-hidden="true" /> Retour
+                          </button>
+                          <button
+                            type="button" disabled={!canContinueStep1} onClick={() => goToStep(2)}
+                            className="flex-1 inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                          >
+                            Continuer <ArrowRight size={16} aria-hidden="true" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ÉTAPE 3 — CONTACT */}
+                    {formStep === 2 && (
+                      <div className="space-y-3.5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="text" name="nomComplet" placeholder="Prénom Nom" value={form.nomComplet}
+                            onChange={handleChange} onFocus={handleFieldFocus} required
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                          <input
+                            type="text" name="societe" placeholder="Raison sociale" value={form.societe}
+                            onChange={handleChange} onFocus={handleFieldFocus} required
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="text" name="fonction" placeholder="DAF, DG, DSI..." value={form.fonction}
+                            onChange={handleChange} onFocus={handleFieldFocus} required
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                          <input
+                            type="text" name="ville" placeholder="Casablanca" value={form.ville}
+                            onChange={handleChange} onFocus={handleFieldFocus}
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="email" name="email" placeholder="nom@societe.ma" value={form.email}
+                            onChange={handleChange} onFocus={handleFieldFocus} required
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                          <input
+                            type="tel" name="telephone" placeholder="06 00 00 00 00" value={form.telephone}
+                            onChange={handleChange} onFocus={handleFieldFocus} required
+                            className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none transition-colors"
+                          />
+                        </div>
+                        <p className="text-xs text-slate-400">
+                          Vos données sont utilisées uniquement par Thalès Informatique pour traiter votre demande.
+                        </p>
+                        <div className="flex items-center gap-3">
+                          <button
+                            type="button" onClick={() => goToStep(1)}
+                            className="inline-flex items-center gap-1.5 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
+                          >
+                            <ArrowLeft size={14} aria-hidden="true" /> Retour
+                          </button>
+                          <button
+                            type="submit" disabled={loading}
+                            className="flex-1 inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-60 cursor-pointer"
+                          >
+                            {loading ? "Envoi en cours..." : "Recevoir ma démo"}
+                            {!loading && <ArrowRight size={16} aria-hidden="true" />}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </form>
                 </>
               )}
