@@ -83,7 +83,7 @@ export default function Awards() {
                   className="flex-1 flex flex-col items-center"
                 >
                   {/* Photo du trophée — à intégrer */}
-                  <div className="relative w-full max-w-[110px] aspect-[3/4] mb-3">
+                  <div className="relative w-full max-w-[170px] aspect-[3/4] mb-4">
                     {award.image ? (
                       <img
                         src={award.image}
@@ -97,8 +97,6 @@ export default function Awards() {
                       </div>
                     )}
                   </div>
-                  {/* Socle */}
-                  <div className="w-16 h-3 rounded-full bg-gradient-to-b from-white to-slate-200 border border-slate-200 shadow-sm mb-4" />
                 </motion.div>
               ))}
             </div>
