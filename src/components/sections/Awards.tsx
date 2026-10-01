@@ -8,37 +8,37 @@ const awards = [
     icon: Trophy,
     year: "2024",
     title: "Meilleure Dynamique Commerciale Maroc",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_dynamique_commerciale_maroc_sage_p6ggxw.webp",
   },
   {
     icon: Trophy,
     year: "2022",
     title: "Top League — Zone Export",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_top_league_zone_export_sage_isnehi.webp",
   },
   {
     icon: Medal,
     year: "2019",
     title: "Meilleure Croissance Sage",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_croissance_sage_dnptgb.webp",
   },
   {
     icon: Award,
     year: "2019",
     title: "Customer Migration Journey",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_customer_migration_journey_sage_ycwzjy.webp",
   },
   {
     icon: Star,
     year: "2018",
     title: "Meilleure Performance Sage",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_perofrmance_sage_ucdyyl.webp",
   },
   {
     icon: BadgeCheck,
     year: "2017",
     title: "Premier Partenaire North Africa",
-    image: "",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866850/thales_informatique_premier_partenaire_north_africa_sage_q3nk9o.webp",
   },
 ];
 
