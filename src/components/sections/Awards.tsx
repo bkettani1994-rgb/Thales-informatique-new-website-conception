@@ -8,53 +8,43 @@ const awards = [
     icon: Trophy,
     year: "2024",
     title: "Meilleure Dynamique Commerciale Maroc",
-    color: "from-rose-500 to-orange-400",
-    above: true,
+    image: "",
   },
   {
     icon: Trophy,
     year: "2022",
     title: "Top League — Zone Export",
-    color: "from-amber-400 to-yellow-300",
-    above: false,
+    image: "",
   },
   {
     icon: Medal,
     year: "2019",
     title: "Meilleure Croissance Sage",
-    color: "from-slate-500 to-slate-400",
-    above: true,
+    image: "",
   },
   {
     icon: Award,
     year: "2019",
     title: "Customer Migration Journey",
-    color: "from-cyan-500 to-blue-400",
-    above: false,
+    image: "",
   },
   {
     icon: Star,
     year: "2018",
     title: "Meilleure Performance Sage",
-    color: "from-violet-500 to-purple-400",
-    above: true,
+    image: "",
   },
   {
     icon: BadgeCheck,
     year: "2017",
     title: "Premier Partenaire North Africa",
-    color: "from-emerald-500 to-teal-400",
-    above: false,
+    image: "",
   },
 ];
 
-const LABEL_H = 80;
-const ICON_H = 56;
-const YEAR_H = 28;
-
 export default function Awards() {
   return (
-    <section className="py-24 bg-[#f5f3ef]" id="trophees">
+    <section className="py-24 bg-gradient-to-b from-slate-50 via-blue-50/40 to-slate-50" id="trophees">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -64,86 +54,64 @@ export default function Awards() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-xs font-semibold text-cta uppercase tracking-widest mb-3">
-            Reconnaissance
-          </span>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="h-px w-8 bg-cta/40" />
+            <span className="text-xs font-bold text-cta uppercase tracking-[0.2em]">
+              Nos trophées &amp; distinctions
+            </span>
+            <span className="h-px w-8 bg-cta/40" />
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary tracking-tight">
-            Nos trophées &amp; distinctions
+            Une reconnaissance de notre <span className="text-cta">engagement</span>
           </h2>
           <p className="mt-4 text-base text-secondary max-w-xl mx-auto leading-relaxed">
-            Trois décennies d&apos;engagement récompensées par les plus hautes distinctions du secteur.
+            Ces distinctions témoignent de la confiance de nos partenaires et de notre engagement à offrir des solutions performantes et un accompagnement de qualité.
           </p>
         </motion.div>
 
-        {/* Timeline — horizontal scroll on mobile */}
+        {/* Trophées sur socle + ligne du temps */}
         <div className="overflow-x-auto pb-4">
-          <div className="min-w-[680px]">
-            {/* Total height: top label + icon + year + bottom label */}
-            <div
-              className="relative flex items-center"
-              style={{ height: LABEL_H + ICON_H + YEAR_H + LABEL_H }}
-            >
-              {/* Horizontal line — sits at center of icon row */}
-              <div
-                className="absolute left-0 right-0 h-px bg-slate-300"
-                style={{ top: LABEL_H + ICON_H / 2 }}
-              />
-
-              {/* Items */}
+          <div className="min-w-[760px]">
+            <div className="flex items-end justify-center gap-6">
               {awards.map((award, i) => (
                 <motion.div
                   key={award.title}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
                   className="flex-1 flex flex-col items-center"
-                  style={{ height: LABEL_H + ICON_H + YEAR_H + LABEL_H }}
                 >
-                  {/* Label above */}
-                  <div
-                    className="flex items-end justify-center px-2 text-center"
-                    style={{ height: LABEL_H }}
-                  >
-                    {award.above && (
-                      <p className="text-xs font-semibold text-primary leading-tight max-w-[120px] mb-2">
-                        {award.title}
-                      </p>
+                  {/* Photo du trophée — à intégrer */}
+                  <div className="relative w-full max-w-[110px] aspect-[3/4] mb-3">
+                    {award.image ? (
+                      <img
+                        src={award.image}
+                        alt={award.title}
+                        className="w-full h-full object-contain drop-shadow-lg"
+                      />
+                    ) : (
+                      <div className="w-full h-full rounded-xl border border-dashed border-cta/25 bg-white/60 flex flex-col items-center justify-center gap-2 text-cta/50">
+                        <award.icon size={28} aria-hidden="true" />
+                        <span className="text-[9px] font-medium text-center px-1 leading-tight">Photo trophée à ajouter</span>
+                      </div>
                     )}
                   </div>
-
-                  {/* Icon badge */}
-                  <motion.div
-                    whileHover={{ scale: 1.1, y: -3, rotate: [0, -6, 6, -3, 3, 0] }}
-                    transition={{ type: "spring", stiffness: 300, damping: 12 }}
-                    className={`relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br ${award.color} flex items-center justify-center shadow-md cursor-pointer`}
-                    style={{ flexShrink: 0 }}
-                  >
-                    <award.icon size={24} className="text-white" />
-                  </motion.div>
-
-                  {/* Year */}
-                  <div
-                    className="flex items-center justify-center"
-                    style={{ height: YEAR_H }}
-                  >
-                    <span className="text-sm font-semibold tracking-widest text-slate-400">
-                      {award.year}
-                    </span>
-                  </div>
-
-                  {/* Label below */}
-                  <div
-                    className="flex items-start justify-center px-2 text-center"
-                    style={{ height: LABEL_H }}
-                  >
-                    {!award.above && (
-                      <p className="text-xs font-semibold text-primary leading-tight max-w-[120px] mt-2">
-                        {award.title}
-                      </p>
-                    )}
-                  </div>
+                  {/* Socle */}
+                  <div className="w-16 h-3 rounded-full bg-gradient-to-b from-white to-slate-200 border border-slate-200 shadow-sm mb-4" />
                 </motion.div>
+              ))}
+            </div>
+
+            {/* Ligne du temps */}
+            <div className="relative flex items-start justify-center gap-6 pt-5">
+              <div className="absolute left-0 right-0 top-0 h-px bg-slate-300" />
+              {awards.map((award) => (
+                <div key={award.title} className="flex-1 flex flex-col items-center text-center px-1">
+                  <span className="w-2 h-2 rounded-full bg-cta -mt-1 mb-4" />
+                  <span className="text-sm font-bold text-cta tracking-wide mb-1.5">{award.year}</span>
+                  <p className="text-xs font-semibold text-primary leading-tight max-w-[120px]">{award.title}</p>
+                </div>
               ))}
             </div>
           </div>
