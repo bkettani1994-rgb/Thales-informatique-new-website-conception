@@ -117,7 +117,9 @@ export default function Testimonials({
   items = testimonials,
   title = "Nos clients témoignent en vidéo",
   subtitle = "Écoutez directement nos clients partager leur expérience avec Thalès Informatique.",
-}: { items?: Testimonial[]; title?: string; subtitle?: string }) {
+  theme = "blue",
+}: { items?: Testimonial[]; title?: string; subtitle?: string; theme?: "blue" | "light" }) {
+  const isLight = theme === "light";
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [current, setCurrent] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
@@ -159,14 +161,14 @@ export default function Testimonials({
         <VideoModal videoId={activeVideo} onClose={() => setActiveVideo(null)} />
       )}
 
-      <section className="py-24 bg-cta relative overflow-hidden" id="temoignages">
+      <section className={`py-24 relative overflow-hidden ${isLight ? "bg-white" : "bg-cta"}`} id="temoignages">
         <div className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, ${isLight ? "#0369A1" : "white"} 1px, transparent 0)`,
             backgroundSize: "36px 36px",
           }}
         />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full blur-[120px] pointer-events-none ${isLight ? "bg-cta/10" : "bg-primary/20"}`} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -181,10 +183,10 @@ export default function Testimonials({
             <span className="inline-block text-xs font-semibold text-accent uppercase tracking-widest mb-3">
               Témoignages vidéo
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            <h2 className={`text-3xl sm:text-4xl font-bold tracking-tight ${isLight ? "text-primary" : "text-white"}`}>
               {title}
             </h2>
-            <p className="mt-4 text-base text-white/65 max-w-xl mx-auto leading-relaxed">
+            <p className={`mt-4 text-base max-w-xl mx-auto leading-relaxed ${isLight ? "text-secondary" : "text-white/65"}`}>
               {subtitle}
             </p>
           </motion.div>
@@ -199,8 +201,12 @@ export default function Testimonials({
               {items.map((t) => (
                 <div
                   key={t.videoId}
-                  className="group relative bg-primary/20 border border-white/15 rounded-2xl overflow-hidden hover:border-white/30 transition-all duration-300 flex-shrink-0 snap-start
-                    w-[80vw] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]"
+                  className={`group relative rounded-2xl overflow-hidden transition-all duration-300 flex-shrink-0 snap-start
+                    w-[80vw] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] ${
+                    isLight
+                      ? "bg-bg border border-slate-200 hover:border-cta/40 hover:shadow-md"
+                      : "bg-primary/20 border border-white/15 hover:border-white/30"
+                  }`}
                 >
                   {/* Accent glow */}
                   <div
@@ -247,12 +253,12 @@ export default function Testimonials({
                   <div className="p-5">
                     <div className="flex items-center justify-between mb-3">
                       <StarRating count={t.rating} />
-                      <Quote size={18} className="text-white/25" />
+                      <Quote size={18} className={isLight ? "text-slate-300" : "text-white/25"} />
                     </div>
-                    <p className="text-white/80 text-sm leading-relaxed mb-4 line-clamp-3 italic">
+                    <p className={`text-sm leading-relaxed mb-4 line-clamp-3 italic ${isLight ? "text-secondary" : "text-white/80"}`}>
                       "{t.quote}"
                     </p>
-                    <div className="h-px bg-white/15 mb-4" />
+                    <div className={`h-px mb-4 ${isLight ? "bg-slate-200" : "bg-white/15"}`} />
                     <div className="flex items-center gap-3">
                       <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${t.accent} flex items-center justify-center flex-shrink-0`}>
                         <span className="text-white font-bold text-xs">
@@ -260,8 +266,8 @@ export default function Testimonials({
                         </span>
                       </div>
                       <div className="min-w-0">
-                        <div className="text-white text-sm font-semibold leading-tight truncate">{t.name}</div>
-                        <div className="text-white/60 text-xs leading-tight truncate">{t.role} · {t.company}</div>
+                        <div className={`text-sm font-semibold leading-tight truncate ${isLight ? "text-primary" : "text-white"}`}>{t.name}</div>
+                        <div className={`text-xs leading-tight truncate ${isLight ? "text-secondary" : "text-white/60"}`}>{t.role} · {t.company}</div>
                       </div>
                     </div>
                   </div>
@@ -273,7 +279,11 @@ export default function Testimonials({
             <div className="flex items-center justify-center gap-4 mt-10">
               <button
                 onClick={prev}
-                className="w-10 h-10 rounded-full border border-white/25 hover:border-white/50 bg-primary/15 hover:bg-primary/30 flex items-center justify-center text-white transition-all duration-200 cursor-pointer"
+                className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                  isLight
+                    ? "border-slate-200 hover:border-cta/40 bg-bg hover:bg-blue-50 text-primary"
+                    : "border-white/25 hover:border-white/50 bg-primary/15 hover:bg-primary/30 text-white"
+                }`}
                 aria-label="Précédent"
               >
                 <ChevronLeft size={18} />
@@ -287,8 +297,8 @@ export default function Testimonials({
                     onClick={() => scrollToIndex(i)}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       i === current
-                        ? "w-6 h-2 bg-white"
-                        : "w-2 h-2 bg-white/35 hover:bg-white/60"
+                        ? `w-6 h-2 ${isLight ? "bg-cta" : "bg-white"}`
+                        : `w-2 h-2 ${isLight ? "bg-slate-300 hover:bg-slate-400" : "bg-white/35 hover:bg-white/60"}`
                     }`}
                     aria-label={`Témoignage ${i + 1}`}
                   />
@@ -297,7 +307,11 @@ export default function Testimonials({
 
               <button
                 onClick={next}
-                className="w-10 h-10 rounded-full border border-white/25 hover:border-white/50 bg-primary/15 hover:bg-primary/30 flex items-center justify-center text-white transition-all duration-200 cursor-pointer"
+                className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 cursor-pointer ${
+                  isLight
+                    ? "border-slate-200 hover:border-cta/40 bg-bg hover:bg-blue-50 text-primary"
+                    : "border-white/25 hover:border-white/50 bg-primary/15 hover:bg-primary/30 text-white"
+                }`}
                 aria-label="Suivant"
               >
                 <ChevronRight size={18} />
@@ -313,12 +327,16 @@ export default function Testimonials({
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-center mt-10"
           >
-            <p className="text-white/55 text-sm mb-4">
-              Rejoignez plus de <span className="text-white font-semibold">500 entreprises</span> qui nous font confiance
+            <p className={`text-sm mb-4 ${isLight ? "text-secondary" : "text-white/55"}`}>
+              Rejoignez plus de <span className={`font-semibold ${isLight ? "text-primary" : "text-white"}`}>500 entreprises</span> qui nous font confiance
             </p>
             <a
               href="/references/temoignages"
-              className="inline-flex items-center gap-2 border border-white/25 hover:border-white/50 text-white/85 hover:text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-all duration-200 cursor-pointer hover:bg-primary/15"
+              className={`inline-flex items-center gap-2 border text-sm font-medium px-5 py-2.5 rounded-xl transition-all duration-200 cursor-pointer ${
+                isLight
+                  ? "border-slate-200 hover:border-cta/40 text-secondary hover:text-primary hover:bg-blue-50"
+                  : "border-white/25 hover:border-white/50 text-white/85 hover:text-white hover:bg-primary/15"
+              }`}
             >
               Voir tous les témoignages →
             </a>

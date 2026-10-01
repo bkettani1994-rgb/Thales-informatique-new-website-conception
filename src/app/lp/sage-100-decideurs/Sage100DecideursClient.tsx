@@ -856,6 +856,7 @@ export default function Sage100DecideursClient() {
           items={sage100Testimonials}
           title="Ils ont vécu Sage 100 avec Thalès Informatique"
           subtitle="Des clients témoignent en vidéo de leur expérience Sage 100 accompagnés par nos équipes."
+          theme="light"
         />
       </div>
 
