@@ -8,37 +8,37 @@ const awards = [
     icon: Trophy,
     year: "2024",
     title: "Meilleure Dynamique Commerciale Maroc",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_dynamique_commerciale_maroc_sage_p6ggxw.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867839/thales_informatique_meilleure_dynamique_commerciale_maroc_sage_i6xiy2.webp",
   },
   {
     icon: Trophy,
     year: "2022",
     title: "Top League — Zone Export",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_top_league_zone_export_sage_isnehi.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867840/thales_informatique_top_league_zone_export_sage_utoxwu.webp",
   },
   {
     icon: Medal,
     year: "2019",
     title: "Meilleure Croissance Sage",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_croissance_sage_dnptgb.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867839/thales_informatique_meilleure_croissance_sage_jnoqmn.webp",
   },
   {
     icon: Award,
     year: "2019",
     title: "Customer Migration Journey",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_customer_migration_journey_sage_ycwzjy.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867839/thales_informatique_customer_migration_journey_sage_fsjgfp.webp",
   },
   {
     icon: Star,
     year: "2018",
     title: "Meilleure Performance Sage",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866849/thales_informatique_meilleure_perofrmance_sage_ucdyyl.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867839/thales_informatique_meilleure_perofrmance_sage_hxig51.webp",
   },
   {
     icon: BadgeCheck,
     year: "2017",
     title: "Premier Partenaire North Africa",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790866850/thales_informatique_premier_partenaire_north_africa_sage_q3nk9o.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1790867840/thales_informatique_premier_partenaire_north_africa_sage_iasyxv.webp",
   },
 ];
 
