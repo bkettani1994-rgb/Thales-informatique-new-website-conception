@@ -39,6 +39,7 @@ import {
   PlayCircle,
   Calendar,
   Cloud,
+  Folder,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -165,37 +166,44 @@ const personas: {
 
 const modules = [
   {
-    icon: Landmark,
-    title: "Comptabilité & Finance",
-    items: [
-      "Comptabilité générale et analytique",
-      "Trésorerie et rapprochements bancaires",
-      "Budgets et reporting",
-      "Immobilisations",
-      "Déclarations fiscales",
-    ],
-  },
-  {
     icon: ShoppingCart,
     title: "Gestion commerciale",
-    items: [
-      "Devis et commandes",
-      "Facturation et règlements",
-      "Gestion des stocks",
-      "Tarification et promotions",
-      "Gestion de la relation client",
-    ],
+    desc: "Devis, commandes, livraisons, facturation et suivi clients.",
   },
   {
-    icon: Layers,
-    title: "Sage BMS",
-    items: [
-      "Données unifiées et centralisées",
-      "Interopérabilité entre les modules",
-      "Tableaux de bord et reporting global",
-      "Gestion des utilisateurs",
-      "Adaptation aux besoins de l'entreprise",
-    ],
+    icon: Landmark,
+    title: "Comptabilité",
+    desc: "Comptabilité générale, analytique et budgétaire.",
+  },
+  {
+    icon: Boxes,
+    title: "Stocks & Logistique",
+    desc: "Gestion des stocks, inventaires et approvisionnements.",
+  },
+  {
+    icon: BarChart2,
+    title: "Reporting & Pilotage",
+    desc: "Tableaux de bord et indicateurs en temps réel.",
+  },
+  {
+    icon: Users,
+    title: "Achats",
+    desc: "Gestion des fournisseurs, demandes d'achat et contrôle des coûts.",
+  },
+  {
+    icon: Wrench,
+    title: "Production",
+    desc: "Planification, suivi de production et gestion des coûts.",
+  },
+  {
+    icon: Folder,
+    title: "Gestion documentaire",
+    desc: "Centralisation et traçabilité de vos documents.",
+  },
+  {
+    icon: Cloud,
+    title: "Sage 100 Expérience",
+    desc: "Une nouvelle interface moderne, intuitive et connectée.",
   },
 ];
 
@@ -705,7 +713,7 @@ export default function Sage100DecideursClient() {
       </section>
 
       {/* ── MODULES ── */}
-      <section id="modules" className="py-20 lg:py-24 bg-white scroll-mt-16">
+      <section id="modules" className="py-20 lg:py-24 bg-gradient-to-b from-bg to-blue-50/40 scroll-mt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <FadeIn>
             <div className="text-center mb-12">
@@ -713,33 +721,51 @@ export default function Sage100DecideursClient() {
               <p className="text-secondary max-w-2xl mx-auto">Une solution modulaire pour connecter vos processus, vos équipes et vos données.</p>
             </div>
           </FadeIn>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {modules.map((m, i) => (
-              <FadeIn key={m.title} delay={i * 0.1}>
-                <div className="bg-bg rounded-2xl border border-slate-200 p-7 h-full hover:border-cta/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-5">
-                    <m.icon size={22} className="text-cta" aria-hidden="true" />
+              <FadeIn key={m.title} delay={i * 0.06}>
+                <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden h-full hover:border-cta/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200">
+                  <div className="h-24 bg-gradient-to-br from-primary to-cta relative flex items-center justify-center overflow-hidden">
+                    <div
+                      className="absolute inset-0 opacity-20"
+                      style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "18px 18px" }}
+                      aria-hidden="true"
+                    />
                   </div>
-                  <h3 className="text-base font-bold text-primary mb-4">{m.title}</h3>
-                  <ul className="space-y-2">
-                    {m.items.map((it) => (
-                      <li key={it} className="flex items-start gap-2 text-xs text-secondary leading-relaxed">
-                        <span className="w-1 h-1 rounded-full bg-cta mt-1.5 shrink-0" />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="px-5 pb-5 pt-0 relative">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border-4 border-white shadow-sm flex items-center justify-center -mt-6 mb-3 relative z-10">
+                      <m.icon size={20} className="text-cta" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-sm font-bold text-primary mb-1.5">{m.title}</h3>
+                    <p className="text-xs text-secondary leading-relaxed mb-3">{m.desc}</p>
+                    <button
+                      onClick={() => scrollToForm(`module-${m.title}`)}
+                      className="inline-flex items-center gap-1 text-cta font-semibold text-xs hover:text-blue-700 transition-colors cursor-pointer"
+                    >
+                      Découvrir le module <ArrowRight size={12} aria-hidden="true" />
+                    </button>
+                  </div>
                 </div>
               </FadeIn>
             ))}
           </div>
+
           <FadeIn delay={0.3}>
-            <div className="text-center mt-10">
+            <div className="mt-8 bg-white rounded-2xl border border-slate-200 px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-5">
+              <div className="flex items-center gap-4">
+                <span className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                  <Layers size={22} className="text-cta" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="font-bold text-primary text-sm">Une solution modulaire et évolutive</p>
+                  <p className="text-xs text-secondary mt-0.5">Activez les modules dont vous avez besoin aujourd&apos;hui et faites évoluer votre solution selon vos ambitions.</p>
+                </div>
+              </div>
               <button
                 onClick={() => scrollToForm("modules")}
-                className="inline-flex items-center gap-1.5 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
+                className="shrink-0 inline-flex items-center gap-2 bg-cta text-white font-bold text-sm px-5 py-3 rounded-xl hover:bg-blue-600 transition-colors cursor-pointer"
               >
-                Découvrir tous les modules <ArrowRight size={14} aria-hidden="true" />
+                Demander une démonstration <ArrowRight size={14} aria-hidden="true" />
               </button>
             </div>
           </FadeIn>
