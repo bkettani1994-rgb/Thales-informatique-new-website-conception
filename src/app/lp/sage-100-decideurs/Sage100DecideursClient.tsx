@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
 import LogoMarquee from "@/components/sections/LogoMarquee";
@@ -417,6 +418,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 ───────────────────────────────────────────────────────── */
 
 export default function Sage100DecideursClient() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activePersona, setActivePersona] = useState<PersonaKey>("dg");
@@ -502,6 +504,7 @@ export default function Sage100DecideursClient() {
     setLoading(false);
     setSubmitted(true);
     track("form_submit", { fonction: form.fonction });
+    router.push("/lp/sage-100-decideurs/merci");
   };
 
   return (
