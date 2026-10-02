@@ -235,21 +235,25 @@ const modules = [
     icon: Wrench,
     title: "La production (Industrie)",
     desc: "Planification, suivi de production et gestion des coûts.",
+    image: "/images/modules-sage100/production.webp",
   },
   {
     icon: FileSpreadsheet,
     title: "États comptables & fiscaux",
     desc: "Génération des états comptables et fiscaux réglementaires.",
+    image: "/images/modules-sage100/etats-comptables-fiscaux.webp",
   },
   {
     icon: BarChart2,
     title: "BI Reporting",
     desc: "Tableaux de bord et indicateurs en temps réel.",
+    image: "/images/modules-sage100/bi-reporting.webp",
   },
   {
     icon: Building2,
     title: "Entreprise",
     desc: "Pilotage multi-sociétés et données centralisées.",
+    image: "/images/modules-sage100/entreprise.webp",
   },
 ];
 
