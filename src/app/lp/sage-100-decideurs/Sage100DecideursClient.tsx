@@ -42,6 +42,10 @@ import {
   Cloud,
   Folder,
   ArrowLeft,
+  BadgeCheck,
+  Building2,
+  Headset,
+  Heart,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -301,10 +305,12 @@ const featureTabs: { key: FeatureKey; label: string; icon: typeof BarChart2; tit
 
 // Chiffres réels, déjà publiés sur thales.ma (section "Chiffres clés" de la page d'accueil) — aucune donnée inventée ici.
 const kpis = [
-  { value: "30+", label: "Ans d'expertise" },
-  { value: "500+", label: "Clients actifs" },
-  { value: "20+", label: "Consultants certifiés" },
-  { value: "92%", label: "Taux de fidélisation clients" },
+  { value: 30, suffix: "+", label: "Ans d'expertise", color: "#F59E0B", icon: Award },
+  { value: 35, suffix: "+", label: "Collaborateurs", color: "#38BDF8", icon: Users },
+  { value: 20, suffix: "+", label: "Consultants certifiés", color: "#A78BFA", icon: BadgeCheck },
+  { value: 500, suffix: "+", label: "Clients actifs", color: "#34D399", icon: Building2 },
+  { value: 100, suffix: "%", label: "Service dédié au support", color: "#FB923C", icon: Headset },
+  { value: 92, suffix: "%", label: "Taux de fidélisation clients", color: "#F472B6", icon: Heart },
 ];
 
 // Témoignages vidéo — les mêmes que la page d'accueil, sans Soremar (client Sage X3, hors périmètre de cette page dédiée à Sage 100).
@@ -353,6 +359,93 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
     >
       {children}
     </motion.div>
+  );
+}
+
+function KpiCounter({ target, suffix, running }: { target: number; suffix: string; running: boolean }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    let frame = 0;
+    const total = 80;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    const id = setTimeout(() => {
+      const tick = () => {
+        frame++;
+        setCount(Math.round(ease(Math.min(frame / total, 1)) * target));
+        if (frame < total) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, 200);
+    return () => clearTimeout(id);
+  }, [running, target]);
+
+  return (
+    <span className="tabular-nums text-primary">
+      {count.toLocaleString("fr-MA")}{suffix}
+    </span>
+  );
+}
+
+function KpiSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section ref={ref} className="py-20 bg-white" id="chiffres">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block text-xs font-bold text-accent uppercase tracking-widest mb-2">
+            Nos chiffres clés
+          </span>
+          <div className="w-8 h-0.5 bg-accent mx-auto mb-4 rounded-full" />
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary tracking-tight">
+            Un partenaire de <span className="text-cta">confiance</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 bg-white rounded-3xl border border-slate-100 shadow-sm divide-x divide-y lg:divide-y-0 divide-slate-100">
+          {kpis.map((k, i) => (
+            <motion.div
+              key={k.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center gap-2 py-8 px-3 text-center"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.4, ease: "easeOut" }}
+                className="relative w-14 h-14 rounded-full flex items-center justify-center mb-1"
+                style={{ background: `${k.color}14` }}
+              >
+                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 56 56">
+                  <circle cx="28" cy="28" r="25" fill="none" stroke={k.color} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="90 157" opacity="0.8" />
+                </svg>
+                <k.icon size={22} style={{ color: k.color }} aria-hidden="true" />
+              </motion.div>
+              <div className="text-3xl sm:text-4xl font-black leading-none tracking-tight">
+                <KpiCounter target={k.value} suffix={k.suffix} running={inView} />
+              </div>
+              <div className="text-xs text-secondary font-medium leading-tight max-w-[110px]">{k.label}</div>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={inView ? { width: 24 } : {}}
+                transition={{ delay: 0.4 + i * 0.1, duration: 0.5, ease: "easeOut" }}
+                className="h-[2px] rounded-full mt-0.5"
+                style={{ background: k.color }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -872,18 +965,7 @@ export default function Sage100DecideursClient() {
       </section>
 
       {/* ── CHIFFRES CLÉS ── */}
-      <section className="py-16 bg-cta">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {kpis.map((k, i) => (
-              <FadeIn key={k.label} delay={i * 0.08} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white tabular-nums">{k.value}</div>
-                <div className="text-xs md:text-sm text-white/70 mt-1.5">{k.label}</div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
+      <KpiSection />
 
       {/* ── TROPHÉES & DISTINCTIONS — même composant que la page d'accueil ── */}
       <Awards />
