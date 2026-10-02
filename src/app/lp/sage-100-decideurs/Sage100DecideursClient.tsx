@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Awards from "@/components/sections/Awards";
 import Testimonials, { testimonials as allTestimonials } from "@/components/sections/Testimonials";
@@ -186,41 +187,49 @@ const modules = [
     icon: ShoppingCart,
     title: "Gestion commerciale",
     desc: "Devis, commandes, livraisons, facturation et suivi clients.",
+    image: "/images/modules-sage100/gestion-commerciale.webp",
   },
   {
     icon: Landmark,
     title: "Comptabilité",
     desc: "Comptabilité générale, analytique et budgétaire.",
+    image: "/images/modules-sage100/comptabilite.webp",
   },
   {
     icon: Wallet,
     title: "Trésorerie",
     desc: "Suivi de trésorerie et rapprochements bancaires.",
+    image: "/images/modules-sage100/tresorerie.webp",
   },
   {
     icon: Boxes,
     title: "Immobilisations",
     desc: "Gestion et suivi du parc d'immobilisations.",
+    image: "/images/modules-sage100/immobilisations.webp",
   },
   {
     icon: CreditCard,
     title: "Moyen de paiement",
     desc: "Gestion des règlements et modes de paiement.",
+    image: "/images/modules-sage100/moyen-de-paiement.webp",
   },
   {
     icon: Clock,
     title: "Délai de paiement",
     desc: "Suivi des échéances et délais de règlement.",
+    image: "/images/modules-sage100/delai-de-paiement.webp",
   },
   {
     icon: Percent,
     title: "TVA Manager",
     desc: "Gestion et déclaration automatisées de la TVA.",
+    image: "/images/modules-sage100/tva-manager.webp",
   },
   {
     icon: Receipt,
     title: "La RAS",
     desc: "Gestion de la retenue à la source.",
+    image: "/images/modules-sage100/ras.webp",
   },
   {
     icon: Wrench,
@@ -886,11 +895,15 @@ export default function Sage100DecideursClient() {
               <FadeIn key={m.title} delay={i * 0.06}>
                 <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden h-full hover:border-cta/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200">
                   <div className="h-24 bg-gradient-to-br from-primary to-cta relative flex items-center justify-center overflow-hidden">
-                    <div
-                      className="absolute inset-0 opacity-20"
-                      style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "18px 18px" }}
-                      aria-hidden="true"
-                    />
+                    {m.image ? (
+                      <Image src={m.image} alt={m.title} fill sizes="300px" className="object-cover" />
+                    ) : (
+                      <div
+                        className="absolute inset-0 opacity-20"
+                        style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "18px 18px" }}
+                        aria-hidden="true"
+                      />
+                    )}
                   </div>
                   <div className="px-5 pb-5 pt-0 relative">
                     <div className="w-12 h-12 rounded-xl bg-blue-50 border-4 border-white shadow-sm flex items-center justify-center -mt-6 mb-3 relative z-10">
