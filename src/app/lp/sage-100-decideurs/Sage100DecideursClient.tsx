@@ -426,7 +426,12 @@ function KpiSection() {
                 style={{ background: `${k.color}14` }}
               >
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="25" fill="none" stroke={k.color} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="90 157" opacity="0.8" />
+                  <motion.circle
+                    cx="28" cy="28" r="25" fill="none" stroke={k.color} strokeWidth="2.5" strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={inView ? { pathLength: 1 } : { pathLength: 0 }}
+                    transition={{ delay: 0.2, duration: 1.3, ease: "easeOut" }}
+                  />
                 </svg>
                 <k.icon size={22} style={{ color: k.color }} aria-hidden="true" />
               </motion.div>
