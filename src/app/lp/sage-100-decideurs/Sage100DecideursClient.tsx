@@ -40,12 +40,16 @@ import {
   PlayCircle,
   Calendar,
   Cloud,
-  Folder,
   ArrowLeft,
   BadgeCheck,
   Building2,
   Headset,
   Heart,
+  CreditCard,
+  Clock,
+  Percent,
+  Receipt,
+  FileSpreadsheet,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -189,34 +193,54 @@ const modules = [
     desc: "Comptabilité générale, analytique et budgétaire.",
   },
   {
+    icon: Wallet,
+    title: "Trésorerie",
+    desc: "Suivi de trésorerie et rapprochements bancaires.",
+  },
+  {
     icon: Boxes,
-    title: "Stocks & Logistique",
-    desc: "Gestion des stocks, inventaires et approvisionnements.",
+    title: "Immobilisations",
+    desc: "Gestion et suivi du parc d'immobilisations.",
   },
   {
-    icon: BarChart2,
-    title: "Reporting & Pilotage",
-    desc: "Tableaux de bord et indicateurs en temps réel.",
+    icon: CreditCard,
+    title: "Moyen de paiement",
+    desc: "Gestion des règlements et modes de paiement.",
   },
   {
-    icon: Users,
-    title: "Achats",
-    desc: "Gestion des fournisseurs, demandes d'achat et contrôle des coûts.",
+    icon: Clock,
+    title: "Délai de paiement",
+    desc: "Suivi des échéances et délais de règlement.",
+  },
+  {
+    icon: Percent,
+    title: "TVA Manager",
+    desc: "Gestion et déclaration automatisées de la TVA.",
+  },
+  {
+    icon: Receipt,
+    title: "La RAS",
+    desc: "Gestion de la retenue à la source.",
   },
   {
     icon: Wrench,
-    title: "Production",
+    title: "La production (Industrie)",
     desc: "Planification, suivi de production et gestion des coûts.",
   },
   {
-    icon: Folder,
-    title: "Gestion documentaire",
-    desc: "Centralisation et traçabilité de vos documents.",
+    icon: FileSpreadsheet,
+    title: "États comptables & fiscaux",
+    desc: "Génération des états comptables et fiscaux réglementaires.",
   },
   {
-    icon: Cloud,
-    title: "Sage 100 Expérience",
-    desc: "Une nouvelle interface moderne, intuitive et connectée.",
+    icon: BarChart2,
+    title: "BI Reporting",
+    desc: "Tableaux de bord et indicateurs en temps réel.",
+  },
+  {
+    icon: Building2,
+    title: "Entreprise",
+    desc: "Pilotage multi-sociétés et données centralisées.",
   },
 ];
 
