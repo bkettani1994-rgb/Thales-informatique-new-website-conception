@@ -996,7 +996,15 @@ export default function Sage100DecideursClient() {
 
       {/* ── CTA FINAL + FORMULAIRE ── */}
       <section id="formulaire" className="py-20 lg:py-24 bg-primary relative overflow-hidden scroll-mt-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-primary to-primary" />
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1790699961/Image_ChatGPT_29_sept._2026_17_37_30_sdbruh.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-10"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/95 via-primary/95 to-primary" />
         <div className="relative max-w-2xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center mb-10">
             <span className="text-xs font-bold text-accent tracking-widest uppercase">Prêt à aller plus loin ?</span>
