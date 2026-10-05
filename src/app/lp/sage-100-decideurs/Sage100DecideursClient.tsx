@@ -1001,7 +1001,7 @@ export default function Sage100DecideursClient() {
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-50"
+          className="object-cover opacity-70"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-slate-800/80 via-primary/80 to-primary/90" />
