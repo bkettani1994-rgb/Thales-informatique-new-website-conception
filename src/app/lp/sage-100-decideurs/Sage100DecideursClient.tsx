@@ -712,32 +712,22 @@ export default function Sage100DecideursClient() {
       </section>
 
       {/* ── SAGE 100 CLOUD ── */}
-      <section className="py-20 lg:py-28 relative overflow-hidden bg-primary">
-        <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-contain"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-transparent to-primary/80" aria-hidden="true" />
+      <section className="relative overflow-hidden bg-primary">
+        {/* Visuel pleine largeur desktop — version mobile à intégrer séparemment */}
+        <div className="hidden md:block relative w-full">
+          <Image
+            src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
+            alt="Travaillez librement avec Sage 100 dans le cloud"
+            width={1600}
+            height={700}
+            sizes="100vw"
+            className="w-full h-auto"
+          />
+        </div>
 
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
-          <FadeIn className="text-center mb-16">
-            <span className="inline-block text-xs font-bold text-accent uppercase tracking-widest mb-4 bg-primary/30 px-4 py-1.5 rounded-full backdrop-blur-sm">
-              Sage 100 Cloud
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 max-w-2xl mx-auto drop-shadow-sm">
-              Travaillez librement, avec Sage 100 dans le <span className="text-accent">cloud</span>
-            </h2>
-            <p className="text-white/85 leading-relaxed max-w-xl mx-auto">
-              Toute la puissance de Sage 100, accessible à tout moment, sans serveur à gérer ni souci technique — pour vous concentrer sur votre activité.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.3}>
-            <div className="text-center mt-14">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-10">
+          <FadeIn>
+            <div className="text-center">
               <button
                 onClick={() => scrollToForm("cloud")}
                 className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer shadow-lg"
