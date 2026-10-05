@@ -28,8 +28,6 @@ import {
   Sparkles,
   BarChart2,
   Boxes,
-  Factory,
-  PieChart,
   Landmark,
   Layers,
   GraduationCap,
@@ -50,6 +48,8 @@ import {
   Percent,
   Receipt,
   FileSpreadsheet,
+  Globe,
+  Zap,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -171,87 +171,13 @@ const modules = [
   },
 ];
 
-type FeatureKey = "finance" | "achats" | "ventes" | "stocks" | "production" | "reporting";
-
-const featureTabs: { key: FeatureKey; label: string; icon: typeof BarChart2; title: string; items: string[] }[] = [
-  {
-    key: "finance",
-    label: "Finance",
-    icon: Landmark,
-    title: "Une gestion financière rigoureuse et simplifiée",
-    items: [
-      "Comptabilité générale, analytique et budgétaire",
-      "Suivi de la trésorerie",
-      "Reporting financier",
-      "Clôtures plus rapides",
-      "Données centralisées",
-    ],
-  },
-  {
-    key: "achats",
-    label: "Achats",
-    icon: ShoppingCart,
-    title: "Des achats maîtrisés de bout en bout",
-    items: [
-      "Suivi des fournisseurs et des commandes",
-      "Contrôle des coûts d'achat",
-      "Approvisionnements planifiés",
-      "Analyse des dépenses par catégorie",
-      "Traçabilité des engagements",
-    ],
-  },
-  {
-    key: "ventes",
-    label: "Ventes",
-    icon: TrendingUp,
-    title: "Un cycle de vente fluide, du devis au règlement",
-    items: [
-      "Devis, commandes et facturation intégrés",
-      "Suivi de la relation client",
-      "Gestion des tarifs et promotions",
-      "Visibilité sur le pipeline commercial",
-      "Analyse des ventes par produit et par client",
-    ],
-  },
-  {
-    key: "stocks",
-    label: "Stocks",
-    icon: Boxes,
-    title: "Des stocks sous contrôle en permanence",
-    items: [
-      "Suivi des stocks multi-dépôts",
-      "Valorisation en temps réel",
-      "Réapprovisionnements optimisés",
-      "Inventaires simplifiés",
-      "Traçabilité des mouvements",
-    ],
-  },
-  {
-    key: "production",
-    label: "Production",
-    icon: Factory,
-    title: "Une production mieux planifiée",
-    items: [
-      "Suivi des ordres de fabrication",
-      "Gestion des nomenclatures",
-      "Planification des ressources",
-      "Suivi des coûts de revient",
-      "Traçabilité des lots",
-    ],
-  },
-  {
-    key: "reporting",
-    label: "Reporting",
-    icon: PieChart,
-    title: "Un pilotage basé sur des données fiables",
-    items: [
-      "Tableaux de bord personnalisables",
-      "Indicateurs de performance en temps réel",
-      "Exports et connecteurs BI",
-      "Reporting multi-sites",
-      "Historique et comparatifs",
-    ],
-  },
+const cloudBenefits = [
+  { icon: Globe, label: "Accessible partout", desc: "Travaillez depuis le bureau, à distance ou en déplacement, sur simple connexion internet." },
+  { icon: ShieldCheck, label: "Données sécurisées", desc: "Sauvegardes automatiques et infrastructure sécurisée, sans y penser." },
+  { icon: RefreshCw, label: "Mises à jour automatiques", desc: "Toujours la dernière version de Sage 100, sans intervention technique." },
+  { icon: ServerCog, label: "Zéro serveur à gérer", desc: "Aucun investissement matériel ni maintenance informatique à votre charge." },
+  { icon: Layers, label: "Évolutif à votre rythme", desc: "Ajoutez des utilisateurs et des modules au fil de votre croissance." },
+  { icon: Zap, label: "Continuité d'activité", desc: "Votre outil de gestion disponible en permanence, même en cas d'incident local." },
 ];
 
 // Chiffres réels, déjà publiés sur thales.ma (section "Chiffres clés" de la page d'accueil) — aucune donnée inventée ici.
@@ -470,10 +396,7 @@ export default function Sage100DecideursClient() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeFeature, setActiveFeature] = useState<FeatureKey>("finance");
   const [formStarted, setFormStarted] = useState(false);
-
-  const feature = featureTabs.find((f) => f.key === activeFeature)!;
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -788,64 +711,87 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── FOCUS FONCTIONNALITÉS ── */}
-      <section className="py-20 lg:py-24 bg-bg">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <FadeIn>
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-primary mb-3">Toutes les fonctionnalités pour une gestion intégrée et performante</h2>
-            </div>
-          </FadeIn>
+      {/* ── SAGE 100 CLOUD ── */}
+      <section className="py-20 lg:py-28 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-primary to-primary" aria-hidden="true" />
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px" }}
+          aria-hidden="true"
+        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-cta/25 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
 
-          <FadeIn delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {featureTabs.map((f) => (
-                <button
-                  key={f.key}
-                  onClick={() => { setActiveFeature(f.key); track("module_selected", { module: f.key }); }}
-                  aria-pressed={activeFeature === f.key}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer border ${
-                    activeFeature === f.key
-                      ? "bg-cta border-cta text-white shadow-sm"
-                      : "bg-white border-slate-200 text-secondary hover:border-cta hover:text-cta"
-                  }`}
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+          <FadeIn className="text-center mb-14">
+            <span className="inline-block text-xs font-bold text-accent uppercase tracking-widest mb-4">Sage 100 Cloud</span>
+
+            {/* Nuage animé */}
+            <div className="relative w-28 h-28 mx-auto mb-6">
+              <motion.div
+                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.15, 0.5] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 rounded-full bg-accent/30 blur-xl"
+                aria-hidden="true"
+              />
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-full h-full rounded-full bg-gradient-to-br from-cta to-blue-400 flex items-center justify-center shadow-xl"
+              >
+                <Cloud size={48} className="text-white" aria-hidden="true" />
+              </motion.div>
+              {[Globe, ShieldCheck, Zap].map((Ic, i) => (
+                <motion.span
+                  key={i}
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+                  className="absolute w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center"
+                  style={{
+                    top: i === 0 ? "-6px" : i === 1 ? "60%" : "10%",
+                    left: i === 0 ? "-10px" : i === 1 ? "-14px" : "90%",
+                  }}
                 >
-                  <f.icon size={16} aria-hidden="true" />
-                  {f.label}
-                </button>
+                  <Ic size={14} className="text-cta" aria-hidden="true" />
+                </motion.span>
               ))}
             </div>
+
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 max-w-2xl mx-auto">
+              Travaillez librement, avec Sage 100 dans le <span className="text-accent">cloud</span>
+            </h2>
+            <p className="text-white/70 leading-relaxed max-w-xl mx-auto">
+              Toute la puissance de Sage 100, accessible à tout moment, sans serveur à gérer ni souci technique — pour vous concentrer sur votre activité.
+            </p>
           </FadeIn>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeFeature}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
-              className="grid lg:grid-cols-2 gap-8 items-center"
-            >
-              <InterfaceMock />
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-5">{feature.title}</h3>
-                <ul className="space-y-3 mb-7">
-                  {feature.items.map((it) => (
-                    <li key={it} className="flex items-start gap-3 text-sm text-secondary leading-relaxed">
-                      <CheckCircle2 size={17} className="text-cta mt-0.5 shrink-0" aria-hidden="true" />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => scrollToForm(`feature-${activeFeature}`)}
-                  className="inline-flex items-center gap-1.5 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {cloudBenefits.map((b, i) => (
+              <FadeIn key={b.label} delay={i * 0.08}>
+                <motion.div
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
+                  className="h-full bg-white/[0.06] border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/[0.1] hover:border-white/20 transition-colors duration-300"
                 >
-                  Voir toutes les fonctionnalités <ArrowRight size={14} aria-hidden="true" />
-                </button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                  <div className="w-11 h-11 rounded-xl bg-accent/15 flex items-center justify-center mb-4">
+                    <b.icon size={20} className="text-accent" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-sm font-bold text-white mb-1.5">{b.label}</h3>
+                  <p className="text-xs text-white/60 leading-relaxed">{b.desc}</p>
+                </motion.div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={0.3}>
+            <div className="text-center mt-12">
+              <button
+                onClick={() => scrollToForm("cloud")}
+                className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer"
+              >
+                Demander un devis <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
