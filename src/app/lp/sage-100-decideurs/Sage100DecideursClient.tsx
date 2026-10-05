@@ -712,81 +712,57 @@ export default function Sage100DecideursClient() {
       </section>
 
       {/* ── SAGE 100 CLOUD ── */}
-      <section className="py-20 lg:py-28 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-primary to-primary" aria-hidden="true" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px" }}
+      <section className="py-20 lg:py-28 relative overflow-hidden">
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791217589/Ciel_azur_au-dessus_de_la_baie_thales_informatique_yrkame.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
           aria-hidden="true"
         />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-cta/25 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/55 to-primary/85" aria-hidden="true" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
-          <FadeIn className="text-center mb-14">
-            <span className="inline-block text-xs font-bold text-accent uppercase tracking-widest mb-4">Sage 100 Cloud</span>
-
-            {/* Nuage animé */}
-            <div className="relative w-28 h-28 mx-auto mb-6">
-              <motion.div
-                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.15, 0.5] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full bg-accent/30 blur-xl"
-                aria-hidden="true"
-              />
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-full h-full rounded-full bg-gradient-to-br from-cta to-blue-400 flex items-center justify-center shadow-xl"
-              >
-                <Cloud size={48} className="text-white" aria-hidden="true" />
-              </motion.div>
-              {[Globe, ShieldCheck, Zap].map((Ic, i) => (
-                <motion.span
-                  key={i}
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
-                  className="absolute w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center"
-                  style={{
-                    top: i === 0 ? "-6px" : i === 1 ? "60%" : "10%",
-                    left: i === 0 ? "-10px" : i === 1 ? "-14px" : "90%",
-                  }}
-                >
-                  <Ic size={14} className="text-cta" aria-hidden="true" />
-                </motion.span>
-              ))}
-            </div>
-
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 max-w-2xl mx-auto">
+          <FadeIn className="text-center mb-16">
+            <span className="inline-block text-xs font-bold text-accent uppercase tracking-widest mb-4 bg-primary/30 px-4 py-1.5 rounded-full backdrop-blur-sm">
+              Sage 100 Cloud
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 max-w-2xl mx-auto drop-shadow-sm">
               Travaillez librement, avec Sage 100 dans le <span className="text-accent">cloud</span>
             </h2>
-            <p className="text-white/70 leading-relaxed max-w-xl mx-auto">
+            <p className="text-white/85 leading-relaxed max-w-xl mx-auto">
               Toute la puissance de Sage 100, accessible à tout moment, sans serveur à gérer ni souci technique — pour vous concentrer sur votre activité.
             </p>
           </FadeIn>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {cloudBenefits.map((b, i) => (
-              <FadeIn key={b.label} delay={i * 0.08}>
-                <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
-                  className="h-full bg-white/[0.06] border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/[0.1] hover:border-white/20 transition-colors duration-300"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-accent/15 flex items-center justify-center mb-4">
-                    <b.icon size={20} className="text-accent" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-sm font-bold text-white mb-1.5">{b.label}</h3>
-                  <p className="text-xs text-white/60 leading-relaxed">{b.desc}</p>
-                </motion.div>
-              </FadeIn>
-            ))}
+          {/* Avantages en éventail autour du nuage */}
+          <div className="flex flex-wrap items-start justify-center gap-5 sm:gap-6">
+            {cloudBenefits.map((b, i) => {
+              const offsets = ["sm:translate-y-6", "sm:-translate-y-2", "sm:translate-y-8", "sm:-translate-y-2", "sm:translate-y-6", "sm:-translate-y-4"];
+              return (
+                <FadeIn key={b.label} delay={i * 0.08} className={`w-full sm:w-44 ${offsets[i]}`}>
+                  <motion.div
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
+                    className="h-full bg-white/90 border border-white/60 rounded-2xl p-5 shadow-lg backdrop-blur-sm hover:bg-white transition-colors duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-cta/10 flex items-center justify-center mb-3">
+                      <b.icon size={18} className="text-cta" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-sm font-bold text-primary mb-1.5">{b.label}</h3>
+                    <p className="text-xs text-secondary leading-relaxed">{b.desc}</p>
+                  </motion.div>
+                </FadeIn>
+              );
+            })}
           </div>
 
           <FadeIn delay={0.3}>
-            <div className="text-center mt-12">
+            <div className="text-center mt-14">
               <button
                 onClick={() => scrollToForm("cloud")}
-                className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer shadow-lg"
               >
                 Demander un devis <ArrowRight size={16} aria-hidden="true" />
               </button>
