@@ -1001,10 +1001,10 @@ export default function Sage100DecideursClient() {
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-10"
+          className="object-cover opacity-30"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/95 via-primary/95 to-primary" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/80 via-primary/80 to-primary/90" />
         <div className="relative max-w-2xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center mb-10">
             <span className="text-xs font-bold text-accent tracking-widest uppercase">Prêt à aller plus loin ?</span>
