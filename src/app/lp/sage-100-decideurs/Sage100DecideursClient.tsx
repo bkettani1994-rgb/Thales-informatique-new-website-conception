@@ -711,32 +711,16 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── SAGE 100 CLOUD ── */}
-      <section className="relative overflow-hidden bg-primary">
-        {/* Visuel pleine largeur desktop — version mobile à intégrer séparemment */}
-        <div className="hidden md:block relative w-full">
-          <Image
-            src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
-            alt="Travaillez librement avec Sage 100 dans le cloud"
-            width={1600}
-            height={700}
-            sizes="100vw"
-            className="w-full h-auto"
-          />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-10">
-          <FadeIn>
-            <div className="text-center">
-              <button
-                onClick={() => scrollToForm("cloud")}
-                className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer shadow-lg"
-              >
-                Demander un devis <ArrowRight size={16} aria-hidden="true" />
-              </button>
-            </div>
-          </FadeIn>
-        </div>
+      {/* ── SAGE 100 CLOUD — visuel pleine largeur desktop, version mobile à intégrer séparemment ── */}
+      <section className="hidden md:block relative overflow-hidden bg-primary">
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
+          alt="Travaillez librement avec Sage 100 dans le cloud"
+          width={1600}
+          height={700}
+          sizes="100vw"
+          className="w-full h-auto block"
+        />
       </section>
 
       {/* ── CHIFFRES CLÉS ── */}
