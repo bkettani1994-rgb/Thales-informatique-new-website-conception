@@ -736,28 +736,6 @@ export default function Sage100DecideursClient() {
             </p>
           </FadeIn>
 
-          {/* Avantages en éventail autour du nuage */}
-          <div className="flex flex-wrap items-start justify-center gap-5 sm:gap-6">
-            {cloudBenefits.map((b, i) => {
-              const offsets = ["sm:translate-y-6", "sm:-translate-y-2", "sm:translate-y-8", "sm:-translate-y-2", "sm:translate-y-6", "sm:-translate-y-4"];
-              return (
-                <FadeIn key={b.label} delay={i * 0.08} className={`w-full sm:w-44 ${offsets[i]}`}>
-                  <motion.div
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
-                    className="h-full bg-white/90 border border-white/60 rounded-2xl p-5 shadow-lg backdrop-blur-sm hover:bg-white transition-colors duration-300"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-cta/10 flex items-center justify-center mb-3">
-                      <b.icon size={18} className="text-cta" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-sm font-bold text-primary mb-1.5">{b.label}</h3>
-                    <p className="text-xs text-secondary leading-relaxed">{b.desc}</p>
-                  </motion.div>
-                </FadeIn>
-              );
-            })}
-          </div>
-
           <FadeIn delay={0.3}>
             <div className="text-center mt-14">
               <button
