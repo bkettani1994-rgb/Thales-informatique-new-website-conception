@@ -712,16 +712,16 @@ export default function Sage100DecideursClient() {
       </section>
 
       {/* ── SAGE 100 CLOUD ── */}
-      <section className="py-20 lg:py-28 relative overflow-hidden">
+      <section className="py-20 lg:py-28 relative overflow-hidden bg-primary">
         <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791218753/Infographie_cloud_et_collaboration_dans_le_ciel_t6s9pt.png"
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-contain"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/55 to-primary/85" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-transparent to-primary/80" aria-hidden="true" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center mb-16">
