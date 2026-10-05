@@ -714,7 +714,7 @@ export default function Sage100DecideursClient() {
       {/* ── SAGE 100 CLOUD ── */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
         <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791217589/Ciel_azur_au-dessus_de_la_baie_thales_informatique_yrkame.png"
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791218753/Infographie_cloud_et_collaboration_dans_le_ciel_t6s9pt.png"
           alt=""
           fill
           sizes="100vw"
