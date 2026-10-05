@@ -683,7 +683,7 @@ export default function Sage100DecideursClient() {
               onClick={() => scrollToForm("header")}
               className="hidden sm:inline-flex items-center gap-1.5 bg-cta text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-blue-600 transition-colors cursor-pointer"
             >
-              Demander une démo <ArrowRight size={14} aria-hidden="true" />
+              Demander un devis <ArrowRight size={14} aria-hidden="true" />
             </button>
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
@@ -720,7 +720,7 @@ export default function Sage100DecideursClient() {
                   onClick={() => { setMobileMenuOpen(false); scrollToForm("mobile-menu"); }}
                   className="mt-2 inline-flex items-center justify-center gap-1.5 bg-cta text-white text-sm font-bold px-4 py-3 rounded-lg cursor-pointer"
                 >
-                  Demander une démo <ArrowRight size={14} aria-hidden="true" />
+                  Demander un devis <ArrowRight size={14} aria-hidden="true" />
                 </button>
               </div>
             </motion.div>
@@ -774,7 +774,7 @@ export default function Sage100DecideursClient() {
                 onClick={() => scrollToForm("hero")}
                 className="inline-flex items-center gap-2 bg-accent text-primary font-bold px-7 py-3.5 rounded-xl hover:brightness-110 transition-all duration-200 cursor-pointer"
               >
-                Demander une démo <ArrowRight size={18} aria-hidden="true" />
+                Demander un devis <ArrowRight size={18} aria-hidden="true" />
               </button>
             </div>
 
@@ -1380,7 +1380,7 @@ export default function Sage100DecideursClient() {
           onClick={() => scrollToForm("sticky-mobile")}
           className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold py-3 rounded-xl cursor-pointer"
         >
-          <Phone size={15} aria-hidden="true" /> Demander une démo
+          <Phone size={15} aria-hidden="true" /> Demander un devis
         </button>
       </div>
     </main>
