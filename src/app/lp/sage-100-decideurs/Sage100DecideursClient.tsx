@@ -17,7 +17,6 @@ import {
   X,
   Send,
   Phone,
-  Crown,
   Wallet,
   ServerCog,
   ShoppingCart,
@@ -74,7 +73,6 @@ function track(eventName: string, params?: Record<string, unknown>) {
 
 const navLinks = [
   { href: "#pourquoi", label: "Pourquoi Sage 100 ?" },
-  { href: "#metiers", label: "Vos métiers" },
   { href: "#modules", label: "Modules" },
   { href: "#temoignages", label: "Témoignages" },
   { href: "#faq", label: "FAQ" },
@@ -96,90 +94,6 @@ const heroAdvantages = [
   { icon: RefreshCw, label: "Automatisation" },
   { icon: BarChart2, label: "Pilotage en temps réel" },
   { icon: Layers, label: "Évolutif & modulaire" },
-];
-
-type PersonaKey = "dg" | "daf" | "dsi" | "achats" | "ventes";
-
-const personas: {
-  key: PersonaKey;
-  label: string;
-  fonction: string;
-  icon: typeof Crown;
-  title: string;
-  benefits: string[];
-}[] = [
-  {
-    key: "dg",
-    label: "DG",
-    fonction: "Directeur Général",
-    icon: Crown,
-    title: "Pour les Directeurs Généraux",
-    benefits: [
-      "Vision consolidée de l'activité",
-      "Décisions basées sur des données fiables",
-      "Meilleure visibilité sur la performance",
-      "Alignement des équipes",
-      "Accompagnement de la croissance",
-    ],
-  },
-  {
-    key: "daf",
-    label: "DAF / RAF",
-    fonction: "Directeur / Responsable Administratif et Financier",
-    icon: Wallet,
-    title: "Pour les DAF / RAF",
-    benefits: [
-      "Pilotage financier",
-      "Visibilité sur la trésorerie",
-      "Reporting",
-      "Fiabilisation des données",
-      "Automatisation des tâches administratives",
-      "Contrôle et conformité",
-    ],
-  },
-  {
-    key: "dsi",
-    label: "DSI / RASI",
-    fonction: "Directeur / Responsable des Systèmes d'Information",
-    icon: ServerCog,
-    title: "Pour les DSI / RASI",
-    benefits: [
-      "Centralisation des données",
-      "Sécurisation des accès",
-      "Fiabilité du système d'information",
-      "Intégration avec l'écosystème existant",
-      "Administration simplifiée",
-    ],
-  },
-  {
-    key: "achats",
-    label: "Achats",
-    fonction: "Responsable des Achats",
-    icon: ShoppingCart,
-    title: "Pour les Responsables Achats",
-    benefits: [
-      "Pilotage des fournisseurs",
-      "Suivi des commandes",
-      "Maîtrise des coûts",
-      "Gestion des stocks",
-      "Analyse des dépenses",
-    ],
-  },
-  {
-    key: "ventes",
-    label: "Ventes",
-    fonction: "Responsable des Ventes",
-    icon: TrendingUp,
-    title: "Pour les Responsables Ventes",
-    benefits: [
-      "Devis et commandes",
-      "Facturation",
-      "Suivi client",
-      "Visibilité sur l'activité commerciale",
-      "Gestion des tarifs",
-      "Analyse des ventes",
-    ],
-  },
 ];
 
 const modules = [
@@ -556,11 +470,9 @@ export default function Sage100DecideursClient() {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activePersona, setActivePersona] = useState<PersonaKey>("dg");
   const [activeFeature, setActiveFeature] = useState<FeatureKey>("finance");
   const [formStarted, setFormStarted] = useState(false);
 
-  const persona = personas.find((p) => p.key === activePersona)!;
   const feature = featureTabs.find((f) => f.key === activeFeature)!;
 
   const [submitted, setSubmitted] = useState(false);
@@ -811,79 +723,6 @@ export default function Sage100DecideursClient() {
 
       {/* ── RÉASSURANCE / RÉFÉRENCES — même composant que la page d'accueil ── */}
       <LogoMarquee />
-
-      {/* ── SAGE 100 SELON LE PROFIL ── */}
-      <section id="metiers" className="py-20 lg:py-24 bg-bg scroll-mt-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <FadeIn>
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-primary mb-3 max-w-2xl mx-auto">
-                Chaque fonction, des priorités spécifiques, une même solution : Sage 100
-              </h2>
-              <p className="text-secondary">Découvrez comment Sage 100 répond aux enjeux de votre métier.</p>
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {personas.map((p) => (
-                <button
-                  key={p.key}
-                  onClick={() => { setActivePersona(p.key); track("metier_selected", { metier: p.key }); }}
-                  aria-pressed={activePersona === p.key}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer border ${
-                    activePersona === p.key
-                      ? "bg-cta border-cta text-white shadow-sm"
-                      : "bg-white border-slate-200 text-secondary hover:border-cta hover:text-cta"
-                  }`}
-                >
-                  <p.icon size={16} aria-hidden="true" />
-                  {p.label}
-                </button>
-              ))}
-            </div>
-          </FadeIn>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePersona}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
-            >
-              <div className="order-2 lg:order-1">
-                <h3 className="text-xl font-bold text-primary mb-5">{persona.title}</h3>
-                <ul className="space-y-3 mb-7">
-                  {persona.benefits.map((b) => (
-                    <li key={b} className="flex items-start gap-3 text-sm text-secondary leading-relaxed">
-                      <CheckCircle2 size={17} className="text-cta mt-0.5 shrink-0" aria-hidden="true" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => scrollToForm(`persona-${activePersona}`)}
-                  className="inline-flex items-center gap-1.5 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
-                >
-                  Découvrir les bénéfices pour les {persona.label} <ArrowRight size={14} aria-hidden="true" />
-                </button>
-              </div>
-              <div className="relative order-1 lg:order-2">
-                <div className="absolute -inset-4 bg-cta/5 rounded-3xl -z-10 hidden lg:block" aria-hidden="true" />
-                <InterfaceMock />
-                <div className="hidden sm:flex absolute -bottom-5 -left-5 items-center gap-2.5 bg-white rounded-xl shadow-lg border border-slate-100 px-4 py-3">
-                  <span className="w-8 h-8 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
-                    <persona.icon size={16} className="text-cta" aria-hidden="true" />
-                  </span>
-                  <span className="text-xs font-semibold text-primary">Vue {persona.label}</span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
 
       {/* ── MODULES ── */}
       <section id="modules" className="py-20 lg:py-24 bg-gradient-to-b from-bg to-blue-50/40 scroll-mt-16">
