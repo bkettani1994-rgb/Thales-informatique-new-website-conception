@@ -399,6 +399,7 @@ export default function Sage100DecideursClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formStarted, setFormStarted] = useState(false);
   const [cloudSlide, setCloudSlide] = useState(0);
+  const [cloudScrollRatio, setCloudScrollRatio] = useState(0);
   const cloudScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollToCloudSlide = (index: number) => {
@@ -411,6 +412,15 @@ export default function Sage100DecideursClient() {
     const el = cloudScrollRef.current;
     if (!el) return;
     setCloudSlide(Math.round(el.scrollLeft / el.clientWidth));
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setCloudScrollRatio(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
+  };
+
+  const handleCloudScrollbarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const el = cloudScrollRef.current;
+    if (!el) return;
+    const ratio = Number(e.target.value) / 100;
+    el.scrollLeft = ratio * (el.scrollWidth - el.clientWidth);
   };
 
   const [submitted, setSubmitted] = useState(false);
@@ -729,60 +739,76 @@ export default function Sage100DecideursClient() {
       {/* ── SAGE 100 CLOUD — visuels dédiés desktop (jour/nuit, scrollable) et mobile ── */}
       <section className="relative overflow-hidden bg-primary">
         {/* Desktop : 2 visuels (jour à gauche, nuit à droite) — défilement horizontal */}
-        <div className="hidden md:block relative">
-          <div
-            ref={cloudScrollRef}
-            onScroll={handleCloudScroll}
-            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            <Image
-              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
-              alt="Sage 100 Cloud — version jour"
-              width={1600}
-              height={700}
-              sizes="100vw"
-              className="w-full h-auto shrink-0 snap-start"
-            />
-            <Image
-              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
-              alt="Sage 100 Cloud — version nuit"
-              width={1600}
-              height={700}
-              sizes="100vw"
-              className="w-full h-auto shrink-0 snap-start"
-            />
+        <div className="hidden md:block">
+          <div className="relative">
+            <div
+              ref={cloudScrollRef}
+              onScroll={handleCloudScroll}
+              className="flex overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              <Image
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
+                alt="Sage 100 Cloud — version jour"
+                width={1600}
+                height={700}
+                sizes="100vw"
+                className="w-full h-auto shrink-0"
+              />
+              <Image
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
+                alt="Sage 100 Cloud — version nuit"
+                width={1600}
+                height={700}
+                sizes="100vw"
+                className="w-full h-auto shrink-0"
+              />
+            </div>
+
+            {/* Flèches de navigation */}
+            <button
+              onClick={() => scrollToCloudSlide(0)}
+              aria-label="Voir la version jour"
+              className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 0 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            >
+              <ChevronLeft size={20} className="text-primary" aria-hidden="true" />
+            </button>
+            <button
+              onClick={() => scrollToCloudSlide(1)}
+              aria-label="Voir la version nuit"
+              className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 1 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            >
+              <ChevronRight size={20} className="text-primary" aria-hidden="true" />
+            </button>
+
+            {/* Points + libellés */}
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-4">
+              {["Jour", "Nuit"].map((label, i) => (
+                <button
+                  key={label}
+                  onClick={() => scrollToCloudSlide(i)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer backdrop-blur-sm ${
+                    cloudSlide === i ? "bg-white text-primary" : "bg-white/20 text-white hover:bg-white/30"
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${cloudSlide === i ? "bg-cta" : "bg-white/70"}`} />
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Flèches de navigation */}
-          <button
-            onClick={() => scrollToCloudSlide(0)}
-            aria-label="Voir la version jour"
-            className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 0 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-          >
-            <ChevronLeft size={20} className="text-primary" aria-hidden="true" />
-          </button>
-          <button
-            onClick={() => scrollToCloudSlide(1)}
-            aria-label="Voir la version nuit"
-            className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 1 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-          >
-            <ChevronRight size={20} className="text-primary" aria-hidden="true" />
-          </button>
-
-          {/* Points + libellés */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-4">
-            {["Jour", "Nuit"].map((label, i) => (
-              <button
-                key={label}
-                onClick={() => scrollToCloudSlide(i)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer backdrop-blur-sm ${
-                  cloudSlide === i ? "bg-white text-primary" : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${cloudSlide === i ? "bg-cta" : "bg-white/70"}`} />
-                {label}
-              </button>
-            ))}
+          {/* Barre de défilement visible — glisser pour voir l'image en entier */}
+          <div className="px-6 py-3">
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={0.1}
+              value={cloudScrollRatio * 100}
+              onChange={handleCloudScrollbarChange}
+              aria-label="Faire défiler les visuels jour / nuit"
+              className="w-full h-2 rounded-full appearance-none bg-white/15 accent-cta cursor-pointer"
+            />
           </div>
         </div>
 
