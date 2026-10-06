@@ -305,13 +305,21 @@ function CompareSlider({
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-[16/9] sm:aspect-[16/7] select-none touch-none overflow-hidden"
+      className="relative w-full select-none touch-none overflow-hidden"
       onPointerDown={(e) => {
         draggingRef.current = true;
         updateFromClientX(e.clientX);
       }}
     >
-      <Image src={afterSrc} alt={afterLabel} fill sizes="100vw" className="object-cover pointer-events-none" />
+      {/* Image de référence en flux normal : sa hauteur naturelle (largeur 100%) dicte la taille du conteneur, donc aucun recadrage */}
+      <Image
+        src={afterSrc}
+        alt={afterLabel}
+        width={1600}
+        height={700}
+        sizes="100vw"
+        className="w-full h-auto block pointer-events-none"
+      />
       <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <Image src={beforeSrc} alt={beforeLabel} fill sizes="100vw" className="object-cover" />
       </div>
