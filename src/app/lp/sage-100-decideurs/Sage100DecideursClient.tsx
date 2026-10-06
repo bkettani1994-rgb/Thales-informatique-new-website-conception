@@ -746,7 +746,7 @@ export default function Sage100DecideursClient() {
               <p className="text-secondary max-w-2xl mx-auto">Une solution modulaire pour connecter vos processus, vos équipes et vos données.</p>
             </div>
           </FadeIn>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {modules.map((m, i) => (
               <FadeIn key={m.title} delay={i * 0.06}>
                 <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden h-full hover:border-cta/40 hover:shadow-md hover:-translate-y-1 transition-all duration-200">
@@ -766,13 +766,7 @@ export default function Sage100DecideursClient() {
                       <m.icon size={20} className="text-cta" aria-hidden="true" />
                     </div>
                     <h3 className="text-sm font-bold text-primary mb-1.5">{m.title}</h3>
-                    <p className="text-xs text-secondary leading-relaxed mb-3">{m.desc}</p>
-                    <button
-                      onClick={() => scrollToForm(`module-${m.title}`)}
-                      className="inline-flex items-center gap-1 text-cta font-semibold text-xs hover:text-blue-700 transition-colors cursor-pointer"
-                    >
-                      Découvrir le module <ArrowRight size={12} aria-hidden="true" />
-                    </button>
+                    <p className="text-xs text-secondary leading-relaxed">{m.desc}</p>
                   </div>
                 </div>
               </FadeIn>
