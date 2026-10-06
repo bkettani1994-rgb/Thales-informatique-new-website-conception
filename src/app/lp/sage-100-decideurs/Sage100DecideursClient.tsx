@@ -801,14 +801,24 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── SAGE 100 CLOUD — comparateur jour / nuit interactif et responsive ── */}
+      {/* ── SAGE 100 CLOUD — comparateur jour / nuit interactif, visuels dédiés desktop et mobile ── */}
       <section className="bg-primary">
-        <CompareSlider
-          beforeSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
-          afterSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
-          beforeLabel="Jour"
-          afterLabel="Nuit"
-        />
+        <div className="hidden md:block">
+          <CompareSlider
+            beforeSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
+            afterSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
+            beforeLabel="Jour"
+            afterLabel="Nuit"
+          />
+        </div>
+        <div className="md:hidden">
+          <CompareSlider
+            beforeSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791280264/votre_gestion_vous_accompagne_jour_avec_thales_informatique_sage_100c_ctoatw.png"
+            afterSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791280262/votre_gestion_vous_accompagne_nuit_avec_thales_informatique_sage_100c_osjlya.png"
+            beforeLabel="Jour"
+            afterLabel="Nuit"
+          />
+        </div>
       </section>
 
       {/* ── CHIFFRES CLÉS ── */}
