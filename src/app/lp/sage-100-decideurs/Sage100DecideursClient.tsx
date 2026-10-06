@@ -1149,10 +1149,11 @@ export default function Sage100DecideursClient() {
               <p className="text-white/60 text-xs leading-relaxed mb-4 max-w-[240px]">
                 Votre partenaire de confiance pour la transformation digitale des entreprises, depuis plus de 30 ans.
               </p>
-              <span className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white text-xs font-semibold px-3.5 py-2 rounded-lg">
-                <ShieldCheck size={14} className="text-accent shrink-0" aria-hidden="true" />
-                Sage Business Partner Platinum
-              </span>
+              <img
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772719817/Sage_Partner-Badge_Business-Partner-Platinum_Full-Colour_RGB_jvbprx.jpg"
+                alt="Sage Business Partner Platinum"
+                className="h-16 w-auto rounded-lg"
+              />
             </div>
 
             {/* Contact */}
