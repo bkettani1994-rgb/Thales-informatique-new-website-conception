@@ -138,6 +138,27 @@ const modules = [
     tag: "Finance",
   },
   {
+    icon: Wrench,
+    title: "La production (Industrie)",
+    desc: "Planification, suivi de production et gestion des coûts.",
+    image: "/images/modules-sage100/production.webp",
+    tag: "Industrie",
+  },
+  {
+    icon: BarChart2,
+    title: "BI Reporting",
+    desc: "Tableaux de bord et indicateurs en temps réel.",
+    image: "/images/modules-sage100/bi-reporting.webp",
+    tag: "Pilotage",
+  },
+  {
+    icon: Building2,
+    title: "Entreprise",
+    desc: "Pilotage multi-sociétés et données centralisées.",
+    image: "/images/modules-sage100/entreprise.webp",
+    tag: "Multi-sociétés",
+  },
+  {
     icon: Clock,
     title: "Délai de paiement",
     desc: "Suivi des échéances et délais de règlement.",
@@ -159,32 +180,11 @@ const modules = [
     tag: "Légal",
   },
   {
-    icon: Wrench,
-    title: "La production (Industrie)",
-    desc: "Planification, suivi de production et gestion des coûts.",
-    image: "/images/modules-sage100/production.webp",
-    tag: "Industrie",
-  },
-  {
     icon: FileSpreadsheet,
     title: "États comptables & fiscaux",
     desc: "Génération des états comptables et fiscaux réglementaires.",
     image: "/images/modules-sage100/etats-comptables-fiscaux.webp",
     tag: "Légal",
-  },
-  {
-    icon: BarChart2,
-    title: "BI Reporting",
-    desc: "Tableaux de bord et indicateurs en temps réel.",
-    image: "/images/modules-sage100/bi-reporting.webp",
-    tag: "Pilotage",
-  },
-  {
-    icon: Building2,
-    title: "Entreprise",
-    desc: "Pilotage multi-sociétés et données centralisées.",
-    image: "/images/modules-sage100/entreprise.webp",
-    tag: "Multi-sociétés",
   },
 ];
 
