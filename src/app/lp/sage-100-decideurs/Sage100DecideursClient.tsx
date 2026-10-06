@@ -84,7 +84,20 @@ const WEBINAR_VIDEO_ID = "";
 const formSteps = ["Entreprise", "Projet", "Contact"];
 
 const tailleOptions = ["1 à 10 salariés", "11 à 50 salariés", "51 à 200 salariés", "+200 salariés"];
-const moduleOptions = ["Comptabilité", "Gestion commerciale", "Paie & RH", "Trésorerie", "Immobilisations", "Moyens de paiement"];
+const moduleOptions = [
+  "Gestion commerciale",
+  "Comptabilité",
+  "Trésorerie",
+  "Immobilisations",
+  "Moyen de paiement",
+  "Délai de paiement",
+  "TVA Manager",
+  "La RAS",
+  "La production (Industrie)",
+  "États comptables & fiscaux",
+  "BI Reporting",
+  "Entreprise",
+];
 const outilOptions = ["Excel / manuel", "Ancienne version Sage", "Autre logiciel", "Aucun outil"];
 const horizonOptions = ["Immédiat", "Sous 3 mois", "3 à 6 mois", "Je me renseigne"];
 
