@@ -798,7 +798,8 @@ export default function Sage100DecideursClient() {
           </div>
 
           {/* Barre de défilement visible — glisser pour voir l'image en entier */}
-          <div className="px-6 py-3">
+          <div className="relative px-8 py-6 flex items-center">
+            <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-px bg-cta/30" aria-hidden="true" />
             <input
               type="range"
               min={0}
@@ -807,9 +808,40 @@ export default function Sage100DecideursClient() {
               value={cloudScrollRatio * 100}
               onChange={handleCloudScrollbarChange}
               aria-label="Faire défiler les visuels jour / nuit"
-              className="w-full h-2 rounded-full appearance-none bg-white/15 accent-cta cursor-pointer"
+              className="cloud-scrub-input relative w-full h-9 appearance-none bg-transparent cursor-grab active:cursor-grabbing"
             />
           </div>
+          <style jsx>{`
+            .cloud-scrub-input::-webkit-slider-runnable-track {
+              background: transparent;
+              height: 2px;
+            }
+            .cloud-scrub-input::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 40px;
+              height: 40px;
+              border-radius: 9999px;
+              background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg>') center / 18px no-repeat;
+              border: 2px solid #0369a1;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+              cursor: grab;
+              margin-top: -19px;
+            }
+            .cloud-scrub-input::-moz-range-track {
+              background: transparent;
+              height: 2px;
+            }
+            .cloud-scrub-input::-moz-range-thumb {
+              width: 40px;
+              height: 40px;
+              border-radius: 9999px;
+              background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg>') center / 18px no-repeat;
+              border: 2px solid #0369a1;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+              cursor: grab;
+            }
+          `}</style>
         </div>
 
         {/* Mobile */}
