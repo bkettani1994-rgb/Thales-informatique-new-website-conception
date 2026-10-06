@@ -12,9 +12,6 @@ import { trackEvent } from "@/lib/analytics";
 import {
   ArrowRight,
   ChevronsLeftRight,
-  Bot,
-  Wand2,
-  Workflow,
   ChevronDown,
   Menu,
   X,
@@ -83,29 +80,6 @@ const navLinks = [
 
 // ID YouTube du replay webinaire Sage 100 Expérience — laisser vide tant qu'aucune vidéo n'est confirmée.
 const WEBINAR_VIDEO_ID = "";
-
-// Comparatif d'interface — mêmes visuels réels que /solutions/sage-100-experience
-const EXPERIENCE_INTERFACE_NEW_SRC = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1785840083/dataven-new_vjtafd.png";
-const EXPERIENCE_INTERFACE_OLD_SRC = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1785840083/current-ux-sage100_quyqvd.jpg";
-
-// Nouveautés Sage 100 Expérience — mêmes descriptions réelles que /solutions/sage-100-experience
-const experienceFeatures = [
-  {
-    icon: Bot,
-    title: "Ask AI",
-    desc: "Un agent IA, un peu comme ChatGPT, capable de répondre à vos questions directement au cœur de votre gestion.",
-  },
-  {
-    icon: Wand2,
-    title: "Builder AI",
-    desc: "Un architecte numérique à vos côtés, qui vous aide à construire et personnaliser sans écrire une seule ligne de code.",
-  },
-  {
-    icon: Workflow,
-    title: "Workflows",
-    desc: "Un chef d'orchestre discret qui coordonne vos tâches et vos process, pour que tout s'enchaîne naturellement.",
-  },
-];
 
 const formSteps = ["Entreprise", "Projet", "Contact"];
 
@@ -857,71 +831,16 @@ export default function Sage100DecideursClient() {
       {/* ── CHIFFRES CLÉS ── */}
       <KpiSection />
 
-      {/* ── SAGE 100 EXPÉRIENCE — nouveautés : interface web, Ask AI, Builder AI, Workflows ── */}
-      <section className="py-20 lg:py-24 bg-white" id="sage100-experience">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <FadeIn>
-            <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold text-cta uppercase tracking-widest mb-3">Sage 100 Expérience</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 max-w-2xl mx-auto">
-                Une nouvelle expérience, pensée pour votre <span className="text-cta">quotidien</span>
-              </h2>
-              <p className="text-secondary max-w-xl mx-auto leading-relaxed">
-                Une interface web repensée et des fonctionnalités intelligentes, pour une gestion plus simple, plus rapide et plus intuitive.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <FadeIn delay={0.1}>
-              <div>
-                <p className="text-sm font-bold text-primary mb-1">Une interface repensée</p>
-                <p className="text-xs text-secondary mb-4">Faites glisser le curseur pour comparer l&apos;ancienne et la nouvelle interface Sage 100.</p>
-                <div className="rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                  <CompareSlider
-                    beforeSrc={EXPERIENCE_INTERFACE_OLD_SRC}
-                    afterSrc={EXPERIENCE_INTERFACE_NEW_SRC}
-                    beforeLabel="Ancienne interface"
-                    afterLabel="Nouvelle interface"
-                  />
-                </div>
-              </div>
-            </FadeIn>
-
-            <div className="space-y-5">
-              {experienceFeatures.map((f, i) => (
-                <FadeIn key={f.title} delay={0.15 + i * 0.1}>
-                  <div className="flex items-start gap-4 p-5 rounded-2xl border border-slate-200 bg-bg hover:border-cta/40 hover:shadow-sm transition-all duration-200">
-                    <div className="w-11 h-11 rounded-xl bg-cta/10 flex items-center justify-center shrink-0">
-                      <f.icon size={20} className="text-cta" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-primary mb-1">{f.title}</h3>
-                      <p className="text-xs text-secondary leading-relaxed">{f.desc}</p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-
-              <FadeIn delay={0.5}>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <Link
-                    href="/solutions/sage-100-experience"
-                    className="inline-flex items-center gap-2 border border-slate-200 text-primary font-semibold text-sm px-5 py-3 rounded-xl hover:border-cta/40 hover:bg-blue-50 transition-colors"
-                  >
-                    Découvrir Sage 100 Expérience
-                  </Link>
-                  <button
-                    onClick={() => scrollToForm("experience")}
-                    className="inline-flex items-center gap-2 bg-cta text-white font-bold text-sm px-5 py-3 rounded-xl hover:bg-blue-600 transition-colors cursor-pointer"
-                  >
-                    Demander un devis <ArrowRight size={14} aria-hidden="true" />
-                  </button>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
+      {/* ── SAGE 100 EXPÉRIENCE — visuel prêt à l'emploi ── */}
+      <section className="bg-white" id="sage100-experience">
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791284207/Thales_Informatique_Sage_100_Experience_avec_Ask_AI_Builder_AI_et_Workflows_pour_automatiser_et_optimiser_la_gestion_d_entreprise_ayjhuy.webp"
+          alt="Sage 100 Expérience avec Ask AI, Builder AI et Workflows pour automatiser et optimiser la gestion d'entreprise"
+          width={1600}
+          height={900}
+          sizes="100vw"
+          className="w-full h-auto block"
+        />
       </section>
 
       {/* ── TROPHÉES & DISTINCTIONS — même composant que la page d'accueil ── */}
