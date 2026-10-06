@@ -20,7 +20,6 @@ import {
   Wallet,
   ServerCog,
   ShoppingCart,
-  TrendingUp,
   CheckCircle2,
   ShieldCheck,
   Award,
@@ -30,8 +29,6 @@ import {
   Boxes,
   Landmark,
   Layers,
-  GraduationCap,
-  LifeBuoy,
   RefreshCw,
   Wrench,
   Star,
@@ -200,15 +197,6 @@ const kpis = [
 
 // Témoignages vidéo — les mêmes que la page d'accueil, sans Soremar (client Sage X3, hors périmètre de cette page dédiée à Sage 100).
 const sage100Testimonials = allTestimonials.filter((t) => t.company !== "SOREMAR GROUP");
-
-const differentiators = [
-  { icon: Sparkles, label: "Conseil et cadrage du projet" },
-  { icon: Wrench, label: "Paramétrage et intégration" },
-  { icon: GraduationCap, label: "Formation des utilisateurs" },
-  { icon: RefreshCw, label: "Accompagnement au changement" },
-  { icon: LifeBuoy, label: "Support et assistance" },
-  { icon: TrendingUp, label: "Évolution de la solution dans la durée" },
-];
 
 const processSteps = [
   { num: "01", title: "Échange", desc: "Analyse de votre contexte et de vos enjeux." },
@@ -859,36 +847,16 @@ export default function Sage100DecideursClient() {
         />
       </div>
 
-      {/* ── POURQUOI THALÈS INFORMATIQUE ── */}
-      <section className="py-20 lg:py-24 bg-bg">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <FadeIn>
-            <span className="text-xs font-bold text-cta tracking-widest uppercase">L&apos;expertise Thalès Informatique</span>
-            <h2 className="text-3xl font-bold text-primary mt-2 mb-5">Bien plus qu&apos;un intégrateur, un partenaire de votre réussite</h2>
-            <p className="text-secondary leading-relaxed mb-7">
-              Depuis plus de 30 ans, Thalès Informatique accompagne les entreprises dans la mise en place, l&apos;évolution et l&apos;optimisation de leurs solutions de gestion.
-            </p>
-            <ul className="grid sm:grid-cols-2 gap-3 mb-7">
-              {differentiators.map((d) => (
-                <li key={d.label} className="flex items-center gap-2.5 text-sm text-secondary">
-                  <CheckCircle2 size={16} className="text-cta shrink-0" aria-hidden="true" />
-                  {d.label}
-                </li>
-              ))}
-            </ul>
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-4 py-2.5">
-              <Award size={18} className="text-cta" aria-hidden="true" />
-              <span className="text-sm font-bold text-primary">+30 ans d&apos;expérience</span>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            {/* Emplacement photo — à remplacer par une vraie photo d'un consultant Thalès en situation client */}
-            <div className="aspect-[4/3] rounded-2xl bg-primary/5 border border-slate-200 flex flex-col items-center justify-center gap-3 text-secondary">
-              <Users size={36} className="text-slate-300" aria-hidden="true" />
-              <span className="text-sm">Photo à intégrer</span>
-            </div>
-          </FadeIn>
-        </div>
+      {/* ── POURQUOI THALÈS INFORMATIQUE — visuel prêt à l'emploi ── */}
+      <section className="bg-bg">
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791285736/Thal%C3%A8s_Informatique_nouveaut%C3%A9s_et_mises_%C3%A0_jour_Sage_100_avec_guides_PDF_pratiques_l%C3%A9gaux_et_conformes_uoidiv.webp"
+          alt="Thalès Informatique — nouveautés et mises à jour Sage 100 avec guides PDF pratiques, légaux et conformes"
+          width={1600}
+          height={900}
+          sizes="100vw"
+          className="w-full h-auto block"
+        />
       </section>
 
       {/* ── PROCESSUS ── */}
