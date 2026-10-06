@@ -831,7 +831,7 @@ export default function Sage100DecideursClient() {
       {/* ── CHIFFRES CLÉS ── */}
       <KpiSection />
 
-      {/* ── SAGE 100 EXPÉRIENCE — visuel prêt à l'emploi ── */}
+      {/* ── SAGE 100 EXPÉRIENCE — visuels prêts à l'emploi (desktop + mobile) ── */}
       <section className="bg-white" id="sage100-experience">
         <Image
           src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791284207/Thales_Informatique_Sage_100_Experience_avec_Ask_AI_Builder_AI_et_Workflows_pour_automatiser_et_optimiser_la_gestion_d_entreprise_ayjhuy.webp"
@@ -839,7 +839,15 @@ export default function Sage100DecideursClient() {
           width={1600}
           height={900}
           sizes="100vw"
-          className="w-full h-auto block"
+          className="hidden md:block w-full h-auto"
+        />
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791284392/Thales_Informatique_Sage_100_Experience_avec_Ask_AI_Builder_AI_et_Workflows_pour_automatiser_et_optimiser_la_gestion_d_entreprise_mobile_qhe76a.webp"
+          alt="Sage 100 Expérience avec Ask AI, Builder AI et Workflows pour automatiser et optimiser la gestion d'entreprise"
+          width={800}
+          height={1200}
+          sizes="100vw"
+          className="md:hidden w-full h-auto"
         />
       </section>
 
