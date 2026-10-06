@@ -914,18 +914,6 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section id="faq" className="py-20 lg:py-24 bg-bg scroll-mt-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <FadeIn>
-            <h2 className="text-3xl font-bold text-primary text-center mb-10">Questions fréquentes</h2>
-          </FadeIn>
-          <div className="space-y-3">
-            {faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
-          </div>
-        </div>
-      </section>
-
       {/* ── CTA FINAL + FORMULAIRE ── */}
       <section id="formulaire" className="py-20 lg:py-24 bg-primary relative overflow-hidden scroll-mt-16">
         <Image
@@ -1139,6 +1127,18 @@ export default function Sage100DecideursClient() {
               )}
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section id="faq" className="py-20 lg:py-24 bg-bg scroll-mt-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <FadeIn>
+            <h2 className="text-3xl font-bold text-primary text-center mb-10">Questions fréquentes</h2>
+          </FadeIn>
+          <div className="space-y-3">
+            {faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
+          </div>
         </div>
       </section>
 
