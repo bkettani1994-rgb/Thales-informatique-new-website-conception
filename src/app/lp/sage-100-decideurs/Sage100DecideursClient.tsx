@@ -858,10 +858,10 @@ export default function Sage100DecideursClient() {
           className="hidden md:block w-full h-auto"
         />
         <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791285736/Thal%C3%A8s_Informatique_nouveaut%C3%A9s_et_mises_%C3%A0_jour_Sage_100_avec_guides_PDF_pratiques_l%C3%A9gaux_et_conformes_uoidiv.webp"
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791286628/Thal%C3%A8s_Informatique_nouveaut%C3%A9s_et_mises_%C3%A0_jour_Sage_100_avec_guides_PDF_pratiques_l%C3%A9gaux_et_conformes_mobile_tev3yb.webp"
           alt="Thalès Informatique — nouveautés et mises à jour Sage 100 avec guides PDF pratiques, légaux et conformes"
-          width={1600}
-          height={900}
+          width={800}
+          height={1200}
           sizes="100vw"
           className="md:hidden w-full h-auto"
         />
