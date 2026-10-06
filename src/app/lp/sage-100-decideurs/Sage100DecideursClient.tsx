@@ -107,72 +107,84 @@ const modules = [
     title: "Gestion commerciale",
     desc: "Devis, commandes, livraisons, facturation et suivi clients.",
     image: "/images/modules-sage100/gestion-commerciale.webp",
+    tag: "Commercial",
   },
   {
     icon: Landmark,
     title: "Comptabilité",
     desc: "Comptabilité générale, analytique et budgétaire.",
     image: "/images/modules-sage100/comptabilite.webp",
+    tag: "Finance",
   },
   {
     icon: Wallet,
     title: "Trésorerie",
     desc: "Suivi de trésorerie et rapprochements bancaires.",
     image: "/images/modules-sage100/tresorerie.webp",
+    tag: "Finance",
   },
   {
     icon: Boxes,
     title: "Immobilisations",
     desc: "Gestion et suivi du parc d'immobilisations.",
     image: "/images/modules-sage100/immobilisations.webp",
+    tag: "Finance",
   },
   {
     icon: CreditCard,
     title: "Moyen de paiement",
     desc: "Gestion des règlements et modes de paiement.",
     image: "/images/modules-sage100/moyen-de-paiement.webp",
+    tag: "Finance",
   },
   {
     icon: Clock,
     title: "Délai de paiement",
     desc: "Suivi des échéances et délais de règlement.",
     image: "/images/modules-sage100/delai-de-paiement.webp",
+    tag: "Légal",
   },
   {
     icon: Percent,
     title: "TVA Manager",
     desc: "Gestion et déclaration automatisées de la TVA.",
     image: "/images/modules-sage100/tva-manager.webp",
+    tag: "Légal",
   },
   {
     icon: Receipt,
     title: "La RAS",
     desc: "Gestion de la retenue à la source.",
     image: "/images/modules-sage100/ras.webp",
+    tag: "Légal",
   },
   {
     icon: Wrench,
     title: "La production (Industrie)",
     desc: "Planification, suivi de production et gestion des coûts.",
     image: "/images/modules-sage100/production.webp",
+    tag: "Industrie",
   },
   {
     icon: FileSpreadsheet,
     title: "États comptables & fiscaux",
     desc: "Génération des états comptables et fiscaux réglementaires.",
     image: "/images/modules-sage100/etats-comptables-fiscaux.webp",
+    tag: "Légal",
   },
   {
     icon: BarChart2,
     title: "BI Reporting",
     desc: "Tableaux de bord et indicateurs en temps réel.",
     image: "/images/modules-sage100/bi-reporting.webp",
+    tag: "Pilotage",
   },
   {
     icon: Building2,
     title: "Entreprise",
     desc: "Pilotage multi-sociétés et données centralisées.",
     image: "/images/modules-sage100/entreprise.webp",
+    tag: "Multi-sociétés",
   },
 ];
 
@@ -756,6 +768,9 @@ export default function Sage100DecideursClient() {
                         aria-hidden="true"
                       />
                     )}
+                    <span className="absolute top-2.5 left-2.5 z-10 text-[10px] font-bold text-white bg-primary/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                      {m.tag}
+                    </span>
                   </div>
                   <div className="px-5 pb-5 pt-0 relative">
                     <div className="w-12 h-12 rounded-xl bg-blue-50 border-4 border-white shadow-sm flex items-center justify-center -mt-6 mb-3 relative z-10">
