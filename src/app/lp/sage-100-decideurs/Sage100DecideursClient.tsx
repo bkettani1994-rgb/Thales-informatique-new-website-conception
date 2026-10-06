@@ -11,8 +11,7 @@ import Testimonials, { testimonials as allTestimonials } from "@/components/sect
 import { trackEvent } from "@/lib/analytics";
 import {
   ArrowRight,
-  ChevronRight,
-  ChevronLeft,
+  ChevronsLeftRight,
   ChevronDown,
   Menu,
   X,
@@ -265,6 +264,88 @@ function KpiCounter({ target, suffix, running }: { target: number; suffix: strin
   );
 }
 
+function CompareSlider({
+  beforeSrc,
+  afterSrc,
+  beforeLabel,
+  afterLabel,
+}: {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeLabel: string;
+  afterLabel: string;
+}) {
+  const [pos, setPos] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
+
+  const updateFromClientX = (clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const ratio = ((clientX - rect.left) / rect.width) * 100;
+    setPos(Math.min(100, Math.max(0, ratio)));
+  };
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      if (draggingRef.current) updateFromClientX(e.clientX);
+    };
+    const onUp = () => {
+      draggingRef.current = false;
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full aspect-[16/9] sm:aspect-[16/7] select-none touch-none overflow-hidden"
+      onPointerDown={(e) => {
+        draggingRef.current = true;
+        updateFromClientX(e.clientX);
+      }}
+    >
+      <Image src={afterSrc} alt={afterLabel} fill sizes="100vw" className="object-cover pointer-events-none" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+        <Image src={beforeSrc} alt={beforeLabel} fill sizes="100vw" className="object-cover" />
+      </div>
+
+      <span className="absolute top-4 left-4 text-[11px] font-bold text-white bg-primary/50 backdrop-blur-sm px-3 py-1 rounded-full pointer-events-none">
+        {beforeLabel}
+      </span>
+      <span className="absolute top-4 right-4 text-[11px] font-bold text-white bg-primary/50 backdrop-blur-sm px-3 py-1 rounded-full pointer-events-none">
+        {afterLabel}
+      </span>
+
+      <div className="absolute inset-y-0 w-0.5 bg-white/90 pointer-events-none" style={{ left: `${pos}%` }} />
+
+      <button
+        type="button"
+        aria-label={`Comparer ${beforeLabel} / ${afterLabel}`}
+        className="absolute top-1/2 w-11 h-11 rounded-full bg-white border-2 border-cta shadow-lg flex items-center justify-center -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing touch-none"
+        style={{ left: `${pos}%` }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
+          draggingRef.current = true;
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - 3));
+          if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + 3));
+        }}
+      >
+        <ChevronsLeftRight size={18} className="text-cta" aria-hidden="true" />
+      </button>
+    </div>
+  );
+}
+
 function KpiSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -398,30 +479,6 @@ export default function Sage100DecideursClient() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formStarted, setFormStarted] = useState(false);
-  const [cloudSlide, setCloudSlide] = useState(0);
-  const [cloudScrollRatio, setCloudScrollRatio] = useState(0);
-  const cloudScrollRef = useRef<HTMLDivElement>(null);
-
-  const scrollToCloudSlide = (index: number) => {
-    const el = cloudScrollRef.current;
-    if (!el) return;
-    el.scrollTo({ left: index * el.clientWidth, behavior: "smooth" });
-  };
-
-  const handleCloudScroll = () => {
-    const el = cloudScrollRef.current;
-    if (!el) return;
-    setCloudSlide(Math.round(el.scrollLeft / el.clientWidth));
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    setCloudScrollRatio(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
-  };
-
-  const handleCloudScrollbarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const el = cloudScrollRef.current;
-    if (!el) return;
-    const ratio = Number(e.target.value) / 100;
-    el.scrollLeft = ratio * (el.scrollWidth - el.clientWidth);
-  };
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -736,122 +793,13 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── SAGE 100 CLOUD — visuels dédiés desktop (jour/nuit, scrollable) et mobile ── */}
-      <section className="relative overflow-hidden bg-primary">
-        {/* Desktop : 2 visuels (jour à gauche, nuit à droite) — défilement horizontal */}
-        <div className="hidden md:block">
-          <div className="relative">
-            <div
-              ref={cloudScrollRef}
-              onScroll={handleCloudScroll}
-              className="flex overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              <Image
-                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
-                alt="Sage 100 Cloud — version jour"
-                width={1600}
-                height={700}
-                sizes="100vw"
-                className="w-full h-auto shrink-0"
-              />
-              <Image
-                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
-                alt="Sage 100 Cloud — version nuit"
-                width={1600}
-                height={700}
-                sizes="100vw"
-                className="w-full h-auto shrink-0"
-              />
-            </div>
-
-            {/* Flèches de navigation */}
-            <button
-              onClick={() => scrollToCloudSlide(0)}
-              aria-label="Voir la version jour"
-              className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 0 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-            >
-              <ChevronLeft size={20} className="text-primary" aria-hidden="true" />
-            </button>
-            <button
-              onClick={() => scrollToCloudSlide(1)}
-              aria-label="Voir la version nuit"
-              className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 1 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-            >
-              <ChevronRight size={20} className="text-primary" aria-hidden="true" />
-            </button>
-
-            {/* Points + libellés */}
-            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-4">
-              {["Jour", "Nuit"].map((label, i) => (
-                <button
-                  key={label}
-                  onClick={() => scrollToCloudSlide(i)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer backdrop-blur-sm ${
-                    cloudSlide === i ? "bg-white text-primary" : "bg-white/20 text-white hover:bg-white/30"
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${cloudSlide === i ? "bg-cta" : "bg-white/70"}`} />
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Barre de défilement visible — glisser pour voir l'image en entier */}
-          <div className="relative px-8 py-6 flex items-center">
-            <div className="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-px bg-cta/30" aria-hidden="true" />
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={0.1}
-              value={cloudScrollRatio * 100}
-              onChange={handleCloudScrollbarChange}
-              aria-label="Faire défiler les visuels jour / nuit"
-              className="cloud-scrub-input relative w-full h-9 appearance-none bg-transparent cursor-grab active:cursor-grabbing"
-            />
-          </div>
-          <style jsx>{`
-            .cloud-scrub-input::-webkit-slider-runnable-track {
-              background: transparent;
-              height: 2px;
-            }
-            .cloud-scrub-input::-webkit-slider-thumb {
-              -webkit-appearance: none;
-              appearance: none;
-              width: 40px;
-              height: 40px;
-              border-radius: 9999px;
-              background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg>') center / 18px no-repeat;
-              border: 2px solid #0369a1;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-              cursor: grab;
-              margin-top: -19px;
-            }
-            .cloud-scrub-input::-moz-range-track {
-              background: transparent;
-              height: 2px;
-            }
-            .cloud-scrub-input::-moz-range-thumb {
-              width: 40px;
-              height: 40px;
-              border-radius: 9999px;
-              background: #ffffff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%230369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5"/><path d="m15 7 5 5-5 5"/></svg>') center / 18px no-repeat;
-              border: 2px solid #0369a1;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-              cursor: grab;
-            }
-          `}</style>
-        </div>
-
-        {/* Mobile */}
-        <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791276196/Sage_100_Cloud___travaillez_librement_lgteay.png"
-          alt="Travaillez librement avec Sage 100 dans le cloud"
-          width={800}
-          height={1000}
-          sizes="100vw"
-          className="md:hidden w-full h-auto"
+      {/* ── SAGE 100 CLOUD — comparateur jour / nuit interactif et responsive ── */}
+      <section className="bg-primary">
+        <CompareSlider
+          beforeSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
+          afterSrc="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
+          beforeLabel="Jour"
+          afterLabel="Nuit"
         />
       </section>
 
