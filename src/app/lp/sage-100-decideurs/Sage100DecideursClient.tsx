@@ -944,7 +944,7 @@ export default function Sage100DecideursClient() {
                 <>
                   <h3 className="text-xl font-bold text-primary mb-1.5">Demandez votre devis Sage 100</h3>
                   <p className="text-secondary text-sm mb-5 leading-relaxed">
-                    30 secondes pour remplir le formulaire : un consultant certifié prépare ensuite une démonstration adaptée à votre activité.
+                    30 secondes pour remplir le formulaire : un consultant certifié vous recontacte ensuite avec une offre adaptée à votre activité.
                   </p>
 
                   {/* Barre de progression */}
@@ -1107,7 +1107,7 @@ export default function Sage100DecideursClient() {
                             type="submit" disabled={loading}
                             className="flex-1 inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-blue-600 transition-colors duration-200 disabled:opacity-60 cursor-pointer"
                           >
-                            {loading ? "Envoi en cours..." : "Recevoir ma démo"}
+                            {loading ? "Envoi en cours..." : "Recevoir mon devis"}
                             {!loading && <ArrowRight size={16} aria-hidden="true" />}
                           </button>
                         </div>
