@@ -711,15 +711,23 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── SAGE 100 CLOUD — visuel pleine largeur desktop, version mobile à intégrer séparemment ── */}
-      <section className="hidden md:block relative overflow-hidden bg-primary">
+      {/* ── SAGE 100 CLOUD — visuels dédiés desktop et mobile ── */}
+      <section className="relative overflow-hidden bg-primary">
         <Image
           src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
           alt="Travaillez librement avec Sage 100 dans le cloud"
           width={1600}
           height={700}
           sizes="100vw"
-          className="w-full h-auto block"
+          className="hidden md:block w-full h-auto"
+        />
+        <Image
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791276196/Sage_100_Cloud___travaillez_librement_lgteay.png"
+          alt="Travaillez librement avec Sage 100 dans le cloud"
+          width={800}
+          height={1000}
+          sizes="100vw"
+          className="md:hidden w-full h-auto"
         />
       </section>
 
