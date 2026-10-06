@@ -1152,7 +1152,7 @@ export default function Sage100DecideursClient() {
               <img
                 src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772719817/Sage_Partner-Badge_Business-Partner-Platinum_Full-Colour_RGB_jvbprx.jpg"
                 alt="Sage Business Partner Platinum"
-                className="h-16 w-auto rounded-lg"
+                className="h-8 w-auto rounded-lg"
               />
             </div>
 
