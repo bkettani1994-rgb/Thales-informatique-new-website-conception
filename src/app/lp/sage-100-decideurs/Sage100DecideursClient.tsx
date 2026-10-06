@@ -770,7 +770,7 @@ export default function Sage100DecideursClient() {
                         aria-hidden="true"
                       />
                     )}
-                    <span className="absolute top-2.5 left-2.5 z-10 text-[10px] font-bold text-white bg-primary/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                    <span className="absolute top-2.5 left-2.5 z-10 text-[10px] font-bold text-white bg-cta px-2.5 py-1 rounded-full shadow-md ring-1 ring-white/30">
                       {m.tag}
                     </span>
                   </div>
