@@ -942,8 +942,8 @@ export default function Sage100DecideursClient() {
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold text-primary mb-1.5">Demandez votre devis Sage 100</h3>
-                  <p className="text-secondary text-sm mb-5 leading-relaxed">
+                  <h3 className="text-xl font-bold text-primary mb-1.5 text-center">Demandez votre devis Sage 100</h3>
+                  <p className="text-secondary text-sm mb-5 leading-relaxed text-center">
                     30 secondes pour remplir le formulaire : un consultant certifié vous recontacte ensuite avec une offre adaptée à votre activité.
                   </p>
 
