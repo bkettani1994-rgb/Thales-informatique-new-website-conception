@@ -12,6 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 import {
   ArrowRight,
   ChevronRight,
+  ChevronLeft,
   ChevronDown,
   Menu,
   X,
@@ -397,6 +398,20 @@ export default function Sage100DecideursClient() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formStarted, setFormStarted] = useState(false);
+  const [cloudSlide, setCloudSlide] = useState(0);
+  const cloudScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollToCloudSlide = (index: number) => {
+    const el = cloudScrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: index * el.clientWidth, behavior: "smooth" });
+  };
+
+  const handleCloudScroll = () => {
+    const el = cloudScrollRef.current;
+    if (!el) return;
+    setCloudSlide(Math.round(el.scrollLeft / el.clientWidth));
+  };
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -711,16 +726,67 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── SAGE 100 CLOUD — visuels dédiés desktop et mobile ── */}
+      {/* ── SAGE 100 CLOUD — visuels dédiés desktop (jour/nuit, scrollable) et mobile ── */}
       <section className="relative overflow-hidden bg-primary">
-        <Image
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791220244/Travaillez_librement_avec_Sage_Cloud_arlhkx.png"
-          alt="Travaillez librement avec Sage 100 dans le cloud"
-          width={1600}
-          height={700}
-          sizes="100vw"
-          className="hidden md:block w-full h-auto"
-        />
+        {/* Desktop : 2 visuels (jour à gauche, nuit à droite) — défilement horizontal */}
+        <div className="hidden md:block relative">
+          <div
+            ref={cloudScrollRef}
+            onScroll={handleCloudScroll}
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <Image
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277902/1_sz2sek.png"
+              alt="Sage 100 Cloud — version jour"
+              width={1600}
+              height={700}
+              sizes="100vw"
+              className="w-full h-auto shrink-0 snap-start"
+            />
+            <Image
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791277922/2_ssdp3t.png"
+              alt="Sage 100 Cloud — version nuit"
+              width={1600}
+              height={700}
+              sizes="100vw"
+              className="w-full h-auto shrink-0 snap-start"
+            />
+          </div>
+
+          {/* Flèches de navigation */}
+          <button
+            onClick={() => scrollToCloudSlide(0)}
+            aria-label="Voir la version jour"
+            className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 0 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+          >
+            <ChevronLeft size={20} className="text-primary" aria-hidden="true" />
+          </button>
+          <button
+            onClick={() => scrollToCloudSlide(1)}
+            aria-label="Voir la version nuit"
+            className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center cursor-pointer transition-opacity duration-200 ${cloudSlide === 1 ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+          >
+            <ChevronRight size={20} className="text-primary" aria-hidden="true" />
+          </button>
+
+          {/* Points + libellés */}
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-4">
+            {["Jour", "Nuit"].map((label, i) => (
+              <button
+                key={label}
+                onClick={() => scrollToCloudSlide(i)}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer backdrop-blur-sm ${
+                  cloudSlide === i ? "bg-white text-primary" : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                <span className={`w-1.5 h-1.5 rounded-full ${cloudSlide === i ? "bg-cta" : "bg-white/70"}`} />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile */}
         <Image
           src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791276196/Sage_100_Cloud___travaillez_librement_lgteay.png"
           alt="Travaillez librement avec Sage 100 dans le cloud"
