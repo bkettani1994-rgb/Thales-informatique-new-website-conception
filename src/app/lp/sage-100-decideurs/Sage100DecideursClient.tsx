@@ -942,9 +942,9 @@ export default function Sage100DecideursClient() {
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold text-primary mb-1.5">Demandez votre démo Sage 100</h3>
+                  <h3 className="text-xl font-bold text-primary mb-1.5">Demandez votre devis Sage 100</h3>
                   <p className="text-secondary text-sm mb-5 leading-relaxed">
-                    Un consultant certifié prépare une démonstration adaptée à votre activité.
+                    30 secondes pour remplir le formulaire : un consultant certifié prépare ensuite une démonstration adaptée à votre activité.
                   </p>
 
                   {/* Barre de progression */}
