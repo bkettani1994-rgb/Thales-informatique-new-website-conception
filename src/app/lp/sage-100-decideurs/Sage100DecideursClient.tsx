@@ -17,6 +17,8 @@ import {
   X,
   Send,
   Phone,
+  Mail,
+  MapPin,
   Wallet,
   ServerCog,
   ShoppingCart,
@@ -1133,13 +1135,68 @@ export default function Sage100DecideursClient() {
         </div>
       </section>
 
-      {/* ── FOOTER MINIMAL ── */}
-      <footer className="py-8 bg-primary border-t border-white/10 pb-24 lg:pb-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <span>© {new Date().getFullYear()} Thalès Informatique — 310 Rue Hadj Omar Riffi, Casablanca · +212 5 22 54 87 80</span>
-          <div className="flex items-center gap-4">
-            <Link href="/mentions-legales" className="hover:text-white/70 transition-colors">Mentions légales</Link>
-            <Link href="/politique-de-confidentialite" className="hover:text-white/70 transition-colors">Confidentialité</Link>
+      {/* ── FOOTER ── */}
+      <footer className="bg-primary border-t border-white/10 pb-24 lg:pb-0">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 lg:py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center sm:text-left">
+            {/* Marque + certification */}
+            <div className="flex flex-col items-center sm:items-start">
+              <img
+                src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1780666585/thales_logo_blanc_petit_abarsy.png"
+                alt="Thalès Informatique"
+                className="h-9 w-auto mb-4"
+              />
+              <p className="text-white/60 text-xs leading-relaxed mb-4 max-w-[240px]">
+                Votre partenaire de confiance pour la transformation digitale des entreprises, depuis plus de 30 ans.
+              </p>
+              <span className="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white text-xs font-semibold px-3.5 py-2 rounded-lg">
+                <ShieldCheck size={14} className="text-accent shrink-0" aria-hidden="true" />
+                Sage Business Partner Platinum
+              </span>
+            </div>
+
+            {/* Contact */}
+            <div className="flex flex-col items-center sm:items-start">
+              <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Nous contacter</h4>
+              <div className="space-y-2.5">
+                <a href="tel:+212522548780" className="flex items-center gap-2.5 text-white/65 hover:text-white text-sm transition-colors">
+                  <Phone size={14} className="shrink-0 text-accent" aria-hidden="true" />
+                  +212 5 22 54 87 80
+                </a>
+                <a href="mailto:contact@thales.ma" className="flex items-center gap-2.5 text-white/65 hover:text-white text-sm transition-colors">
+                  <Mail size={14} className="shrink-0 text-accent" aria-hidden="true" />
+                  contact@thales.ma
+                </a>
+                <a
+                  href="https://maps.app.goo.gl/XK8BzRFH58aUSTnU6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start justify-center sm:justify-start gap-2.5 text-white/65 hover:text-white text-sm transition-colors"
+                >
+                  <MapPin size={14} className="shrink-0 text-accent mt-0.5" aria-hidden="true" />
+                  <span>310 Rue Hadj Omar Riffi,<br />Casablanca 20120</span>
+                </a>
+              </div>
+            </div>
+
+            {/* CTA + liens légaux */}
+            <div className="flex flex-col items-center sm:items-start">
+              <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Un projet Sage 100 ?</h4>
+              <button
+                onClick={() => scrollToForm("footer")}
+                className="inline-flex items-center gap-2 bg-cta text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-blue-600 transition-colors cursor-pointer mb-5"
+              >
+                Demander un devis <ArrowRight size={14} aria-hidden="true" />
+              </button>
+              <div className="flex flex-col items-center sm:items-start gap-2 text-xs">
+                <Link href="/mentions-legales" className="text-white/50 hover:text-white/80 transition-colors">Mentions légales</Link>
+                <Link href="/politique-de-confidentialite" className="text-white/50 hover:text-white/80 transition-colors">Politique de confidentialité</Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-white/10 text-center">
+            <p className="text-white/40 text-xs">© {new Date().getFullYear()} Thalès Informatique. Tous droits réservés.</p>
           </div>
         </div>
       </footer>
