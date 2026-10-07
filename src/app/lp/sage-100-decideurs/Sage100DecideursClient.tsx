@@ -286,8 +286,10 @@ function CompareSlider({
   afterLabel: string;
 }) {
   const [pos, setPos] = useState(50);
+  const [dragging, setDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
+  const inView = useInView(containerRef, { once: true, amount: 0.5 });
 
   const updateFromClientX = (clientX: number) => {
     const el = containerRef.current;
@@ -303,6 +305,7 @@ function CompareSlider({
     };
     const onUp = () => {
       draggingRef.current = false;
+      setDragging(false);
     };
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
@@ -312,12 +315,21 @@ function CompareSlider({
     };
   }, []);
 
+  // Indice visuel au scroll : le curseur balaie gauche/droite dès que l'image entre dans l'écran, pour montrer qu'elle est interactive.
+  useEffect(() => {
+    if (!inView) return;
+    const steps = [30, 70, 45, 55, 50];
+    const timers = steps.map((value, i) => setTimeout(() => setPos(value), 500 + i * 650));
+    return () => timers.forEach(clearTimeout);
+  }, [inView]);
+
   return (
     <div
       ref={containerRef}
       className="relative w-full select-none touch-none overflow-hidden"
       onPointerDown={(e) => {
         draggingRef.current = true;
+        setDragging(true);
         updateFromClientX(e.clientX);
       }}
     >
@@ -330,7 +342,10 @@ function CompareSlider({
         sizes="100vw"
         className="w-full h-auto block pointer-events-none"
       />
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+      <div
+        className={`absolute inset-0 overflow-hidden pointer-events-none ${dragging ? "" : "transition-[clip-path] duration-700 ease-in-out"}`}
+        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
         <Image src={beforeSrc} alt={beforeLabel} fill sizes="100vw" className="object-cover" />
       </div>
 
@@ -341,16 +356,20 @@ function CompareSlider({
         {afterLabel}
       </span>
 
-      <div className="absolute inset-y-0 w-0.5 bg-white/90 pointer-events-none" style={{ left: `${pos}%` }} />
+      <div
+        className={`absolute inset-y-0 w-0.5 bg-white/90 pointer-events-none ${dragging ? "" : "transition-[left] duration-700 ease-in-out"}`}
+        style={{ left: `${pos}%` }}
+      />
 
       <button
         type="button"
         aria-label={`Comparer ${beforeLabel} / ${afterLabel}`}
-        className="absolute top-1/2 w-11 h-11 rounded-full bg-white border-2 border-cta shadow-lg flex items-center justify-center -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing touch-none"
+        className={`absolute top-1/2 w-11 h-11 rounded-full bg-white border-2 border-cta shadow-lg flex items-center justify-center -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing touch-none ${dragging ? "" : "transition-[left] duration-700 ease-in-out"}`}
         style={{ left: `${pos}%` }}
         onPointerDown={(e) => {
           e.stopPropagation();
           draggingRef.current = true;
+          setDragging(true);
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
         }}
         onKeyDown={(e) => {
