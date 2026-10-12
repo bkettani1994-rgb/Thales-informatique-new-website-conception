@@ -1,14 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 
 export default function WhatsAppButton() {
-  const pathname = usePathname();
-  // La landing RAS TVA a son propre lien WhatsApp (section finale + barre mobile) : on évite le doublon.
-  if (pathname?.startsWith("/lp/ras-tva")) return null;
-
   return (
     <motion.a
       href="https://wa.me/212661168354"
