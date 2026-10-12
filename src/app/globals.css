@@ -11,6 +11,13 @@
   --color-border: #E2E8F0;
   --font-sans: 'Poppins', sans-serif;
 
+  /* Accents campagne "RAS TVA" uniquement (landing /lp/ras-tva) — alerte/compte à rebours et validation/tampon.
+     Valeurs choisies pour un contraste AA (texte blanc) suffisant partout où l'accent sert de fond de bouton/texte. */
+  --color-signal: #F97316;
+  --color-signal-dark: #C2410C;
+  --color-ras: #15803D;
+  --color-ras-dark: #14532D;
+
   --animate-marquee: marquee 40s linear infinite;
   --animate-fade-up: fadeUp 0.6s ease-out forwards;
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
