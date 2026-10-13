@@ -293,13 +293,13 @@ function Hero() {
     <section className="pt-12 pb-16 lg:pt-20 lg:pb-24 bg-bg" id="hero">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <span className="inline-block text-[11px] font-bold text-cta uppercase tracking-widest mb-4">
-          Module RAS TVA · Sage 100 · X3 · FRP 1000
+          DAF · RAF · COMPTABLES
         </span>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-5">
-          Retenue à la source de la TVA ? <span className="text-ras">Rien à signaler.</span>
+          La RAS TVA, calculée automatiquement. <span className="text-ras">Sans aucune saisie.</span>
         </h1>
         <p className="text-lg text-secondary leading-relaxed mb-3 max-w-xl mx-auto">
-          Le module RAS TVA s&apos;ajoute à votre Sage et gère chaque retenue à votre place.
+          Intégrée à votre logiciel de gestion, la retenue se calcule à chaque facture. Votre équipe ne saisit rien de plus.
         </p>
         {days !== null && (
           <p className="text-sm font-semibold text-signal-dark mb-10">
