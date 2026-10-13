@@ -17,7 +17,6 @@ import {
   Calculator,
   ClipboardCheck,
   Cog,
-  Receipt,
   Play,
   X,
   Loader2,
@@ -501,61 +500,89 @@ function SimulatorSection() {
 ───────────────────────────────────────────────────────── */
 
 const steps = [
-  { num: "01", title: "Vous saisissez la facture", icon: ClipboardCheck },
-  { num: "02", title: "Le module vérifie l'attestation", icon: ShieldCheck },
-  { num: "03", title: "Il calcule la retenue et le net à payer", icon: Cog },
-  { num: "04", title: "Il prépare le bordereau et le relevé", icon: Receipt },
+  {
+    num: "01",
+    icon: ClipboardCheck,
+    text: "Vous saisissez la facture, comme d'habitude, dans votre logiciel de gestion.",
+  },
+  {
+    num: "02",
+    icon: Cog,
+    text: "La retenue est calculée automatiquement, au moment de la saisie.",
+  },
+  {
+    num: "03",
+    icon: CheckCircle2,
+    text: "Vous passez à la facture suivante. Aucune ressaisie, aucun fichier à côté.",
+  },
 ] as const;
 
-const erpBadges = ["Sage 100 · PME", "Sage X3 · ETI et grandes entreprises", "Sage FRP 1000 · Groupes et secteur public"];
+function StepItem({ step, index }: { step: (typeof steps)[number]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const reduced = useReducedMotion();
+  const delay = index * 0.12;
+
+  return (
+    <li ref={ref} className="relative flex items-start gap-4">
+      <motion.span
+        initial={reduced ? false : { scale: 0.6, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ duration: 0.3, delay: delay + 0.1, type: "spring", stiffness: 350, damping: 18 }}
+        className="relative z-10 w-12 h-12 rounded-full bg-cta/10 border-2 border-white flex items-center justify-center shrink-0"
+      >
+        <step.icon size={20} className="text-cta" aria-hidden="true" />
+      </motion.span>
+      <motion.p
+        initial={reduced ? false : { opacity: 0, x: -8 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.35, delay, ease: "easeOut" }}
+        className="text-base text-primary leading-relaxed pt-2.5"
+      >
+        <span className="font-bold text-cta mr-1.5">{step.num}.</span>
+        {step.text}
+      </motion.p>
+    </li>
+  );
+}
 
 function HowItWorksSection() {
   const [videoOpen, setVideoOpen] = useState(false);
 
   return (
     <section className="py-16 lg:py-20 bg-white" id="comment-ca-marche">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-12">Votre Sage s&apos;occupe de tout</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-2">Comment ça marche</h2>
+          <p className="text-secondary text-center mb-12">Trois étapes. Rien de plus.</p>
         </FadeIn>
 
-        <div className="grid sm:grid-cols-4 gap-5 mb-12">
-          {steps.map((s, i) => (
-            <FadeIn key={s.num} delay={i * 0.06}>
-              <div className="text-center">
-                <span className="w-12 h-12 rounded-xl bg-cta/10 flex items-center justify-center mx-auto mb-3">
-                  <s.icon size={20} className="text-cta" aria-hidden="true" />
-                </span>
-                <p className="text-sm font-semibold text-primary leading-snug">{s.title}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-        {/* [À VALIDER : fonctionnalités réelles du module] */}
-
-        <FadeIn delay={0.2}>
-          <div className="flex flex-wrap justify-center gap-2.5 mb-8">
-            {erpBadges.map((b) => (
-              <span key={b} className="text-xs font-semibold text-secondary bg-bg border border-slate-200 rounded-full px-4 py-2">
-                {b}
-              </span>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+          <ol className="relative space-y-8">
+            <span aria-hidden="true" className="hidden sm:block absolute left-[23px] top-3 bottom-3 w-px bg-slate-200" />
+            {steps.map((s, i) => (
+              <StepItem key={s.num} step={s} index={i} />
             ))}
-          </div>
-        </FadeIn>
+          </ol>
 
-        <FadeIn delay={0.25}>
-          <div className="text-center">
+          <FadeIn delay={0.3}>
             <button
               onClick={() => {
                 setVideoOpen(true);
                 track("demo_video_open");
               }}
-              className="inline-flex items-center gap-2 text-cta font-semibold text-sm hover:text-blue-700 transition-colors cursor-pointer"
+              className="group relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-bg flex flex-col items-center justify-center gap-3 cursor-pointer card-hover"
+              aria-label="Voir la démo du module RAS TVA"
             >
-              <Play size={14} aria-hidden="true" /> Voir la démo en 45 secondes
+              <span className="w-14 h-14 rounded-full bg-cta flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                <Play size={20} className="text-white ml-0.5" aria-hidden="true" />
+              </span>
+              <span className="text-sm font-semibold text-primary">Voir la démo en 45 secondes</span>
+              {/* [À VALIDER : vidéo de démo (30 à 45 s) ou capture d'écran réelle du module] */}
+              <span className="text-xs text-secondary">[À VALIDER : vidéo ou capture]</span>
             </button>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        </div>
       </div>
 
       {videoOpen && <VideoModal onClose={() => setVideoOpen(false)} />}
