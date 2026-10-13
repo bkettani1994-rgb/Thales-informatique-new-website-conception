@@ -12,6 +12,9 @@ import {
   Building2,
   ShieldCheck,
   Calendar,
+  Briefcase,
+  UserCog,
+  Calculator,
   ClipboardCheck,
   Cog,
   Receipt,
@@ -262,6 +265,7 @@ function Hero() {
 const noMoreTasksColumns = [
   {
     role: "Vous êtes DAF",
+    icon: Briefcase,
     tasks: [
       "Vous demander si l'équipe applique le bon calcul",
       "Ajouter une nouvelle contrainte au planning de l'équipe",
@@ -270,6 +274,7 @@ const noMoreTasksColumns = [
   },
   {
     role: "Vous êtes RAF",
+    icon: UserCog,
     tasks: [
       "Tenir un fichier Excel de suivi à côté",
       "Contrôler les montants ressaisis",
@@ -277,6 +282,7 @@ const noMoreTasksColumns = [
   },
   {
     role: "Vous êtes comptable",
+    icon: Calculator,
     tasks: [
       "Calculer la retenue à la main",
       "Ressaisir le montant dans la comptabilité",
@@ -285,25 +291,57 @@ const noMoreTasksColumns = [
   },
 ];
 
+/** Une tâche barrée en direct : le trait se dessine quand la ligne entre dans l'écran. */
+function StrikeTask({ text, delay }: { text: string; delay: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const reduced = useReducedMotion();
+
+  return (
+    <motion.li
+      ref={ref}
+      initial={reduced ? false : { opacity: 0, x: -8 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.35, delay, ease: "easeOut" }}
+      className="flex items-start gap-3"
+    >
+      <motion.span
+        initial={reduced ? false : { scale: 0, rotate: -40 }}
+        animate={inView ? { scale: 1, rotate: 0 } : {}}
+        transition={{ duration: 0.35, delay: delay + 0.1, type: "spring", stiffness: 400, damping: 15 }}
+        className="mt-0.5 w-5 h-5 rounded-full bg-signal/10 flex items-center justify-center shrink-0"
+      >
+        <X size={11} className="text-signal-dark" aria-hidden="true" />
+      </motion.span>
+      {/* Barré natif (gère correctement le retour à la ligne) */}
+      <span className="text-sm text-primary leading-relaxed line-through decoration-signal decoration-2">{text}</span>
+    </motion.li>
+  );
+}
+
 function NoMoreTasksSection() {
   return (
     <section className="py-16 lg:py-20 bg-bg">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">
-            « Ce que vous ne ferez plus » — la preuve par métier
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-2">
+            « Ce que vous ne ferez plus »
           </h2>
+          <p className="text-secondary text-center mb-10">La preuve par métier.</p>
         </FadeIn>
         <div className="grid sm:grid-cols-3 gap-5">
           {noMoreTasksColumns.map((col, i) => (
-            <FadeIn key={col.role} delay={i * 0.08}>
-              <div className="bg-white rounded-2xl border border-slate-200 h-full overflow-hidden">
-                <p className="text-sm font-bold text-primary bg-bg border-b border-slate-200 px-5 py-3">{col.role}</p>
-                <ul className="px-5 py-4 space-y-3">
-                  {col.tasks.map((t) => (
-                    <li key={t} className="text-sm text-secondary line-through decoration-signal decoration-2">
-                      {t}
-                    </li>
+            <FadeIn key={col.role} delay={i * 0.1}>
+              <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-5">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <span className="w-9 h-9 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
+                    <col.icon size={16} className="text-cta" aria-hidden="true" />
+                  </span>
+                  <p className="text-sm font-bold text-primary">{col.role}</p>
+                </div>
+                <ul className="space-y-4">
+                  {col.tasks.map((t, j) => (
+                    <StrikeTask key={t} text={t} delay={0.15 + j * 0.15} />
                   ))}
                 </ul>
               </div>
