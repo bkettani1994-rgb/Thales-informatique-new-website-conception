@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   ChevronDown,
   Building2,
-  Landmark,
   ShieldCheck,
   Calendar,
   ClipboardCheck,
@@ -22,7 +21,7 @@ import {
   Award,
   Trophy,
 } from "lucide-react";
-import { SEUIL_DATE_ISO, faqs } from "./data";
+import { faqs } from "./data";
 
 // Footer réel du site, chargé à la demande (bas de page) pour alléger le JS initial.
 const Footer = dynamic(() => import("@/components/ui/Footer"));
@@ -134,57 +133,6 @@ function formatDH(n: number) {
   return `${grouped} DH`;
 }
 
-/** Tampon encreur "R.A.S." en SVG — seule animation de la page, jouée une fois au chargement du hero. */
-function RasStamp({ size = 140, trigger = true, className = "" }: { size?: number; trigger?: boolean; className?: string }) {
-  const reduced = useReducedMotion();
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, scale: 2.2 }}
-      animate={
-        reduced
-          ? { opacity: 1, scale: 1 }
-          : trigger
-          ? { opacity: 1, scale: [2.2, 0.9, 1.05, 1], rotate: [-8, -8, -6, -8] }
-          : { opacity: 0, scale: 2.2 }
-      }
-      transition={{ duration: 0.7, ease: "easeOut", times: [0, 0.55, 0.8, 1] }}
-      className={className}
-      style={{ width: size, height: size }}
-    >
-      <svg viewBox="0 0 200 200" width={size} height={size} role="img" aria-label="R.A.S.">
-        <path
-          d="M28 36 C 20 50, 24 70, 18 92 C 12 112, 26 128, 20 150 C 16 168, 36 176, 58 172 C 82 180, 104 174, 128 178 C 150 182, 176 172, 172 150 C 180 130, 170 112, 178 90 C 184 70, 172 50, 176 32 C 180 14, 158 22, 136 16 C 112 10, 90 18, 66 12 C 44 8, 36 20, 28 36 Z"
-          fill="none"
-          stroke="var(--color-ras)"
-          strokeWidth="6"
-        />
-        <text
-          x="100"
-          y="100"
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontFamily="var(--font-sans)"
-          fontWeight={800}
-          fontSize="40"
-          letterSpacing="2"
-          fill="var(--color-ras)"
-        >
-          R.A.S.
-        </text>
-      </svg>
-    </motion.div>
-  );
-}
-
-function useDaysUntilSeuil() {
-  const [days, setDays] = useState<number | null>(null);
-  useEffect(() => {
-    const target = new Date(SEUIL_DATE_ISO).getTime();
-    const nowCasa = new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Casablanca" })).getTime();
-    setDays(Math.ceil((target - nowCasa) / (1000 * 60 * 60 * 24)));
-  }, []);
-  return days;
-}
 
 /* ─────────────────────────────────────────────────────────
    Modale vidéo accessible (démo 45s)
@@ -283,11 +231,6 @@ function VideoModal({ onClose }: { onClose: () => void }) {
 
 function Hero() {
   const { scrollToForm } = useRasTva();
-  const days = useDaysUntilSeuil();
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduced = useReducedMotion();
-  const stampTrigger = reduced || inView;
 
   return (
     <section className="pt-12 pb-16 lg:pt-20 lg:pb-24 bg-bg" id="hero">
@@ -301,36 +244,6 @@ function Hero() {
         <p className="text-lg text-secondary leading-relaxed mb-3 max-w-xl mx-auto">
           Intégrée à votre logiciel de gestion, la retenue se calcule à chaque facture. Votre équipe ne saisit rien de plus.
         </p>
-        {days !== null && (
-          <p className="text-sm font-semibold text-signal-dark mb-10">
-            {days > 0 ? <>Palier de 350 MDH le 1er janvier 2027 · J-{days}</> : <>Le palier de 350 MDH est en vigueur depuis le 1er janvier 2027.</>}
-          </p>
-        )}
-
-        {/* Visuel : facture + tampon R.A.S. (seule animation de la page) */}
-        <div ref={ref} className="relative w-full max-w-xs mx-auto mb-10">
-          <div className="relative bg-white rounded-2xl shadow-lg border border-slate-200 p-5 text-left">
-            <p className="text-[10px] font-bold text-secondary uppercase tracking-wide mb-1">Facture n° 2027-014</p>
-            <p className="text-xl font-black text-primary mb-3">12 000 DH <span className="text-sm font-semibold text-secondary">TTC</span></p>
-            <div className="flex items-center justify-between text-xs border-t border-slate-100 pt-3">
-              <span className="text-secondary">Net fournisseur</span>
-              <span className="font-bold text-primary">10 500 DH</span>
-            </div>
-            <div className="flex items-center justify-between text-xs mt-1.5">
-              <span className="text-secondary">Retenue DGI</span>
-              <span className="font-bold text-signal-dark">1 500 DH</span>
-            </div>
-
-            <motion.div
-              animate={!reduced && stampTrigger ? { x: [0, -3, 3, -2, 0] } : {}}
-              transition={{ duration: 0.4, delay: 1.1 }}
-              className="absolute -right-5 -top-5"
-            >
-              <RasStamp size={90} trigger={stampTrigger} />
-            </motion.div>
-          </div>
-        </div>
-
         <button
           onClick={() => scrollToForm("hero")}
           className="inline-flex items-center gap-2 bg-ras text-white font-bold px-7 py-4 rounded-xl hover:bg-ras-dark transition-colors duration-200 cursor-pointer"
