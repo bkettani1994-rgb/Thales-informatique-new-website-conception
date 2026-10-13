@@ -256,6 +256,66 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   « Ce que vous ne ferez plus » — la preuve par métier
+───────────────────────────────────────────────────────── */
+
+const noMoreTasksColumns = [
+  {
+    role: "Vous êtes DAF",
+    tasks: [
+      "Vous demander si l'équipe applique le bon calcul",
+      "Ajouter une nouvelle contrainte au planning de l'équipe",
+      "Gérer un outil de plus",
+    ],
+  },
+  {
+    role: "Vous êtes RAF",
+    tasks: [
+      "Tenir un fichier Excel de suivi à côté",
+      "Contrôler les montants ressaisis",
+    ],
+  },
+  {
+    role: "Vous êtes comptable",
+    tasks: [
+      "Calculer la retenue à la main",
+      "Ressaisir le montant dans la comptabilité",
+      "Vérifier le net à payer à la calculatrice",
+    ],
+  },
+];
+
+function NoMoreTasksSection() {
+  return (
+    <section className="py-16 lg:py-20 bg-bg">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">
+            « Ce que vous ne ferez plus » — la preuve par métier
+          </h2>
+        </FadeIn>
+        <div className="grid sm:grid-cols-3 gap-5">
+          {noMoreTasksColumns.map((col, i) => (
+            <FadeIn key={col.role} delay={i * 0.08}>
+              <div className="bg-white rounded-2xl border border-slate-200 h-full overflow-hidden">
+                <p className="text-sm font-bold text-primary bg-bg border-b border-slate-200 px-5 py-3">{col.role}</p>
+                <ul className="px-5 py-4 space-y-3">
+                  {col.tasks.map((t) => (
+                    <li key={t} className="text-sm text-secondary line-through decoration-signal decoration-2">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
    Section 2 — Le problème en clair
 ───────────────────────────────────────────────────────── */
 
@@ -767,6 +827,7 @@ export default function RasTvaClient() {
         </header>
 
         <Hero />
+        <NoMoreTasksSection />
         <ProblemSection />
         <SimulatorSection />
         <HowItWorksSection />
