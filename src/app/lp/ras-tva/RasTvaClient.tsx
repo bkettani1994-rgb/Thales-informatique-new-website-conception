@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle2,
@@ -13,7 +13,8 @@ import {
   Briefcase,
   UserCog,
   Calculator,
-  ClipboardCheck,
+  FilePlus2,
+  FileCheck2,
   Cog,
   Settings,
   RefreshCcw,
@@ -23,7 +24,6 @@ import {
   Zap,
   Quote,
   Calendar,
-  Play,
   X,
   Loader2,
   Trophy,
@@ -130,97 +130,6 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
   );
 }
 
-
-/* ─────────────────────────────────────────────────────────
-   Modale vidéo accessible (démo 45s)
-───────────────────────────────────────────────────────── */
-
-// [À VALIDER : URL de la vidéo de démo 45s]
-const DEMO_VIDEO_ID = "";
-
-function VideoModal({ onClose }: { onClose: () => void }) {
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-        return;
-      }
-      if (e.key === "Tab" && dialogRef.current) {
-        const focusables = dialogRef.current.querySelectorAll<HTMLElement>('button, [href], iframe, [tabindex]:not([tabindex="-1"])');
-        if (focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  return (
-    <AnimatePresence>
-      <motion.div
-        ref={dialogRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Démo du module RAS TVA"
-        className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8"
-        onClick={onClose}
-      >
-        <div className="absolute inset-0 bg-primary/90 backdrop-blur-md" />
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden shadow-2xl bg-primary"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {DEMO_VIDEO_ID ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${DEMO_VIDEO_ID}?autoplay=1&rel=0`}
-              title="Démo du module RAS TVA"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full border-0"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-white/60">
-              <Play size={32} aria-hidden="true" />
-              <p className="text-sm font-medium">Vidéo de démo à intégrer [À VALIDER : URL vidéo]</p>
-            </div>
-          )}
-        </motion.div>
-        <button
-          ref={closeRef}
-          onClick={onClose}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors duration-200 cursor-pointer z-10"
-          aria-label="Fermer la vidéo"
-        >
-          <X size={18} aria-hidden="true" />
-        </button>
-      </motion.div>
-    </AnimatePresence>
-  );
-}
 
 /* ─────────────────────────────────────────────────────────
    Bandeau d'annonce — compte à rebours jusqu'au palier 350 MDH
@@ -594,98 +503,92 @@ function NoMoreTasksSection() {
 const steps = [
   {
     num: "01",
-    icon: ClipboardCheck,
-    text: "Vous saisissez la facture, comme d'habitude, dans votre logiciel de gestion.",
+    icon: FilePlus2,
+    title: "Vous saisissez la facture",
+    desc: "Comme d'habitude, dans votre logiciel de gestion.",
   },
   {
     num: "02",
-    icon: Cog,
-    text: "La retenue est calculée automatiquement, au moment de la saisie.",
+    icon: Calculator,
+    title: "La retenue est calculée automatiquement",
+    desc: "Au moment de la saisie de la facture.",
   },
   {
     num: "03",
-    icon: CheckCircle2,
-    text: "Vous passez à la facture suivante. Aucune ressaisie, aucun fichier à côté.",
+    icon: FileCheck2,
+    title: "Vous passez à la facture suivante",
+    desc: "Aucune ressaisie, aucun fichier à côté.",
   },
 ] as const;
 
-function StepItem({ step, index }: { step: (typeof steps)[number]; index: number }) {
+function StepCard({ step, index }: { step: (typeof steps)[number]; index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduced = useReducedMotion();
   const delay = index * 0.12;
 
   return (
-    <li ref={ref} className="relative flex items-start gap-4">
-      <motion.span
-        initial={reduced ? false : { scale: 0.6, opacity: 0 }}
-        animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ duration: 0.3, delay: delay + 0.1, type: "spring", stiffness: 350, damping: 18 }}
-        className="relative z-10 w-12 h-12 rounded-full bg-cta/10 border-2 border-white flex items-center justify-center shrink-0"
-      >
-        <step.icon size={20} className="text-cta" aria-hidden="true" />
-      </motion.span>
-      <motion.p
-        initial={reduced ? false : { opacity: 0, x: -8 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.35, delay, ease: "easeOut" }}
-        className="text-base text-primary leading-relaxed pt-2.5"
-      >
-        <span className="font-bold text-cta mr-1.5">{step.num}.</span>
-        {step.text}
-      </motion.p>
-    </li>
+    <motion.div
+      ref={ref}
+      initial={reduced ? false : { opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay, ease: "easeOut" }}
+      className="relative flex-1"
+    >
+      <span className="absolute -top-5 left-6 z-10 w-11 h-11 rounded-full bg-cta/10 border-4 border-white flex items-center justify-center text-cta font-black text-base">
+        {step.num}
+      </span>
+      <div className="bg-white border border-slate-200 lg:bg-cta/5 lg:border-cta/15 lg:shadow-sm rounded-2xl lg:rounded-none pt-10 px-8 lg:pr-16 pb-7 h-full lg:[clip-path:polygon(0%_0%,88%_0%,100%_50%,88%_100%,0%_100%)]">
+        <span className="inline-flex w-14 h-14 rounded-full bg-cta/10 items-center justify-center mb-4">
+          <step.icon size={24} className="text-cta" aria-hidden="true" />
+        </span>
+        <h3 className="text-base font-bold text-primary leading-snug mb-2">{step.title}</h3>
+        <div className="w-8 h-0.5 bg-cta/40 mb-2.5" aria-hidden="true" />
+        <p className="text-sm text-secondary leading-relaxed">{step.desc}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function StepArrow() {
+  return (
+    <div className="hidden lg:flex items-center justify-center shrink-0 w-14" aria-hidden="true">
+      <span className="flex-1 border-t-2 border-dashed border-cta/30" />
+      <span className="mx-1 w-9 h-9 rounded-full bg-cta/10 flex items-center justify-center shrink-0">
+        <ArrowRight size={14} className="text-cta" aria-hidden="true" />
+      </span>
+      <span className="flex-1 border-t-2 border-dashed border-cta/30" />
+    </div>
   );
 }
 
 function HowItWorksSection() {
-  const [videoOpen, setVideoOpen] = useState(false);
-
   return (
     <section className="py-16 lg:py-20 bg-white" id="comment-ca-marche">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
-            Comment ça marche ?
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
-            3 étapes simples, intégrées à votre logiciel.
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Comment ça marche ?</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center leading-tight mb-4">
+            <span className="text-primary">3 étapes simples,</span>
+            <br />
+            <span className="text-cta">zéro ressaisie.</span>
           </h2>
-          <p className="text-secondary text-center sm:text-left mb-12">
-            La RAS TVA se calcule automatiquement, sans intervention manuelle.
+          <p className="text-secondary text-center max-w-2xl mx-auto mb-14">
+            La RAS TVA se calcule automatiquement dans votre logiciel de gestion, au moment de la saisie de la facture.
           </p>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
-          <ol className="relative space-y-8">
-            <span aria-hidden="true" className="hidden sm:block absolute left-[23px] top-3 bottom-3 w-px bg-slate-200" />
-            {steps.map((s, i) => (
-              <StepItem key={s.num} step={s} index={i} />
-            ))}
-          </ol>
-
-          <FadeIn delay={0.3}>
-            <button
-              onClick={() => {
-                setVideoOpen(true);
-                track("demo_video_open");
-              }}
-              className="group relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-bg flex flex-col items-center justify-center gap-3 cursor-pointer card-hover"
-              aria-label="Voir la démo du module RAS TVA"
-            >
-              <span className="w-14 h-14 rounded-full bg-cta flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                <Play size={20} className="text-white ml-0.5" aria-hidden="true" />
-              </span>
-              <span className="text-sm font-semibold text-primary">Voir la démo en 45 secondes</span>
-              {/* [À VALIDER : vidéo de démo (30 à 45 s) ou capture d'écran réelle du module] */}
-              <span className="text-xs text-secondary">[À VALIDER : vidéo ou capture]</span>
-              <span className="absolute bottom-3 right-3 bg-primary/80 text-white text-[10px] font-bold px-2 py-1 rounded">0:45</span>
-            </button>
-          </FadeIn>
+        <div className="flex flex-col lg:flex-row items-stretch gap-y-10">
+          <StepCard step={steps[0]} index={0} />
+          <StepArrow />
+          <StepCard step={steps[1]} index={1} />
+          <StepArrow />
+          <StepCard step={steps[2]} index={2} />
         </div>
       </div>
-
-      {videoOpen && <VideoModal onClose={() => setVideoOpen(false)} />}
     </section>
   );
 }
