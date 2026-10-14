@@ -27,7 +27,6 @@ import {
   X,
   Loader2,
   Trophy,
-  Image as ImageIcon,
 } from "lucide-react";
 import { faqs, SEUIL_DATE_ISO } from "./data";
 
@@ -268,6 +267,9 @@ function Hero() {
    « Ce que vous ne ferez plus » — la preuve par métier
 ───────────────────────────────────────────────────────── */
 
+// Triptyque unique : un visuel large découpé en 3 (CSS background-position), un tiers par carte.
+const TRIPTYQUE_URL = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1791990853/Triptyque_bureautique_aux_accents_bleus_iv5c5p.webp";
+
 const noMoreTasksColumns = [
   {
     role: "DAF",
@@ -461,13 +463,16 @@ function NoMoreTasksSection() {
                   </ul>
                 </div>
 
-                {/* [À VALIDER : photo — fournie séparément] */}
                 <div
-                  className="absolute inset-y-0 right-0 w-[38%] sm:w-[36%] bg-slate-300 flex items-center justify-center"
-                  style={{ clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
-                >
-                  <ImageIcon size={18} className="text-slate-400" aria-hidden="true" />
-                </div>
+                  className="absolute inset-y-0 right-0 w-[38%] sm:w-[36%] bg-slate-300"
+                  style={{
+                    clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    backgroundImage: `url(${TRIPTYQUE_URL})`,
+                    backgroundSize: "300% 100%",
+                    backgroundPosition: `${i * 50}% center`,
+                  }}
+                  aria-hidden="true"
+                />
               </div>
             </FadeIn>
           ))}
