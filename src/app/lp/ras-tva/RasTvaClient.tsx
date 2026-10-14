@@ -280,9 +280,14 @@ function Hero() {
 
           <FadeIn delay={0.15}>
             <div className="relative">
-              {/* [À VALIDER : photo d'illustration — collaborateur en train de facturer] */}
-              <div className="relative aspect-[4/3] rounded-3xl bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden flex items-center justify-center">
-                <span className="text-xs font-medium text-secondary">[À VALIDER : photo]</span>
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
+                <img
+                  src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791971576/Facture_RAS_dans_un_bureau_moderne_dczegs.webp"
+                  alt="Facturation RAS TVA dans un bureau moderne"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <div className="absolute -bottom-6 -left-4 sm:left-4 w-[78%] sm:w-[70%] bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-5">
