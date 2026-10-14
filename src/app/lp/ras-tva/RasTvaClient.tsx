@@ -27,6 +27,7 @@ import {
   X,
   Loader2,
   Trophy,
+  Image as ImageIcon,
 } from "lucide-react";
 import { faqs, SEUIL_DATE_ISO } from "./data";
 
@@ -360,32 +361,37 @@ function Hero() {
 
 const noMoreTasksColumns = [
   {
-    role: "Vous êtes DAF",
+    role: "DAF",
     icon: Briefcase,
     tasks: [
       "Vous demander si l'équipe applique le bon calcul",
       "Ajouter une nouvelle contrainte au planning de l'équipe",
       "Gérer un outil de plus",
     ],
+    tags: ["Contrôle", "Calculs", "Planning", "Reporting"],
   },
   {
-    role: "Vous êtes RAF",
+    role: "RAF",
     icon: UserCog,
     tasks: [
       "Tenir un fichier Excel de suivi à côté",
       "Contrôler les montants ressaisis",
     ],
+    tags: ["Suivi", "Excel", "Contrôle"],
   },
   {
-    role: "Vous êtes comptable",
+    role: "Comptable",
     icon: Calculator,
     tasks: [
       "Calculer la retenue à la main",
       "Ressaisir le montant dans la comptabilité",
       "Vérifier le net à payer à la calculatrice",
     ],
+    tags: ["Calcul manuel", "Ressaisie", "Contrôle"],
   },
 ];
+
+const noMoreTasksBenefits = ["Plus de temps", "Plus de fiabilité", "Plus de sérénité"];
 
 /** Une tâche barrée en direct : le trait se dessine quand la ligne entre dans l'écran. */
 function StrikeTask({ text, delay }: { text: string; delay: number }) {
@@ -405,9 +411,9 @@ function StrikeTask({ text, delay }: { text: string; delay: number }) {
         initial={reduced ? false : { scale: 0, rotate: -40 }}
         animate={inView ? { scale: 1, rotate: 0 } : {}}
         transition={{ duration: 0.35, delay: delay + 0.1, type: "spring", stiffness: 400, damping: 15 }}
-        className="mt-0.5 w-5 h-5 rounded-full bg-cta/10 flex items-center justify-center shrink-0"
+        className="mt-0.5 w-5 h-5 rounded-full bg-cta flex items-center justify-center shrink-0"
       >
-        <Check size={12} className="text-cta" aria-hidden="true" />
+        <Check size={12} className="text-white" aria-hidden="true" />
       </motion.span>
       {/* Barré natif (gère correctement le retour à la ligne) */}
       <span className="text-sm text-primary leading-relaxed line-through decoration-cta decoration-2">{text}</span>
@@ -513,44 +519,83 @@ function PaliersSection() {
 function NoMoreTasksSection() {
   return (
     <section className="py-16 lg:py-20 bg-bg">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
-            Ce que vous ne ferez plus
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
-            Fini les tâches manuelles liées à la RAS TVA.
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Ce que vous ne ferez plus</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">
+            <span className="text-primary">Fini les tâches manuelles </span>
+            <span className="text-cta">liées à la RAS TVA.</span>
           </h2>
-          <p className="text-secondary text-center sm:text-left mb-10">
+          <p className="text-secondary text-center mb-10">
             Une solution qui vous fait gagner du temps, de la fiabilité et de la sérénité.
           </p>
         </FadeIn>
+
         <div className="grid sm:grid-cols-3 gap-5 mb-6">
           {noMoreTasksColumns.map((col, i) => (
             <FadeIn key={col.role} delay={i * 0.1}>
-              <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-5">
-                <div className="flex items-center gap-2.5 mb-4">
-                  <span className="w-9 h-9 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
-                    <col.icon size={16} className="text-cta" aria-hidden="true" />
-                  </span>
-                  <p className="text-sm font-bold text-primary">{col.role}</p>
+              <div className="card-hover relative bg-white rounded-2xl border border-slate-200 h-full overflow-hidden">
+                <div className="relative z-10 p-5 pr-[38%] sm:pr-[36%]">
+                  <div className="flex items-center gap-2.5 mb-5">
+                    <span className="w-11 h-11 rounded-full bg-cta flex items-center justify-center shrink-0">
+                      <col.icon size={18} className="text-white" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p className="text-[9px] font-bold text-secondary uppercase tracking-widest leading-none mb-1">Vous êtes</p>
+                      <p className="text-base font-black text-primary leading-none">{col.role}</p>
+                    </div>
+                  </div>
+                  <ul className="space-y-4">
+                    {col.tasks.map((t, j) => (
+                      <StrikeTask key={t} text={t} delay={0.15 + j * 0.15} />
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-4">
-                  {col.tasks.map((t, j) => (
-                    <StrikeTask key={t} text={t} delay={0.15 + j * 0.15} />
+
+                {/* [À VALIDER : photo — fournie séparément] */}
+                <div className="absolute inset-y-0 right-0 w-[38%] sm:w-[36%]">
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
+                    <ImageIcon size={18} className="text-slate-400" aria-hidden="true" />
+                  </div>
+                  <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent" aria-hidden="true" />
+                  {col.tags.map((tag, j) => (
+                    <span
+                      key={tag}
+                      className="absolute bg-white text-[9px] font-bold text-primary px-2 py-1 rounded shadow-sm border border-slate-100 whitespace-nowrap"
+                      style={{
+                        top: `${16 + j * 23}%`,
+                        ...(j % 2 === 0 ? { right: "6%" } : { left: "-10%" }),
+                        transform: `rotate(${j % 2 === 0 ? -3 : 3}deg)`,
+                      }}
+                    >
+                      {tag}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
             </FadeIn>
           ))}
         </div>
 
         <FadeIn delay={0.3}>
-          <div className="flex items-center justify-center gap-3 bg-cta/10 rounded-2xl px-6 py-5">
-            <Cog size={22} className="text-cta" aria-hidden="true" />
-            <p className="text-base sm:text-lg font-bold text-primary">
-              Saisies manuelles : <span className="relative text-3xl font-black text-cta">0<Zap size={16} className="absolute -right-4 -top-1 text-cta" aria-hidden="true" /></span>
-            </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 bg-cta/10 rounded-2xl px-6 py-5">
+            <div className="flex items-center gap-3">
+              <Cog size={22} className="text-cta" aria-hidden="true" />
+              <p className="text-base sm:text-lg font-bold text-primary">
+                Saisies manuelles : <span className="relative text-3xl font-black text-cta">0<Zap size={16} className="absolute -right-4 -top-1 text-cta" aria-hidden="true" /></span>
+              </p>
+            </div>
+            <div className="hidden sm:block w-px h-8 bg-cta/20" aria-hidden="true" />
+            <div className="flex items-center divide-x divide-cta/20">
+              {noMoreTasksBenefits.map((b) => (
+                <span key={b} className="flex items-center gap-1.5 px-4 first:pl-0 text-sm font-semibold text-primary whitespace-nowrap">
+                  <CheckCircle2 size={16} className="text-cta" aria-hidden="true" /> {b}
+                </span>
+              ))}
+            </div>
           </div>
         </FadeIn>
       </div>
