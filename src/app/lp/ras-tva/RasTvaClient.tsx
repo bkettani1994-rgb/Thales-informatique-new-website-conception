@@ -231,31 +231,19 @@ const trustItems = [
   { icon: Users, text: "Avec un consultant Thalès Informatique" },
 ];
 
-// [À VALIDER : photo de fond — desktop 2000×900px, mobile 1080×1500px. Voir message dédié.]
-const HERO_BG_DESKTOP = "";
-const HERO_BG_MOBILE = "";
+const HERO_BG = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1791972924/Facture_RAS_dans_un_bureau_lumineux_thales_informatique_nc60ut.webp";
 
 function Hero() {
   const { scrollToForm } = useRasTva();
 
   return (
     <section className="relative overflow-hidden min-h-[560px] sm:min-h-[600px] lg:min-h-[640px] flex items-center bg-primary" id="hero">
-      {HERO_BG_DESKTOP && (
-        <img
-          src={HERO_BG_DESKTOP}
-          alt=""
-          aria-hidden="true"
-          className="hidden sm:block absolute inset-0 w-full h-full object-cover"
-        />
-      )}
-      {HERO_BG_MOBILE && (
-        <img
-          src={HERO_BG_MOBILE}
-          alt=""
-          aria-hidden="true"
-          className="sm:hidden absolute inset-0 w-full h-full object-cover"
-        />
-      )}
+      <img
+        src={HERO_BG}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60 sm:to-primary/45" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-20 w-full">
