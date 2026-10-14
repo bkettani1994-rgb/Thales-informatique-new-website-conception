@@ -347,6 +347,101 @@ function StrikeTask({ text, delay }: { text: string; delay: number }) {
   );
 }
 
+/* ─────────────────────────────────────────────────────────
+   Calendrier des paliers
+───────────────────────────────────────────────────────── */
+
+const paliers = [
+  {
+    date: "1er juillet 2026",
+    seuil: "≥ 500 MDH",
+    desc: "Établissements de crédit, Banques, Assurances et Réassurances (sans condition de CA).",
+    active: false,
+  },
+  {
+    date: "1er janvier 2027",
+    seuil: "≥ 350 MDH",
+    desc: "Continuité des secteurs financiers précités.",
+    active: true,
+  },
+  {
+    date: "1er janvier 2028",
+    seuil: "≥ 200 MDH",
+    desc: "Continuité des secteurs financiers précités.",
+    active: false,
+  },
+];
+
+function PaliersSection() {
+  return (
+    <section className="py-16 lg:py-20 bg-white overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <FadeIn>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Calendrier des paliers</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4">
+            <span className="text-primary">Une application progressive</span>
+            <br />
+            <span className="text-cta">selon votre chiffre d&apos;affaires.</span>
+          </h2>
+          <p className="text-secondary leading-relaxed max-w-2xl mx-auto mb-12">
+            L&apos;extension du mécanisme de la RAS (qui impose à l&apos;entreprise cliente de retenir et reverser la taxe sur les
+            prestations de services rendues par des personnes morales) s&apos;applique de manière progressive selon la taille de
+            l&apos;entreprise.
+          </p>
+        </FadeIn>
+
+        <div className="grid sm:grid-cols-3 gap-5 sm:gap-6">
+          {paliers.map((p, i) => (
+            <FadeIn key={p.date} delay={i * 0.1}>
+              <div
+                className={`relative rounded-2xl p-6 h-full text-left sm:text-center ${
+                  p.active ? "bg-cta/5 border-2 border-cta" : "bg-bg border border-slate-200"
+                }`}
+              >
+                {p.active && (
+                  <>
+                    <span className="sm:hidden inline-block bg-cta text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3">
+                      Vous êtes ici
+                    </span>
+                    <span className="hidden sm:inline-block absolute -top-4 left-1/2 -translate-x-1/2 bg-cta text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
+                      Vous êtes ici
+                    </span>
+                  </>
+                )}
+                <p className="text-sm font-semibold text-primary mb-1">{p.date}</p>
+                <p className={`text-3xl font-black mb-3 ${p.active ? "text-cta" : "text-primary"}`}>{p.seuil}</p>
+                <div className="w-8 h-0.5 bg-cta/40 mb-3 sm:mx-auto" />
+                <p className="text-xs text-secondary leading-relaxed">{p.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+
+        <div className="hidden sm:block relative mt-8">
+          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 -translate-y-1/2" aria-hidden="true" />
+          <div className="absolute top-1/2 left-0 h-0.5 bg-cta -translate-y-1/2" style={{ width: "50%" }} aria-hidden="true" />
+          <div className="relative grid grid-cols-3">
+            {paliers.map((p) => (
+              <div key={p.date} className="flex justify-center">
+                <span
+                  className={
+                    p.active
+                      ? "w-6 h-6 rounded-full bg-cta ring-4 ring-cta/20 border-2 border-white"
+                      : "w-4 h-4 rounded-full bg-white border-2 border-cta"
+                  }
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function NoMoreTasksSection() {
   return (
     <section className="py-16 lg:py-20 bg-bg">
@@ -882,6 +977,7 @@ export default function RasTvaClient() {
         </header>
 
         <Hero />
+        <PaliersSection />
         <NoMoreTasksSection />
         <HowItWorksSection />
         <RAFQuestionsSection />
