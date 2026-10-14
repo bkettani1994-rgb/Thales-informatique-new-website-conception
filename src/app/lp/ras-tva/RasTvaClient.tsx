@@ -28,7 +28,7 @@ import {
   Loader2,
   Trophy,
 } from "lucide-react";
-import { faqs } from "./data";
+import { faqs, SEUIL_DATE_ISO } from "./data";
 
 // Footer réel du site, chargé à la demande (bas de page) pour alléger le JS initial.
 const Footer = dynamic(() => import("@/components/ui/Footer"));
@@ -218,6 +218,74 @@ function VideoModal({ onClose }: { onClose: () => void }) {
         </button>
       </motion.div>
     </AnimatePresence>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   Bandeau d'annonce — compte à rebours jusqu'au palier 350 MDH
+───────────────────────────────────────────────────────── */
+
+type TimeLeft = { days: number; hours: number; minutes: number; seconds: number };
+
+function useCountdown(targetISO: string): TimeLeft {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const target = new Date(targetISO).getTime();
+    const tick = () => {
+      const diff = Math.max(0, target - Date.now());
+      setTimeLeft({
+        days: Math.floor(diff / 86_400_000),
+        hours: Math.floor((diff % 86_400_000) / 3_600_000),
+        minutes: Math.floor((diff % 3_600_000) / 60_000),
+        seconds: Math.floor((diff % 60_000) / 1_000),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [targetISO]);
+
+  return timeLeft;
+}
+
+function AnnounceBar() {
+  const { scrollToForm } = useRasTva();
+  const [dismissed, setDismissed] = useState(false);
+  const { days, hours, minutes, seconds } = useCountdown(SEUIL_DATE_ISO);
+
+  if (dismissed) return null;
+
+  return (
+    <div className="relative bg-primary text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 pr-10 sm:pr-12 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1.5 text-xs sm:text-sm text-center">
+        <span className="inline-flex items-center gap-1.5 font-semibold">
+          <Calendar size={14} className="text-accent shrink-0" aria-hidden="true" />
+          Palier des 350 MDH le 1er janvier 2027
+        </span>
+        <span className="inline-flex items-center gap-1 font-mono font-bold tabular-nums" aria-live="off">
+          <span className="bg-white/10 rounded px-1.5 py-0.5">{days}j</span>
+          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(hours).padStart(2, "0")}h</span>
+          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(minutes).padStart(2, "0")}m</span>
+          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(seconds).padStart(2, "0")}s</span>
+        </span>
+        <span className="hidden sm:inline text-white/40">·</span>
+        <span className="font-semibold">Thalès Informatique a la solution prête.</span>
+        <button
+          onClick={() => scrollToForm("announce-bar")}
+          className="font-bold underline underline-offset-2 hover:text-accent transition-colors cursor-pointer"
+        >
+          Réserver ma démo
+        </button>
+      </div>
+      <button
+        onClick={() => setDismissed(true)}
+        aria-label="Fermer le bandeau"
+        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer"
+      >
+        <X size={15} aria-hidden="true" />
+      </button>
+    </div>
   );
 }
 
@@ -956,6 +1024,7 @@ export default function RasTvaClient() {
   return (
     <RasTvaContext.Provider value={ctxValue}>
       <main className="overflow-x-hidden bg-bg pb-20 lg:pb-0">
+        <AnnounceBar />
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             <Link href="/" aria-label="Thalès Informatique" className="flex items-center">
