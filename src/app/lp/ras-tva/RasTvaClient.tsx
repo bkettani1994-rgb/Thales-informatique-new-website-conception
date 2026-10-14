@@ -404,10 +404,10 @@ function PaliersSection() {
                 {p.active && (
                   <>
                     <span className="sm:hidden inline-block bg-cta text-white text-[10px] font-bold px-3 py-1 rounded-full mb-3">
-                      Vous êtes ici
+                      Prochain palier concerné
                     </span>
                     <span className="hidden sm:inline-block absolute -top-4 left-1/2 -translate-x-1/2 bg-cta text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
-                      Vous êtes ici
+                      Prochain palier concerné
                     </span>
                   </>
                 )}
