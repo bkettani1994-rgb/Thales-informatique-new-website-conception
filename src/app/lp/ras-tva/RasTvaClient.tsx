@@ -8,19 +8,24 @@ import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-mot
 import {
   ArrowRight,
   CheckCircle2,
+  Check,
   ChevronDown,
-  Building2,
-  ShieldCheck,
-  Calendar,
   Briefcase,
   UserCog,
   Calculator,
   ClipboardCheck,
   Cog,
+  Settings,
+  RefreshCcw,
+  Clock,
+  Users,
+  User,
+  Zap,
+  Quote,
+  Calendar,
   Play,
   X,
   Loader2,
-  Award,
   Trophy,
 } from "lucide-react";
 import { faqs } from "./data";
@@ -57,7 +62,6 @@ type FormFields = {
   entreprise: string;
   email: string;
   telephone: string;
-  erp: string;
   consentement: boolean;
   website: string; // honeypot
 };
@@ -82,10 +86,6 @@ type RasTvaContextValue = {
   errorMsg: string;
   handleSubmit: (e: React.FormEvent) => void;
   scrollToForm: (origin: string) => void;
-  montantSimule: number;
-  setMontantSimule: (n: number) => void;
-  retenueAnnuelleSimulee: number;
-  setRetenueAnnuelleSimulee: (n: number) => void;
 };
 
 const RasTvaContext = createContext<RasTvaContextValue | null>(null);
@@ -127,12 +127,6 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
       {children}
     </motion.div>
   );
-}
-
-function formatDH(n: number) {
-  const rounded = Math.round(n);
-  const grouped = rounded.toLocaleString("fr-FR").replace(/[  ]/g, " ");
-  return `${grouped} DH`;
 }
 
 
@@ -231,27 +225,102 @@ function VideoModal({ onClose }: { onClose: () => void }) {
    Section 1 — Hero
 ───────────────────────────────────────────────────────── */
 
+const invoiceRows = [
+  { label: "Montant HT", value: "10 000 DH" },
+  { label: "TVA (20%)", value: "2 000 DH" },
+  { label: "Montant TTC", value: "12 000 DH" },
+  { label: "Retenue RAS TVA (7,5%)", value: "- 1 500 DH", highlight: true },
+];
+
+const trustItems = [
+  { icon: Clock, text: "20 minutes en visio" },
+  { icon: CheckCircle2, text: "Gratuit sans engagement" },
+  { icon: Users, text: "Avec un consultant Thalès Informatique" },
+];
+
 function Hero() {
   const { scrollToForm } = useRasTva();
 
   return (
-    <section className="pt-12 pb-16 lg:pt-20 lg:pb-24 bg-bg" id="hero">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-        <span className="inline-block text-[11px] font-bold text-cta uppercase tracking-widest mb-4">
-          DAF · RAF · COMPTABLES
-        </span>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight mb-5">
-          La RAS TVA, calculée automatiquement. <span className="text-ras">Sans aucune saisie.</span>
-        </h1>
-        <p className="text-lg text-secondary leading-relaxed mb-3 max-w-xl mx-auto">
-          Intégrée à votre logiciel de gestion, la retenue se calcule à chaque facture. Votre équipe ne saisit rien de plus.
-        </p>
-        <button
-          onClick={() => scrollToForm("hero")}
-          className="inline-flex items-center gap-2 bg-ras text-white font-bold px-7 py-4 rounded-xl hover:bg-ras-dark transition-colors duration-200 cursor-pointer"
-        >
-          Réserver mon diagnostic gratuit <ArrowRight size={18} aria-hidden="true" />
-        </button>
+    <section className="pt-10 pb-16 lg:pt-16 lg:pb-20 bg-bg overflow-hidden" id="hero">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <FadeIn>
+            <span className="inline-block bg-primary text-white text-[11px] font-bold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
+              DAF · RAF · COMPTABLES
+            </span>
+            <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-primary leading-tight mb-5">
+              La RAS TVA, calculée automatiquement. <span className="text-cta">Sans aucune saisie.</span>
+            </h1>
+            <p className="text-lg text-secondary leading-relaxed mb-5 max-w-lg">
+              Intégrée à votre logiciel de gestion, la retenue se calcule à chaque facture. Votre équipe ne saisit rien de plus.
+            </p>
+
+            <div className="inline-flex items-center gap-2 bg-signal/10 text-[#9A3412] text-xs font-semibold rounded-full px-4 py-2 mb-6">
+              <Calendar size={14} aria-hidden="true" /> Palier de 350 MDH le 1er janvier 2027
+            </div>
+
+            <div>
+              <button
+                onClick={() => scrollToForm("hero")}
+                className="inline-flex items-center gap-2 bg-cta text-white font-bold px-7 py-4 rounded-xl hover:bg-cta-hover transition-colors duration-200 cursor-pointer"
+              >
+                Réserver ma démo de 20 min <ArrowRight size={18} aria-hidden="true" />
+              </button>
+            </div>
+
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 mt-6">
+              {trustItems.map((t) => (
+                <li key={t.text} className="flex items-center gap-1.5 text-xs font-medium text-secondary">
+                  <t.icon size={14} className="text-cta" aria-hidden="true" /> {t.text}
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <div className="relative">
+              {/* [À VALIDER : photo d'illustration — collaborateur en train de facturer] */}
+              <div className="relative aspect-[4/3] rounded-3xl bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden flex items-center justify-center">
+                <span className="text-xs font-medium text-secondary">[À VALIDER : photo]</span>
+              </div>
+
+              <div className="absolute -bottom-6 -left-4 sm:left-4 w-[78%] sm:w-[70%] bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-bold text-primary uppercase tracking-wide">Facture</p>
+                </div>
+                <p className="text-[10px] text-secondary leading-snug mb-3">
+                  N° FAC-2026-0145
+                  <br />
+                  Date : 12/10/2026
+                  <br />
+                  Client : Client SARL
+                </p>
+                <div className="space-y-1.5 border-t border-slate-100 pt-3">
+                  {invoiceRows.map((r) => (
+                    <div key={r.label} className="flex items-center justify-between text-[11px]">
+                      <span className={r.highlight ? "text-signal-dark font-semibold" : "text-secondary"}>{r.label}</span>
+                      <span className={r.highlight ? "text-signal-dark font-bold" : "text-primary font-semibold"}>{r.value}</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center justify-between text-xs border-t border-slate-100 pt-1.5 mt-1.5">
+                    <span className="font-bold text-primary">Net encaissé</span>
+                    <span className="font-black text-primary">10 500 DH</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.span
+                initial={{ rotate: -12, scale: 0.8, opacity: 0 }}
+                animate={{ rotate: -12, scale: 1, opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.5, type: "spring", stiffness: 300, damping: 18 }}
+                className="absolute top-4 right-2 sm:-right-2 border-[3px] border-ras text-ras-dark font-black text-sm sm:text-base tracking-wider px-3 py-1 rounded-lg bg-white/90"
+              >
+                R.A.S.
+              </motion.span>
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </section>
   );
@@ -308,12 +377,12 @@ function StrikeTask({ text, delay }: { text: string; delay: number }) {
         initial={reduced ? false : { scale: 0, rotate: -40 }}
         animate={inView ? { scale: 1, rotate: 0 } : {}}
         transition={{ duration: 0.35, delay: delay + 0.1, type: "spring", stiffness: 400, damping: 15 }}
-        className="mt-0.5 w-5 h-5 rounded-full bg-signal/10 flex items-center justify-center shrink-0"
+        className="mt-0.5 w-5 h-5 rounded-full bg-cta/10 flex items-center justify-center shrink-0"
       >
-        <X size={11} className="text-signal-dark" aria-hidden="true" />
+        <Check size={12} className="text-cta" aria-hidden="true" />
       </motion.span>
       {/* Barré natif (gère correctement le retour à la ligne) */}
-      <span className="text-sm text-primary leading-relaxed line-through decoration-signal decoration-2">{text}</span>
+      <span className="text-sm text-primary leading-relaxed line-through decoration-cta decoration-2">{text}</span>
     </motion.li>
   );
 }
@@ -323,12 +392,17 @@ function NoMoreTasksSection() {
     <section className="py-16 lg:py-20 bg-bg">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-2">
-            « Ce que vous ne ferez plus »
+          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
+            Ce que vous ne ferez plus
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
+            Fini les tâches manuelles liées à la RAS TVA.
           </h2>
-          <p className="text-secondary text-center mb-10">La preuve par métier.</p>
+          <p className="text-secondary text-center sm:text-left mb-10">
+            Une solution qui vous fait gagner du temps, de la fiabilité et de la sérénité.
+          </p>
         </FadeIn>
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-3 gap-5 mb-6">
           {noMoreTasksColumns.map((col, i) => (
             <FadeIn key={col.role} delay={i * 0.1}>
               <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-5">
@@ -347,147 +421,13 @@ function NoMoreTasksSection() {
             </FadeIn>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ─────────────────────────────────────────────────────────
-   Section 2 — Le problème en clair
-───────────────────────────────────────────────────────── */
-
-const problemCards = [
-  {
-    icon: Building2,
-    title: "12 000 DH facturés, 10 500 DH encaissés",
-    desc: "Votre client garde une partie de la TVA et la verse directement à la DGI.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "75 % ou 100 %",
-    desc: "Le taux dépend de l'attestation fiscale du fournisseur, qui doit avoir moins de 6 mois.",
-  },
-  {
-    icon: Calendar,
-    title: "Déclaration chaque mois",
-    desc: "La TVA retenue se reverse le mois suivant, avec un relevé détaillé.",
-  },
-];
-
-function ProblemSection() {
-  return (
-    <section className="py-16 lg:py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Ce que la RAS TVA change pour vous</h2>
-        </FadeIn>
-        <div className="grid sm:grid-cols-3 gap-5">
-          {problemCards.map((c, i) => (
-            <FadeIn key={c.title} delay={i * 0.08}>
-              <div className="bg-bg rounded-2xl border border-slate-200 p-6 h-full">
-                <span className="w-11 h-11 rounded-xl bg-cta/10 flex items-center justify-center mb-4">
-                  <c.icon size={20} className="text-cta" aria-hidden="true" />
-                </span>
-                <h3 className="text-sm font-bold text-primary mb-1.5">{c.title}</h3>
-                <p className="text-xs text-secondary leading-relaxed">{c.desc}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────
-   Section 3 — Le simulateur
-───────────────────────────────────────────────────────── */
-
-function SimulatorSection() {
-  const { setMontantSimule, setRetenueAnnuelleSimulee, scrollToForm } = useRasTva();
-  const [montantHT, setMontantHT] = useState(1_000_000);
-  const [avecAttestation, setAvecAttestation] = useState(true);
-  const usedOnce = useRef(false);
-
-  const taux = avecAttestation ? 0.75 : 1;
-  const retenueMensuelle = montantHT * 0.2 * taux;
-  const retenueAnnuelle = retenueMensuelle * 12;
-
-  useEffect(() => {
-    setMontantSimule(montantHT);
-    setRetenueAnnuelleSimulee(Math.round(retenueAnnuelle));
-  }, [montantHT, retenueAnnuelle, setMontantSimule, setRetenueAnnuelleSimulee]);
-
-  const markUsed = () => {
-    if (!usedOnce.current) {
-      usedOnce.current = true;
-      track("simulator_used");
-    }
-  };
-
-  return (
-    <section className="py-16 lg:py-20 bg-bg" id="simulateur">
-      <div className="max-w-md mx-auto px-4 sm:px-6">
-        <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Combien la RAS TVA retient-elle sur votre trésorerie ?</h2>
-        </FadeIn>
-
-        <FadeIn delay={0.1}>
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7">
-            <label htmlFor="montant-ht" className="text-sm font-bold text-primary block mb-2">
-              Montant HT concerné par mois (DH)
-            </label>
-            <input
-              id="montant-ht"
-              type="number"
-              min={0}
-              step={1000}
-              value={montantHT}
-              onChange={(e) => {
-                setMontantHT(Math.max(0, Number(e.target.value) || 0));
-                markUsed();
-              }}
-              className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm font-bold text-primary focus:border-cta focus:ring-1 focus:ring-cta outline-none mb-5"
-            />
-
-            <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 mb-6">
-              <span className="text-sm font-semibold text-primary">
-                {avecAttestation ? "Avec attestation (75 %)" : "Sans attestation (100 %)"}
-              </span>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={avecAttestation}
-                aria-label="Avec ou sans attestation de régularité fiscale"
-                onClick={() => {
-                  setAvecAttestation((v) => !v);
-                  markUsed();
-                }}
-                className={`relative w-12 h-7 rounded-full transition-colors cursor-pointer ${avecAttestation ? "bg-ras" : "bg-signal"}`}
-              >
-                <motion.span
-                  animate={{ x: avecAttestation ? 22 : 2 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="absolute top-1 left-0 w-5 h-5 rounded-full bg-white shadow"
-                />
-              </button>
-            </div>
-
-            <p aria-live="polite" className="text-center text-primary mb-1">
-              <span className="block text-sm text-secondary mb-1">TVA retenue</span>
-              <span className="text-2xl font-black">{formatDH(retenueMensuelle)}</span>
-              <span className="text-sm text-secondary"> par mois, soit </span>
-              <span className="text-2xl font-black text-ras-dark">{formatDH(retenueAnnuelle)}</span>
-              <span className="text-sm text-secondary"> par an</span>
+        <FadeIn delay={0.3}>
+          <div className="flex items-center justify-center gap-3 bg-cta/10 rounded-2xl px-6 py-5">
+            <Cog size={22} className="text-cta" aria-hidden="true" />
+            <p className="text-base sm:text-lg font-bold text-primary">
+              Saisies manuelles : <span className="relative text-3xl font-black text-cta">0<Zap size={16} className="absolute -right-4 -top-1 text-cta" aria-hidden="true" /></span>
             </p>
-            <p className="text-[11px] text-slate-400 text-center mb-6">Calcul indicatif au taux de 20 %.</p>
-
-            <button
-              onClick={() => scrollToForm("simulateur")}
-              className="w-full inline-flex items-center justify-center gap-2 bg-ras text-white font-bold text-sm px-6 py-3.5 rounded-xl hover:bg-ras-dark transition-colors cursor-pointer"
-            >
-              Faire le point avec un consultant <ArrowRight size={14} aria-hidden="true" />
-            </button>
           </div>
         </FadeIn>
       </div>
@@ -496,7 +436,7 @@ function SimulatorSection() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Section 4 — Comment ça marche
+   Comment ça marche — 3 étapes
 ───────────────────────────────────────────────────────── */
 
 const steps = [
@@ -553,8 +493,15 @@ function HowItWorksSection() {
     <section className="py-16 lg:py-20 bg-white" id="comment-ca-marche">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-2">Comment ça marche</h2>
-          <p className="text-secondary text-center mb-12">Trois étapes. Rien de plus.</p>
+          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
+            Comment ça marche ?
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
+            3 étapes simples, intégrées à votre logiciel.
+          </h2>
+          <p className="text-secondary text-center sm:text-left mb-12">
+            La RAS TVA se calcule automatiquement, sans intervention manuelle.
+          </p>
         </FadeIn>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
@@ -580,6 +527,7 @@ function HowItWorksSection() {
               <span className="text-sm font-semibold text-primary">Voir la démo en 45 secondes</span>
               {/* [À VALIDER : vidéo de démo (30 à 45 s) ou capture d'écran réelle du module] */}
               <span className="text-xs text-secondary">[À VALIDER : vidéo ou capture]</span>
+              <span className="absolute bottom-3 right-3 bg-primary/80 text-white text-[10px] font-bold px-2 py-1 rounded">0:45</span>
             </button>
           </FadeIn>
         </div>
@@ -591,39 +539,123 @@ function HowItWorksSection() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Section 5 — Pourquoi Thalès Informatique
+   Les questions du RAF
+───────────────────────────────────────────────────────── */
+
+const rafQuestions = [
+  {
+    icon: Settings,
+    q: "Faut-il changer de logiciel ?",
+    a: "Non. La solution s'intègre à votre logiciel de gestion actuel.",
+  },
+  {
+    icon: RefreshCcw,
+    q: "Et si nous retenons ET subissons la retenue ?",
+    a: "Le calcul automatique s'applique sur vos factures concernées.",
+  },
+  {
+    icon: Clock,
+    q: "Combien de temps pour être opérationnel ?",
+    a: "Le délai d'installation est rapide. Nous vous confirmons le délai lors de la démo.",
+  },
+  {
+    icon: Users,
+    q: "Qui nous accompagne ?",
+    a: "Les consultants Thalès Informatique, qui installent la solution et forment vos équipes.",
+  },
+];
+
+function RAFQuestionsSection() {
+  return (
+    <section className="py-16 lg:py-20 bg-bg">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
+            Les questions du RAF
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-10">
+            Une intégration simple, une solution fiable.
+          </h2>
+        </FadeIn>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {rafQuestions.map((item, i) => (
+            <FadeIn key={item.q} delay={i * 0.08}>
+              <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-5">
+                <span className="w-10 h-10 rounded-lg bg-cta/10 flex items-center justify-center mb-4">
+                  <item.icon size={18} className="text-cta" aria-hidden="true" />
+                </span>
+                <h3 className="text-sm font-bold text-primary mb-1.5 leading-snug">{item.q}</h3>
+                <p className="text-xs text-secondary leading-relaxed">{item.a}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   Pourquoi Thalès Informatique
 ───────────────────────────────────────────────────────── */
 
 const proofStats = [
-  { value: "30 ans", label: "d'expertise Sage" },
-  { value: "3", label: "ERP couverts" },
-  { value: "30 min", label: "de diagnostic offert" },
+  { icon: Trophy, value: "30 ans", label: "d'expertise" },
+  { icon: Cog, value: "Solution", label: "déjà intégrée" },
+  { icon: Users, value: "Démo de 20 min", label: "sur votre cas" },
 ];
 
 function WhySection() {
   return (
     <section className="py-16 lg:py-20 bg-bg">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-10">Pourquoi Thalès Informatique</h2>
-          <div className="grid grid-cols-3 gap-4 mb-10">
-            {proofStats.map((s) => (
-              <div key={s.label}>
-                <p className="text-2xl sm:text-3xl font-black text-primary">{s.value}</p>
-                <p className="text-[11px] text-secondary font-medium mt-1">{s.label}</p>
+          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
+            Pourquoi Thalès Informatique ?
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
+            Un partenaire de confiance, à vos côtés.
+          </h2>
+          <p className="text-secondary text-center sm:text-left mb-10">
+            Une expertise reconnue pour vous accompagner dans vos enjeux comptables et fiscaux.
+          </p>
+        </FadeIn>
+
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <FadeIn delay={0.1}>
+            <div className="space-y-6">
+              {proofStats.map((s) => (
+                <div key={s.label} className="flex items-center gap-4">
+                  <span className="w-12 h-12 rounded-xl bg-cta/10 flex items-center justify-center shrink-0">
+                    <s.icon size={20} className="text-cta" aria-hidden="true" />
+                  </span>
+                  <p className="text-base font-bold text-primary">
+                    {s.value} <span className="font-normal text-secondary">{s.label}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7">
+              <Quote size={24} className="text-cta/40 mb-3" aria-hidden="true" />
+              <p className="text-primary leading-relaxed mb-5">
+                « La solution nous a permis de fiabiliser le calcul de la retenue et de gagner un temps précieux au quotidien. »
+              </p>
+              <div className="flex items-center gap-3">
+                {/* [À VALIDER : photo du témoignage] */}
+                <span className="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
+                  <User size={18} className="text-slate-400" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-sm font-bold text-primary">Yassine B.</p>
+                  <p className="text-xs text-secondary">DAF — Groupe industriel</p>
+                </div>
               </div>
-            ))}
-          </div>
-        </FadeIn>
-
-        <FadeIn delay={0.1}>
-          <div className="flex flex-wrap justify-center gap-4 mb-10 text-xs font-semibold text-secondary">
-            <span className="flex items-center gap-1.5"><Trophy size={14} className="text-cta" aria-hidden="true" /> Meilleure Dynamique Commerciale Sage Maroc 2024</span>
-            <span className="flex items-center gap-1.5"><Award size={14} className="text-cta" aria-hidden="true" /> Premier Partenaire North Africa 2017</span>
-          </div>
-        </FadeIn>
-
-        {/* [À VALIDER : témoignage client] */}
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </section>
   );
@@ -633,13 +665,16 @@ function WhySection() {
    Section 6 — Formulaire + FAQ
 ───────────────────────────────────────────────────────── */
 
+const fieldClass =
+  "w-full px-3.5 py-2.5 rounded-lg border border-white/15 bg-white/10 text-white text-sm placeholder:text-white/50 focus:border-accent focus:ring-1 focus:ring-accent outline-none";
+
 function DiagnosticForm({ id }: { id?: string }) {
   const { form, setField, loading, errorMsg, handleSubmit } = useRasTva();
 
   return (
-    <div id={id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7">
-      <h3 className="text-lg font-bold text-primary mb-1">Votre diagnostic RAS TVA, offert</h3>
-      <p className="text-secondary text-sm mb-5 leading-relaxed">30 minutes avec un consultant Sage. Gratuit, sans engagement.</p>
+    <div id={id} className="bg-primary rounded-2xl p-6 sm:p-7">
+      <h3 className="text-lg font-bold text-white mb-1">Voyez la RAS TVA se calculer toute seule.</h3>
+      <p className="text-white/65 text-sm mb-5 leading-relaxed">20 minutes en visio avec un consultant. Gratuit, sans engagement.</p>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-3">
         <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -647,67 +682,66 @@ function DiagnosticForm({ id }: { id?: string }) {
           <input id="website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => setField("website", e.target.value)} />
         </div>
 
-        <input
-          type="text" placeholder="Prénom et nom *" required value={form.nom}
-          onChange={(e) => setField("nom", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none"
-        />
-        <select
-          aria-label="Votre fonction"
-          required value={form.fonction} onChange={(e) => setField("fonction", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm bg-white focus:border-cta focus:ring-1 focus:ring-cta outline-none"
-        >
-          <option value="">Votre fonction *</option>
-          {["DAF / RAF", "Chef comptable", "Comptable", "DG", "DSI", "Autre"].map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
-        <input
-          type="text" placeholder="Entreprise *" required value={form.entreprise}
-          onChange={(e) => setField("entreprise", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none"
-        />
+        <div className="grid sm:grid-cols-2 gap-3">
+          <input
+            type="text" placeholder="Nom et prénom *" required value={form.nom}
+            onChange={(e) => setField("nom", e.target.value)}
+            className={fieldClass}
+          />
+          <input
+            type="text" placeholder="Entreprise *" required value={form.entreprise}
+            onChange={(e) => setField("entreprise", e.target.value)}
+            className={fieldClass}
+          />
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-3">
+          <select
+            aria-label="Votre fonction"
+            required value={form.fonction} onChange={(e) => setField("fonction", e.target.value)}
+            className={`${fieldClass} [color-scheme:dark]`}
+          >
+            <option value="" className="text-primary">Fonction *</option>
+            {["DAF / RAF", "Chef comptable", "Comptable", "DG", "DSI", "Autre"].map((f) => <option key={f} value={f} className="text-primary">{f}</option>)}
+          </select>
+          <input
+            type="tel" placeholder="Téléphone *" required value={form.telephone}
+            onChange={(e) => setField("telephone", e.target.value)}
+            className={fieldClass}
+          />
+        </div>
+
         <input
           type="email" placeholder="Email professionnel *" required value={form.email}
           onChange={(e) => setField("email", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none"
+          className={fieldClass}
         />
-        <input
-          type="tel" placeholder="Téléphone (06, 07, 05 ou +212) *" required value={form.telephone}
-          onChange={(e) => setField("telephone", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm focus:border-cta focus:ring-1 focus:ring-cta outline-none"
-        />
-        <select
-          aria-label="Votre ERP"
-          required value={form.erp} onChange={(e) => setField("erp", e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm bg-white focus:border-cta focus:ring-1 focus:ring-cta outline-none"
-        >
-          <option value="">Votre ERP *</option>
-          {["Sage 100", "Sage X3", "Sage FRP 1000", "Autre"].map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
 
         <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
           <input
             type="checkbox" required checked={form.consentement}
             onChange={(e) => setField("consentement", e.target.checked)}
-            className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
+            className="mt-0.5 w-4 h-4 rounded border-white/30 bg-white/10 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
           />
-          <span className="text-xs text-secondary leading-relaxed">
+          <span className="text-xs text-white/60 leading-relaxed">
             J&apos;accepte que Thalès Informatique utilise ces informations pour me recontacter, conformément à la loi 09-08. Voir la{" "}
-            <Link href="/politique-de-confidentialite" className="text-cta underline">politique de confidentialité</Link>.
+            <Link href="/politique-de-confidentialite" className="text-accent underline">politique de confidentialité</Link>.
           </span>
         </label>
 
         {errorMsg && (
-          <p role="alert" className="text-xs text-signal-dark bg-signal/10 border border-signal/30 rounded-lg px-3 py-2">
+          <p role="alert" className="text-xs text-white bg-signal/80 rounded-lg px-3 py-2">
             {errorMsg}
           </p>
         )}
 
         <button
           type="submit" disabled={loading}
-          className="w-full inline-flex items-center justify-center gap-2 bg-ras text-white font-bold px-6 py-3.5 rounded-xl hover:bg-ras-dark transition-colors duration-200 disabled:opacity-60 cursor-pointer"
+          className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-hover transition-colors duration-200 disabled:opacity-60 cursor-pointer"
         >
           {loading ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
-          {loading ? "Envoi en cours..." : "Je réserve mon diagnostic"}
+          {loading ? "Envoi en cours..." : "Réserver ma démo de 20 min"}
+          {!loading && <ArrowRight size={16} aria-hidden="true" />}
         </button>
       </form>
     </div>
@@ -742,11 +776,8 @@ function FormFaqSection() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           <FadeIn>
-            <DiagnosticForm id="formulaire-final" />
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <h2 className="text-xl font-bold text-primary mb-5">Questions fréquentes</h2>
+            <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3">Vos questions, nos réponses</p>
+            <h2 className="text-xl font-bold text-primary mb-5">FAQ</h2>
             <div className="space-y-3">
               {faqs.map((f, i) => (
                 <FaqItem
@@ -759,6 +790,10 @@ function FormFaqSection() {
                 />
               ))}
             </div>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <DiagnosticForm id="formulaire-final" />
           </FadeIn>
         </div>
       </div>
@@ -790,9 +825,9 @@ function MobileStickyBar() {
     >
       <button
         onClick={() => scrollToForm("sticky-mobile")}
-        className="w-full inline-flex items-center justify-center gap-2 bg-ras text-white font-bold py-3 rounded-xl cursor-pointer"
+        className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold py-3 rounded-xl cursor-pointer"
       >
-        Réserver mon diagnostic
+        Réserver ma démo de 20 min
       </button>
     </div>
   );
@@ -806,12 +841,10 @@ export default function RasTvaClient() {
   const router = useRouter();
 
   const [form, setForm] = useState<FormFields>({
-    nom: "", fonction: "", entreprise: "", email: "", telephone: "", erp: "", consentement: false, website: "",
+    nom: "", fonction: "", entreprise: "", email: "", telephone: "", consentement: false, website: "",
   });
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [montantSimule, setMontantSimule] = useState(1_000_000);
-  const [retenueAnnuelleSimulee, setRetenueAnnuelleSimulee] = useState(1_800_000);
   const prefersReducedMotion = useReducedMotion();
 
   const setField = <K extends keyof FormFields>(key: K, value: FormFields[K]) => {
@@ -845,8 +878,6 @@ export default function RasTvaClient() {
     const utm = getUtmParams();
     const payload = {
       ...form,
-      montant_simule: montantSimule,
-      retenue_annuelle_simulee: retenueAnnuelleSimulee,
       ...utm,
       page_url: typeof window !== "undefined" ? window.location.href : "",
       horodatage: new Date().toISOString(),
@@ -865,7 +896,6 @@ export default function RasTvaClient() {
 
   const ctxValue: RasTvaContextValue = {
     form, setField, loading, errorMsg, handleSubmit, scrollToForm,
-    montantSimule, setMontantSimule, retenueAnnuelleSimulee, setRetenueAnnuelleSimulee,
   };
 
   return (
@@ -884,18 +914,17 @@ export default function RasTvaClient() {
             </Link>
             <button
               onClick={() => scrollToForm("header")}
-              className="inline-flex items-center gap-1.5 bg-ras text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-ras-dark transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 bg-cta text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-cta-hover transition-colors cursor-pointer"
             >
-              Réserver mon diagnostic <ArrowRight size={14} aria-hidden="true" />
+              Réserver ma démo <ArrowRight size={14} aria-hidden="true" />
             </button>
           </div>
         </header>
 
         <Hero />
         <NoMoreTasksSection />
-        <ProblemSection />
-        <SimulatorSection />
         <HowItWorksSection />
+        <RAFQuestionsSection />
         <WhySection />
         <FormFaqSection />
         <Footer />

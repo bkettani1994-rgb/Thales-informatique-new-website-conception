@@ -10,15 +10,15 @@ export const faqs: { q: string; a: string }[] = [
     a: "Si vous êtes un organisme public, une banque, une assurance, une entreprise au-dessus des seuils (500 MDH depuis juillet 2026, 350 MDH au 1er janvier 2027, 200 MDH au 1er janvier 2028), ou si vous facturez ces organisations : oui.",
   },
   {
-    q: "Faut-il changer de version de Sage ?",
-    a: "[À VALIDER : conditions de compatibilité du module selon la version Sage 100 / X3 / FRP 1000 installée]",
+    q: "Que se passe-t-il pendant la démo ?",
+    a: "20 minutes en visio avec un consultant Sage : nous regardons votre facturation et calculons votre cas concret. [À VALIDER : déroulé exact de la démo]",
   },
   {
-    q: "Combien de temps prend l'installation ?",
-    a: "[À VALIDER : durée réelle d'installation et de paramétrage du module]",
+    q: "Combien coûte la solution ?",
+    a: "[À VALIDER : grille tarifaire du module RAS TVA]",
   },
   {
-    q: "Le diagnostic est-il vraiment gratuit ?",
-    a: "Oui : 30 minutes, en visio ou par téléphone, sans engagement.",
+    q: "Et si la loi évolue encore ?",
+    a: "Le module est mis à jour avec les évolutions réglementaires par nos équipes. [À VALIDER : politique de mise à jour et de maintenance]",
   },
 ];
