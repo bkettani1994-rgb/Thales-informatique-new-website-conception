@@ -244,7 +244,7 @@ function Hero() {
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover object-right"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60 sm:to-primary/45" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/75 to-primary/40 sm:via-primary/55 sm:to-primary/10" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-20 w-full">
         <FadeIn>
