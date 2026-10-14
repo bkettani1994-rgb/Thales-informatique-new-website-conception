@@ -543,11 +543,11 @@ function StepCard({ step, index }: { step: (typeof steps)[number]; index: number
       <span className="absolute -top-5 left-6 z-10 w-11 h-11 rounded-full bg-cta/10 border-4 border-white flex items-center justify-center text-cta font-black text-base">
         {step.num}
       </span>
-      <div className="bg-white border border-slate-200 lg:bg-cta/5 lg:border-cta/15 lg:shadow-sm rounded-2xl lg:rounded-none pt-10 px-8 lg:pr-16 pb-7 h-full lg:[clip-path:polygon(0%_0%,88%_0%,100%_50%,88%_100%,0%_100%)]">
+      <div className="card-hover bg-white border border-slate-200 lg:bg-cta/5 lg:border-cta/15 lg:shadow-sm rounded-2xl lg:rounded-none pt-10 px-8 lg:pr-16 pb-7 h-full lg:[clip-path:polygon(0%_0%,88%_0%,100%_50%,88%_100%,0%_100%)]">
         <span className="inline-flex w-14 h-14 rounded-full bg-cta/10 items-center justify-center mb-4">
           <step.icon size={24} className="text-cta" aria-hidden="true" />
         </span>
-        <h3 className="text-base font-bold text-primary leading-snug mb-2">{step.title}</h3>
+        <h3 className="text-base font-bold text-primary leading-snug mb-2 lg:min-h-11">{step.title}</h3>
         <div className="w-8 h-0.5 bg-cta/40 mb-2.5" aria-hidden="true" />
         <p className="text-sm text-secondary leading-relaxed">{step.desc}</p>
       </div>
