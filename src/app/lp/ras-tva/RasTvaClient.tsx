@@ -225,38 +225,53 @@ function VideoModal({ onClose }: { onClose: () => void }) {
    Section 1 — Hero
 ───────────────────────────────────────────────────────── */
 
-const invoiceRows = [
-  { label: "Montant HT", value: "10 000 DH" },
-  { label: "TVA (20%)", value: "2 000 DH" },
-  { label: "Montant TTC", value: "12 000 DH" },
-  { label: "Retenue RAS TVA (7,5%)", value: "- 1 500 DH", highlight: true },
-];
-
 const trustItems = [
   { icon: Clock, text: "20 minutes en visio" },
   { icon: CheckCircle2, text: "Gratuit sans engagement" },
   { icon: Users, text: "Avec un consultant Thalès Informatique" },
 ];
 
+// [À VALIDER : photo de fond — desktop 2000×900px, mobile 1080×1500px. Voir message dédié.]
+const HERO_BG_DESKTOP = "";
+const HERO_BG_MOBILE = "";
+
 function Hero() {
   const { scrollToForm } = useRasTva();
 
   return (
-    <section className="pt-10 pb-16 lg:pt-16 lg:pb-20 bg-bg overflow-hidden" id="hero">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <FadeIn>
-            <span className="inline-block bg-primary text-white text-[11px] font-bold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
+    <section className="relative overflow-hidden min-h-[560px] sm:min-h-[600px] lg:min-h-[640px] flex items-center bg-primary" id="hero">
+      {HERO_BG_DESKTOP && (
+        <img
+          src={HERO_BG_DESKTOP}
+          alt=""
+          aria-hidden="true"
+          className="hidden sm:block absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      {HERO_BG_MOBILE && (
+        <img
+          src={HERO_BG_MOBILE}
+          alt=""
+          aria-hidden="true"
+          className="sm:hidden absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/60 sm:to-primary/45" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-20 w-full">
+        <FadeIn>
+          <div className="max-w-xl">
+            <span className="inline-block bg-white text-primary text-[11px] font-bold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
               DAF · RAF · COMPTABLES
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-primary leading-tight mb-5">
-              La RAS TVA, calculée automatiquement. <span className="text-cta">Sans aucune saisie.</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white leading-tight mb-5">
+              La RAS TVA, calculée automatiquement. <span className="text-accent">Sans aucune saisie.</span>
             </h1>
-            <p className="text-lg text-secondary leading-relaxed mb-5 max-w-lg">
+            <p className="text-lg text-white/80 leading-relaxed mb-5 max-w-lg">
               Intégrée à votre logiciel de gestion, la retenue se calcule à chaque facture. Votre équipe ne saisit rien de plus.
             </p>
 
-            <div className="inline-flex items-center gap-2 bg-signal/10 text-[#9A3412] text-xs font-semibold rounded-full px-4 py-2 mb-6">
+            <div className="inline-flex items-center gap-2 bg-white text-[#9A3412] text-xs font-semibold rounded-full px-4 py-2 mb-6">
               <Calendar size={14} aria-hidden="true" /> Palier de 350 MDH le 1er janvier 2027
             </div>
 
@@ -271,61 +286,13 @@ function Hero() {
 
             <ul className="flex flex-wrap gap-x-6 gap-y-2 mt-6">
               {trustItems.map((t) => (
-                <li key={t.text} className="flex items-center gap-1.5 text-xs font-medium text-secondary">
-                  <t.icon size={14} className="text-cta" aria-hidden="true" /> {t.text}
+                <li key={t.text} className="flex items-center gap-1.5 text-xs font-medium text-white/75">
+                  <t.icon size={14} className="text-accent" aria-hidden="true" /> {t.text}
                 </li>
               ))}
             </ul>
-          </FadeIn>
-
-          <FadeIn delay={0.15}>
-            <div className="relative">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
-                <img
-                  src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1791971576/Facture_RAS_dans_un_bureau_moderne_dczegs.webp"
-                  alt="Facturation RAS TVA dans un bureau moderne"
-                  width={1600}
-                  height={1200}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="absolute -bottom-6 -left-4 sm:left-4 w-[78%] sm:w-[70%] bg-white rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-5">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-bold text-primary uppercase tracking-wide">Facture</p>
-                </div>
-                <p className="text-[10px] text-secondary leading-snug mb-3">
-                  N° FAC-2026-0145
-                  <br />
-                  Date : 12/10/2026
-                  <br />
-                  Client : Client SARL
-                </p>
-                <div className="space-y-1.5 border-t border-slate-100 pt-3">
-                  {invoiceRows.map((r) => (
-                    <div key={r.label} className="flex items-center justify-between text-[11px]">
-                      <span className={r.highlight ? "text-signal-dark font-semibold" : "text-secondary"}>{r.label}</span>
-                      <span className={r.highlight ? "text-signal-dark font-bold" : "text-primary font-semibold"}>{r.value}</span>
-                    </div>
-                  ))}
-                  <div className="flex items-center justify-between text-xs border-t border-slate-100 pt-1.5 mt-1.5">
-                    <span className="font-bold text-primary">Net encaissé</span>
-                    <span className="font-black text-primary">10 500 DH</span>
-                  </div>
-                </div>
-              </div>
-
-              <motion.span
-                initial={{ rotate: -12, scale: 0.8, opacity: 0 }}
-                animate={{ rotate: -12, scale: 1, opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.5, type: "spring", stiffness: 300, damping: 18 }}
-                className="absolute top-4 right-2 sm:-right-2 border-[3px] border-ras text-ras-dark font-black text-sm sm:text-base tracking-wider px-3 py-1 rounded-lg bg-white/90"
-              >
-                R.A.S.
-              </motion.span>
-            </div>
-          </FadeIn>
-        </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
