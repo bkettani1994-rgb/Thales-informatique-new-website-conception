@@ -368,7 +368,6 @@ const noMoreTasksColumns = [
       "Ajouter une nouvelle contrainte au planning de l'équipe",
       "Gérer un outil de plus",
     ],
-    tags: ["Contrôle", "Calculs", "Planning", "Reporting"],
   },
   {
     role: "RAF",
@@ -377,7 +376,6 @@ const noMoreTasksColumns = [
       "Tenir un fichier Excel de suivi à côté",
       "Contrôler les montants ressaisis",
     ],
-    tags: ["Suivi", "Excel", "Contrôle"],
   },
   {
     role: "Comptable",
@@ -387,7 +385,6 @@ const noMoreTasksColumns = [
       "Ressaisir le montant dans la comptabilité",
       "Vérifier le net à payer à la calculatrice",
     ],
-    tags: ["Calcul manuel", "Ressaisie", "Contrôle"],
   },
 ];
 
@@ -556,24 +553,11 @@ function NoMoreTasksSection() {
                 </div>
 
                 {/* [À VALIDER : photo — fournie séparément] */}
-                <div className="absolute inset-y-0 right-0 w-[38%] sm:w-[36%]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
-                    <ImageIcon size={18} className="text-slate-400" aria-hidden="true" />
-                  </div>
-                  <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent" aria-hidden="true" />
-                  {col.tags.map((tag, j) => (
-                    <span
-                      key={tag}
-                      className="absolute bg-white text-[9px] font-bold text-primary px-2 py-1 rounded shadow-sm border border-slate-100 whitespace-nowrap"
-                      style={{
-                        top: `${16 + j * 23}%`,
-                        ...(j % 2 === 0 ? { right: "6%" } : { left: "-10%" }),
-                        transform: `rotate(${j % 2 === 0 ? -3 : 3}deg)`,
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div
+                  className="absolute inset-y-0 right-0 w-[38%] sm:w-[36%] bg-slate-300 flex items-center justify-center"
+                  style={{ clipPath: "polygon(45% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+                >
+                  <ImageIcon size={18} className="text-slate-400" aria-hidden="true" />
                 </div>
               </div>
             </FadeIn>
