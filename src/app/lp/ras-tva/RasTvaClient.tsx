@@ -231,7 +231,7 @@ const trustItems = [
   { icon: Users, text: "Avec un consultant Thalès Informatique" },
 ];
 
-const HERO_BG = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1791972924/Facture_RAS_dans_un_bureau_lumineux_thales_informatique_nc60ut.webp";
+const HERO_BG = "https://res.cloudinary.com/dmutnjgp8/image/upload/v1791974265/Facture_R.A.S._dans_un_bureau_moderne_thales_informatique_ua4fvp.webp";
 
 function Hero() {
   const { scrollToForm } = useRasTva();
