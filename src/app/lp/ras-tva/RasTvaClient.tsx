@@ -693,9 +693,10 @@ function IntegrationQuestionsSection() {
     <section className="py-16 lg:py-20 bg-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center">
-            DAF · RAF · Comptables
-          </p>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">DAF · RAF · Comptables</p>
+          </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">
             Une intégration simple, une solution fiable.
           </h2>
