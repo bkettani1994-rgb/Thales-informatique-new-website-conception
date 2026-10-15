@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
@@ -30,11 +29,11 @@ import {
   Building2,
   TrendingUp,
   Landmark,
+  Phone,
+  Mail,
+  MapPin,
 } from "lucide-react";
 import { faqs, SEUIL_DATE_ISO } from "./data";
-
-// Footer réel du site, chargé à la demande (bas de page) pour alléger le JS initial.
-const Footer = dynamic(() => import("@/components/ui/Footer"));
 
 /* ─────────────────────────────────────────────────────────
    Tracking — même helper que le reste du site (GA4 via gtag)
@@ -950,6 +949,82 @@ function FaqSection() {
 }
 
 /* ─────────────────────────────────────────────────────────
+   Footer — version allégée dédiée aux landing pages (cf. /lp/sage-100-decideurs)
+───────────────────────────────────────────────────────── */
+
+function LpFooter() {
+  const { scrollToForm } = useRasTva();
+
+  return (
+    <footer className="bg-primary border-t border-white/10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 lg:py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center sm:text-left">
+          {/* Marque + certification */}
+          <div className="flex flex-col items-center sm:items-start">
+            <img
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1780666585/thales_logo_blanc_petit_abarsy.png"
+              alt="Thalès Informatique"
+              className="h-9 w-auto mb-4"
+            />
+            <p className="text-white/60 text-xs leading-relaxed mb-4 max-w-[240px]">
+              Votre partenaire de confiance pour la transformation digitale des entreprises, depuis plus de 30 ans.
+            </p>
+            <img
+              src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1772719817/Sage_Partner-Badge_Business-Partner-Platinum_Full-Colour_RGB_jvbprx.jpg"
+              alt="Sage Business Partner Platinum"
+              className="h-8 w-auto rounded-lg"
+            />
+          </div>
+
+          {/* Contact */}
+          <div className="flex flex-col items-center sm:items-start">
+            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Nous contacter</h4>
+            <div className="space-y-2.5">
+              <a href="tel:+212522548780" className="flex items-center gap-2.5 text-white/65 hover:text-white text-sm transition-colors">
+                <Phone size={14} className="shrink-0 text-accent" aria-hidden="true" />
+                +212 5 22 54 87 80
+              </a>
+              <a href="mailto:contact@thales.ma" className="flex items-center gap-2.5 text-white/65 hover:text-white text-sm transition-colors">
+                <Mail size={14} className="shrink-0 text-accent" aria-hidden="true" />
+                contact@thales.ma
+              </a>
+              <a
+                href="https://maps.app.goo.gl/XK8BzRFH58aUSTnU6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start justify-center sm:justify-start gap-2.5 text-white/65 hover:text-white text-sm transition-colors"
+              >
+                <MapPin size={14} className="shrink-0 text-accent mt-0.5" aria-hidden="true" />
+                <span>310 Rue Hadj Omar Riffi,<br />Casablanca 20120</span>
+              </a>
+            </div>
+          </div>
+
+          {/* CTA + liens légaux */}
+          <div className="flex flex-col items-center sm:items-start">
+            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Un projet RAS TVA ?</h4>
+            <button
+              onClick={() => scrollToForm("footer")}
+              className="inline-flex items-center gap-2 bg-cta text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:bg-cta-hover transition-colors cursor-pointer mb-5"
+            >
+              Réserver ma démo <ArrowRight size={14} aria-hidden="true" />
+            </button>
+            <div className="flex flex-col items-center sm:items-start gap-2 text-xs">
+              <Link href="/mentions-legales" className="text-white/50 hover:text-white/80 transition-colors">Mentions légales</Link>
+              <Link href="/politique-de-confidentialite" className="text-white/50 hover:text-white/80 transition-colors">Politique de confidentialité</Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 pt-6 border-t border-white/10 text-center">
+          <p className="text-white/55 text-xs">© {new Date().getFullYear()} Thalès Informatique. Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
    Barre mobile fixe
 ───────────────────────────────────────────────────────── */
 
@@ -1079,7 +1154,7 @@ export default function RasTvaClient() {
         <WhySection />
         <FormSection />
         <FaqSection />
-        <Footer />
+        <LpFooter />
       </main>
 
       <MobileStickyBar />
