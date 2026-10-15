@@ -19,9 +19,7 @@ import {
   RefreshCcw,
   Clock,
   Users,
-  User,
   Zap,
-  Quote,
   Calendar,
   X,
   Loader2,
@@ -733,52 +731,32 @@ function WhySection() {
     <section className="py-16 lg:py-20 bg-bg" id="pourquoi-thales">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
-            Pourquoi Thalès Informatique ?
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-2">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Pourquoi Thalès Informatique ?</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-2">
             Un partenaire de confiance, à vos côtés.
           </h2>
-          <p className="text-secondary text-center sm:text-left mb-10">
+          <p className="text-secondary text-center mb-10">
             Une expertise reconnue pour vous accompagner dans vos enjeux comptables et fiscaux.
           </p>
         </FadeIn>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <FadeIn delay={0.1}>
-            <div className="space-y-6">
-              {proofStats.map((s) => (
-                <div key={s.label} className="flex items-center gap-4">
-                  <span className="w-12 h-12 rounded-xl bg-cta/10 flex items-center justify-center shrink-0">
-                    <s.icon size={20} className="text-cta" aria-hidden="true" />
-                  </span>
-                  <p className="text-base font-bold text-primary">
-                    {s.value} <span className="font-normal text-secondary">{s.label}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.2}>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7">
-              <Quote size={24} className="text-cta/40 mb-3" aria-hidden="true" />
-              <p className="text-primary leading-relaxed mb-5">
-                « La solution nous a permis de fiabiliser le calcul de la retenue et de gagner un temps précieux au quotidien. »
-              </p>
-              <div className="flex items-center gap-3">
-                {/* [À VALIDER : photo du témoignage] */}
-                <span className="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                  <User size={18} className="text-slate-400" aria-hidden="true" />
+        <FadeIn delay={0.1}>
+          <div className="flex flex-col sm:flex-row items-center sm:justify-center gap-6 sm:gap-12">
+            {proofStats.map((s) => (
+              <div key={s.label} className="flex items-center gap-3">
+                <span className="w-12 h-12 rounded-xl bg-cta/10 flex items-center justify-center shrink-0">
+                  <s.icon size={20} className="text-cta" aria-hidden="true" />
                 </span>
-                <div>
-                  <p className="text-sm font-bold text-primary">Yassine B.</p>
-                  <p className="text-xs text-secondary">DAF — Groupe industriel</p>
-                </div>
+                <p className="text-base font-bold text-primary text-left">
+                  {s.value} <span className="font-normal text-secondary">{s.label}</span>
+                </p>
               </div>
-            </div>
-          </FadeIn>
-        </div>
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
