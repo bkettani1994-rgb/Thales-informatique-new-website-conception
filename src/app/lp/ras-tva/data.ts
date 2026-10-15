@@ -11,14 +11,14 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Que se passe-t-il pendant la démo ?",
-    a: "20 minutes en visio avec un consultant Sage : nous regardons votre facturation et calculons votre cas concret. [À VALIDER : déroulé exact de la démo]",
+    a: "Un consultant Thalès Informatique échange avec vous pendant 20 minutes pour comprendre votre contexte et vous présenter le fonctionnement du module sur votre logiciel de gestion.",
   },
   {
     q: "Combien coûte la solution ?",
-    a: "[À VALIDER : grille tarifaire du module RAS TVA]",
+    a: "Le tarif dépend de votre logiciel de gestion et de votre configuration. Nous vous communiquons une proposition personnalisée à l'issue du diagnostic.",
   },
   {
     q: "Et si la loi évolue encore ?",
-    a: "Le module est mis à jour avec les évolutions réglementaires par nos équipes. [À VALIDER : politique de mise à jour et de maintenance]",
+    a: "Nos équipes suivent les évolutions réglementaires et accompagnent nos clients pour que leur solution reste à jour.",
   },
 ];
