@@ -27,6 +27,9 @@ import {
   X,
   Loader2,
   Trophy,
+  Building2,
+  TrendingUp,
+  Landmark,
 } from "lucide-react";
 import { faqs, SEUIL_DATE_ISO } from "./data";
 
@@ -418,6 +421,66 @@ function PaliersSection() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   Logiciels concernés — Sage 100 / X3 / FRP 1000
+───────────────────────────────────────────────────────── */
+
+const erpSolutions = [
+  {
+    name: "Sage 100",
+    icon: Building2,
+    audience: "PME",
+    desc: "Pour les petites et moyennes entreprises qui structurent leur gestion.",
+  },
+  {
+    name: "Sage X3",
+    icon: TrendingUp,
+    audience: "ETI et grandes entreprises",
+    desc: "Pour les entreprises en croissance aux besoins multi-sites ou multi-activités.",
+  },
+  {
+    name: "Sage FRP 1000",
+    icon: Landmark,
+    audience: "Groupes et secteur public",
+    desc: "Pour les grands groupes et organismes publics aux exigences de gestion complexes.",
+  },
+];
+
+function ErpSection() {
+  return (
+    <section className="py-16 lg:py-20 bg-bg">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <FadeIn>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Logiciels concernés</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">
+            Le module RAS TVA s&apos;intègre à votre Sage.
+          </h2>
+          <p className="text-secondary max-w-2xl mx-auto mb-10">
+            Quelle que soit la taille de votre entreprise, la retenue à la source se calcule directement dans votre logiciel de gestion actuel.
+          </p>
+        </FadeIn>
+        <div className="grid sm:grid-cols-3 gap-5">
+          {erpSolutions.map((erp, i) => (
+            <FadeIn key={erp.name} delay={i * 0.1}>
+              <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-6 text-left">
+                <span className="w-12 h-12 rounded-xl bg-cta/10 flex items-center justify-center mb-4">
+                  <erp.icon size={22} className="text-cta" aria-hidden="true" />
+                </span>
+                <h3 className="text-lg font-black text-primary mb-1">{erp.name}</h3>
+                <p className="text-xs font-bold text-cta uppercase tracking-wide mb-3">{erp.audience}</p>
+                <p className="text-sm text-secondary leading-relaxed">{erp.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>
@@ -984,6 +1047,7 @@ export default function RasTvaClient() {
 
         <Hero />
         <PaliersSection />
+        <ErpSection />
         <NoMoreTasksSection />
         <HowItWorksSection />
         <RAFQuestionsSection />
