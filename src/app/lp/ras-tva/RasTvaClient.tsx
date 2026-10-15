@@ -1104,7 +1104,7 @@ export default function RasTvaClient() {
     try {
       await fetch(process.env.NEXT_PUBLIC_GOOGLE_SHEET_RASTVA_LEADS_URL!, { method: "POST", body: JSON.stringify(payload) });
       setLoading(false);
-      router.push("/thank-you");
+      router.push("/lp/ras-tva/merci");
     } catch (_) {
       setLoading(false);
       setErrorMsg("La connexion a été interrompue. Vos informations sont conservées — réessayez dans un instant.");
