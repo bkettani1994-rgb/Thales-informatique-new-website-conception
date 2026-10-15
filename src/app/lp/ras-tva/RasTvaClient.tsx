@@ -358,7 +358,7 @@ const paliers = [
 
 function PaliersSection() {
   return (
-    <section className="py-16 lg:py-20 bg-white overflow-hidden">
+    <section className="py-16 lg:py-20 bg-white overflow-hidden" id="paliers">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <div className="flex items-center justify-center gap-2 mb-3">
@@ -488,7 +488,7 @@ function ErpSection() {
 
 function NoMoreTasksSection() {
   return (
-    <section className="py-16 lg:py-20 bg-bg">
+    <section className="py-16 lg:py-20 bg-bg" id="benefices">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <div className="flex items-center justify-center gap-2 mb-3">
@@ -730,7 +730,7 @@ const proofStats = [
 
 function WhySection() {
   return (
-    <section className="py-16 lg:py-20 bg-bg">
+    <section className="py-16 lg:py-20 bg-bg" id="pourquoi-thales">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
@@ -919,7 +919,7 @@ function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-16 lg:py-20 bg-bg">
+    <section className="py-16 lg:py-20 bg-bg" id="faq">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <div className="flex items-center justify-center gap-2 mb-3">
@@ -1056,6 +1056,14 @@ function MobileStickyBar() {
   );
 }
 
+const navItems = [
+  { id: "paliers", label: "Paliers" },
+  { id: "benefices", label: "Bénéfices" },
+  { id: "comment-ca-marche", label: "Comment ça marche" },
+  { id: "pourquoi-thales", label: "Pourquoi nous" },
+  { id: "faq", label: "FAQ" },
+];
+
 /* ─────────────────────────────────────────────────────────
    Composant principal
 ───────────────────────────────────────────────────────── */
@@ -1077,6 +1085,14 @@ export default function RasTvaClient() {
   const scrollToForm = (origin: string) => {
     track("cta_click", { origin });
     document.getElementById("formulaire-final")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  };
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    track("nav_click", { section: id });
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -1136,9 +1152,22 @@ export default function RasTvaClient() {
                 className="h-8 w-auto"
               />
             </Link>
+
+            <nav aria-label="Sections de la page" className="hidden lg:flex items-center gap-6">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-sm font-semibold text-secondary hover:text-cta transition-colors cursor-pointer whitespace-nowrap"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
             <button
               onClick={() => scrollToForm("header")}
-              className="inline-flex items-center gap-1.5 bg-cta text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-cta-hover transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 bg-cta text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-cta-hover transition-colors cursor-pointer shrink-0"
             >
               Réserver ma démo <ArrowRight size={14} aria-hidden="true" />
             </button>
