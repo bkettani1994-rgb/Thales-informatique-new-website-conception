@@ -166,23 +166,23 @@ function AnnounceBar() {
   if (dismissed) return null;
 
   return (
-    <div className="relative bg-primary text-white">
+    <div className="announce-bg-animated relative text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 pr-10 sm:pr-12 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1.5 text-xs sm:text-sm text-center">
         <span className="inline-flex items-center gap-1.5 font-semibold">
-          <Calendar size={14} className="text-accent shrink-0" aria-hidden="true" />
+          <Calendar size={14} className="text-white shrink-0" aria-hidden="true" />
           Palier des 350 MDH le 1er janvier 2027
         </span>
         <span className="inline-flex items-center gap-1 font-mono font-bold tabular-nums" aria-live="off">
-          <span className="bg-white/10 rounded px-1.5 py-0.5">{days}j</span>
-          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(hours).padStart(2, "0")}h</span>
-          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(minutes).padStart(2, "0")}m</span>
-          <span className="hidden sm:inline bg-white/10 rounded px-1.5 py-0.5">{String(seconds).padStart(2, "0")}s</span>
+          <span className="bg-white/15 rounded px-1.5 py-0.5">{days}j</span>
+          <span className="hidden sm:inline bg-white/15 rounded px-1.5 py-0.5">{String(hours).padStart(2, "0")}h</span>
+          <span className="hidden sm:inline bg-white/15 rounded px-1.5 py-0.5">{String(minutes).padStart(2, "0")}m</span>
+          <span className="hidden sm:inline bg-white/15 rounded px-1.5 py-0.5">{String(seconds).padStart(2, "0")}s</span>
         </span>
-        <span className="hidden sm:inline text-white/40">·</span>
+        <span className="hidden sm:inline text-white/50">·</span>
         <span className="font-semibold">Thalès Informatique a la solution prête.</span>
         <button
           onClick={() => scrollToForm("announce-bar")}
-          className="font-bold underline underline-offset-2 hover:text-accent transition-colors cursor-pointer"
+          className="font-bold underline underline-offset-2 hover:text-primary transition-colors cursor-pointer"
         >
           Réserver ma démo
         </button>
@@ -190,7 +190,7 @@ function AnnounceBar() {
       <button
         onClick={() => setDismissed(true)}
         aria-label="Fermer le bandeau"
-        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-white/60 hover:text-white transition-colors cursor-pointer"
+        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
       >
         <X size={15} aria-hidden="true" />
       </button>

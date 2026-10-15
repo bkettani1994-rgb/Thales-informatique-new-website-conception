@@ -139,6 +139,25 @@ body {
   100% { opacity: 0; transform: translateY(-100vh) scale(1); }
 }
 
+/* Bandeau d'annonce — rayures diagonales animées (urgence) */
+@keyframes announceStripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 56px 0; }
+}
+
+.announce-bg-animated {
+  background-color: #C2410C;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(255, 255, 255, 0.1) 14px,
+    transparent 14px,
+    transparent 28px
+  );
+  background-size: 56px 56px;
+  animation: announceStripes 2.2s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
