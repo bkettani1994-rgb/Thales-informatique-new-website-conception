@@ -662,10 +662,10 @@ function HowItWorksSection() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Les questions du RAF
+   Vos questions sur l'intégration
 ───────────────────────────────────────────────────────── */
 
-const rafQuestions = [
+const integrationQuestions = [
   {
     icon: Settings,
     q: "Faut-il changer de logiciel ?",
@@ -688,20 +688,20 @@ const rafQuestions = [
   },
 ];
 
-function RAFQuestionsSection() {
+function IntegrationQuestionsSection() {
   return (
     <section className="py-16 lg:py-20 bg-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center sm:text-left">
-            Les questions du RAF
+          <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3 text-center">
+            DAF · RAF · Comptables
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center sm:text-left mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">
             Une intégration simple, une solution fiable.
           </h2>
         </FadeIn>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {rafQuestions.map((item, i) => (
+          {integrationQuestions.map((item, i) => (
             <FadeIn key={item.q} delay={i * 0.08}>
               <div className="card-hover bg-white rounded-2xl border border-slate-200 h-full p-5">
                 <span className="w-10 h-10 rounded-lg bg-cta/10 flex items-center justify-center mb-4">
@@ -1050,7 +1050,7 @@ export default function RasTvaClient() {
         <ErpSection />
         <NoMoreTasksSection />
         <HowItWorksSection />
-        <RAFQuestionsSection />
+        <IntegrationQuestionsSection />
         <WhySection />
         <FormFaqSection />
         <Footer />
