@@ -790,15 +790,15 @@ function WhySection() {
 ───────────────────────────────────────────────────────── */
 
 const fieldClass =
-  "w-full px-3.5 py-2.5 rounded-lg border border-white/15 bg-white/10 text-white text-sm placeholder:text-white/50 focus:border-accent focus:ring-1 focus:ring-accent outline-none";
+  "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-primary text-sm placeholder:text-slate-400 focus:border-cta focus:ring-1 focus:ring-cta outline-none";
 
 function DiagnosticForm({ id }: { id?: string }) {
   const { form, setField, loading, errorMsg, handleSubmit } = useRasTva();
 
   return (
-    <div id={id} className="bg-primary rounded-2xl p-6 sm:p-7">
-      <h3 className="text-lg font-bold text-white mb-1">Voyez la RAS TVA se calculer toute seule.</h3>
-      <p className="text-white/65 text-sm mb-5 leading-relaxed">20 minutes en visio avec un consultant. Gratuit, sans engagement.</p>
+    <div id={id} className="bg-white rounded-2xl shadow-xl p-6 sm:p-7">
+      <h3 className="text-lg font-bold text-primary mb-1">Voyez la RAS TVA se calculer toute seule.</h3>
+      <p className="text-secondary text-sm mb-5 leading-relaxed">20 minutes en visio avec un consultant. Gratuit, sans engagement.</p>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-3">
         <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -823,10 +823,10 @@ function DiagnosticForm({ id }: { id?: string }) {
           <select
             aria-label="Votre fonction"
             required value={form.fonction} onChange={(e) => setField("fonction", e.target.value)}
-            className={`${fieldClass} [color-scheme:dark]`}
+            className={fieldClass}
           >
-            <option value="" className="text-primary">Fonction *</option>
-            {["DAF / RAF", "Chef comptable", "Comptable", "DG", "DSI", "Autre"].map((f) => <option key={f} value={f} className="text-primary">{f}</option>)}
+            <option value="">Fonction *</option>
+            {["DAF / RAF", "Chef comptable", "Comptable", "DG", "DSI", "Autre"].map((f) => <option key={f} value={f}>{f}</option>)}
           </select>
           <input
             type="tel" placeholder="Téléphone *" required value={form.telephone}
@@ -845,16 +845,16 @@ function DiagnosticForm({ id }: { id?: string }) {
           <input
             type="checkbox" required checked={form.consentement}
             onChange={(e) => setField("consentement", e.target.checked)}
-            className="mt-0.5 w-4 h-4 rounded border-white/30 bg-white/10 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
+            className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
           />
-          <span className="text-xs text-white/60 leading-relaxed">
+          <span className="text-xs text-secondary leading-relaxed">
             J&apos;accepte que Thalès Informatique utilise ces informations pour me recontacter, conformément à la loi 09-08. Voir la{" "}
-            <Link href="/politique-de-confidentialite" className="text-accent underline">politique de confidentialité</Link>.
+            <Link href="/politique-de-confidentialite" className="text-cta underline">politique de confidentialité</Link>.
           </span>
         </label>
 
         {errorMsg && (
-          <p role="alert" className="text-xs text-white bg-signal/80 rounded-lg px-3 py-2">
+          <p role="alert" className="text-xs text-signal-dark bg-signal/10 border border-signal/30 rounded-lg px-3 py-2">
             {errorMsg}
           </p>
         )}
@@ -894,17 +894,17 @@ function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
 
 function FormSection() {
   return (
-    <section className="py-16 lg:py-20 bg-white" id="formulaire-section">
+    <section className="py-16 lg:py-20 bg-primary" id="formulaire-section">
       <div className="max-w-md mx-auto px-4 sm:px-6">
         <FadeIn>
           <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
-            <p className="text-xs font-bold text-cta uppercase tracking-widest">Passez à l&apos;action</p>
+            <span className="w-8 h-0.5 bg-accent rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-accent uppercase tracking-widest">Passez à l&apos;action</p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-3">
             Prêt à automatiser votre RAS TVA ?
           </h2>
-          <p className="text-secondary text-center mb-10">
+          <p className="text-white/70 text-center mb-10">
             Réservez votre diagnostic gratuit de 20 minutes avec un consultant Thalès Informatique.
           </p>
         </FadeIn>
