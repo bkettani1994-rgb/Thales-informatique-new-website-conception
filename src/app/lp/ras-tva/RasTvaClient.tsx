@@ -897,6 +897,18 @@ function FormSection() {
     <section className="py-16 lg:py-20 bg-white" id="formulaire-section">
       <div className="max-w-md mx-auto px-4 sm:px-6">
         <FadeIn>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Passez à l&apos;action</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-3">
+            Prêt à automatiser votre RAS TVA ?
+          </h2>
+          <p className="text-secondary text-center mb-10">
+            Réservez votre diagnostic gratuit de 20 minutes avec un consultant Thalès Informatique.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.1}>
           <DiagnosticForm id="formulaire-final" />
         </FadeIn>
       </div>
