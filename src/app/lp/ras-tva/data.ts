@@ -7,7 +7,7 @@ export const SEUIL_DATE_ISO = "2027-01-01T00:00:00+01:00"; // palier 350 MDH, he
 export const faqs: { q: string; a: string }[] = [
   {
     q: "Mon entreprise est-elle concernée ?",
-    a: "Si vous êtes un organisme public, une banque, une assurance, une entreprise au-dessus des seuils (500 MDH depuis juillet 2026, 350 MDH au 1er janvier 2027, 200 MDH au 1er janvier 2028), ou si vous facturez ces organisations : oui.",
+    a: "Si vous êtes un organisme public, une banque, une assurance, une entreprise qui dépasse le seuil de chiffre d'affaires en vigueur pour son secteur, ou si vous facturez ces organisations : oui.",
   },
   {
     q: "Que se passe-t-il pendant la démo ?",

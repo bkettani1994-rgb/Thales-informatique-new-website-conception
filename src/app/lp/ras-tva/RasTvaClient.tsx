@@ -892,34 +892,46 @@ function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
   );
 }
 
-function FormFaqSection() {
+function FormSection() {
+  return (
+    <section className="py-16 lg:py-20 bg-white" id="formulaire-section">
+      <div className="max-w-md mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <DiagnosticForm id="formulaire-final" />
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-16 lg:py-20 bg-white" id="formulaire-section">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          <FadeIn>
-            <p className="text-xs font-bold text-cta uppercase tracking-widest mb-3">Vos questions, nos réponses</p>
-            <h2 className="text-xl font-bold text-primary mb-5">FAQ</h2>
-            <div className="space-y-3">
-              {faqs.map((f, i) => (
-                <FaqItem
-                  key={f.q} q={f.q} a={f.a} open={openIndex === i}
-                  onToggle={() => {
-                    const next = openIndex === i ? null : i;
-                    setOpenIndex(next);
-                    if (next !== null) track("faq_interaction", { question: f.q });
-                  }}
-                />
-              ))}
-            </div>
-          </FadeIn>
+    <section className="py-16 lg:py-20 bg-bg">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="w-8 h-0.5 bg-cta rounded-full" aria-hidden="true" />
+            <p className="text-xs font-bold text-cta uppercase tracking-widest">Vos questions, nos réponses</p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">FAQ</h2>
+        </FadeIn>
 
-          <FadeIn delay={0.1}>
-            <DiagnosticForm id="formulaire-final" />
-          </FadeIn>
-        </div>
+        <FadeIn delay={0.1}>
+          <div className="space-y-3">
+            {faqs.map((f, i) => (
+              <FaqItem
+                key={f.q} q={f.q} a={f.a} open={openIndex === i}
+                onToggle={() => {
+                  const next = openIndex === i ? null : i;
+                  setOpenIndex(next);
+                  if (next !== null) track("faq_interaction", { question: f.q });
+                }}
+              />
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -1053,7 +1065,8 @@ export default function RasTvaClient() {
         <HowItWorksSection />
         <IntegrationQuestionsSection />
         <WhySection />
-        <FormFaqSection />
+        <FormSection />
+        <FaqSection />
         <Footer />
       </main>
 
