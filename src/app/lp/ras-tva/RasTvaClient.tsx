@@ -493,34 +493,29 @@ function StepsImageSection() {
   const { scrollToForm } = useRasTva();
 
   return (
-    <section className="py-16 lg:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <FadeIn>
-          <button
-            onClick={() => scrollToForm("steps-image")}
-            className="group relative block w-full rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-            aria-label="La RAS TVA en 3 étapes automatisées — réserver ma démo"
-          >
-            <img
-              src={STEPS_IMAGE_DESKTOP}
-              alt="La RAS TVA en 3 étapes automatisées : vous saisissez la facture, la retenue est calculée automatiquement, vous passez à la facture suivante."
-              width={1600}
-              height={900}
-              className="hidden sm:block w-full h-auto group-hover:scale-[1.015] transition-transform duration-300"
-            />
-            <img
-              src={STEPS_IMAGE_MOBILE}
-              alt="La RAS TVA en 3 étapes automatisées : vous saisissez la facture, la retenue est calculée automatiquement, vous passez à la facture suivante."
-              width={1080}
-              height={1620}
-              className="sm:hidden w-full h-auto group-hover:scale-[1.015] transition-transform duration-300"
-            />
-            <span className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex items-center gap-2 bg-cta text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-lg group-hover:bg-cta-hover transition-colors">
-              Réserver ma démo <ArrowRight size={14} aria-hidden="true" />
-            </span>
-          </button>
-        </FadeIn>
-      </div>
+    <section className="bg-white">
+      <FadeIn>
+        <button
+          onClick={() => scrollToForm("steps-image")}
+          className="group block w-full cursor-pointer"
+          aria-label="La RAS TVA en 3 étapes automatisées — réserver ma démo"
+        >
+          <img
+            src={STEPS_IMAGE_DESKTOP}
+            alt="La RAS TVA en 3 étapes automatisées : vous saisissez la facture, la retenue est calculée automatiquement, vous passez à la facture suivante."
+            width={1600}
+            height={900}
+            className="hidden sm:block w-full h-auto group-hover:opacity-90 transition-opacity duration-300"
+          />
+          <img
+            src={STEPS_IMAGE_MOBILE}
+            alt="La RAS TVA en 3 étapes automatisées : vous saisissez la facture, la retenue est calculée automatiquement, vous passez à la facture suivante."
+            width={1080}
+            height={1620}
+            className="sm:hidden w-full h-auto group-hover:opacity-90 transition-opacity duration-300"
+          />
+        </button>
+      </FadeIn>
     </section>
   );
 }
