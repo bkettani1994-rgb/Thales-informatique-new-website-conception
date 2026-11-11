@@ -8,8 +8,7 @@ const awards = [
     icon: Gem,
     year: "2026",
     title: "Trophée Cristallin du Partenaire Africain",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1794389985/Thales_Informatique_Troph%C3%A9e_cristallin_du_partenaire_africain_2026_qpyaxa.png",
-    imageOffsetY: "6%",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1794391959/Thales_Informatique_Troph%C3%A9e_cristallin_du_partenaire_africain_2026_cxddcw.webp",
   },
   {
     icon: Trophy,
@@ -96,7 +95,6 @@ export default function Awards() {
                         src={award.image}
                         alt={award.title}
                         className="w-full h-full object-contain drop-shadow-lg"
-                        style={award.imageOffsetY ? { transform: `translateY(${award.imageOffsetY})` } : undefined}
                       />
                     ) : (
                       <div className="w-full h-full rounded-xl border border-dashed border-cta/25 bg-white/60 flex flex-col items-center justify-center gap-2 text-cta/50">
