@@ -1,9 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Medal, Star, Award, BadgeCheck } from "lucide-react";
+import { Trophy, Medal, Star, Award, BadgeCheck, Gem } from "lucide-react";
 
 const awards = [
+  {
+    icon: Gem,
+    year: "2026",
+    title: "Trophée Cristallin du Partenaire Africain",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1794389552/Thales_Informatique_Troph%C3%A9e_cristallin_du_partenaire_africain_2026_ajf9qh.webp",
+  },
   {
     icon: Trophy,
     year: "2024",
@@ -71,7 +77,7 @@ export default function Awards() {
 
         {/* Trophées sur socle + ligne du temps */}
         <div className="overflow-x-auto pb-4">
-          <div className="min-w-[760px]">
+          <div className="min-w-[880px]">
             <div className="flex items-end justify-center gap-6">
               {awards.map((award, i) => (
                 <motion.div
