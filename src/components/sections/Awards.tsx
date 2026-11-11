@@ -8,7 +8,7 @@ const awards = [
     icon: Gem,
     year: "2026",
     title: "Trophée Cristallin du Partenaire Africain",
-    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1794389552/Thales_Informatique_Troph%C3%A9e_cristallin_du_partenaire_africain_2026_ajf9qh.webp",
+    image: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1794389985/Thales_Informatique_Troph%C3%A9e_cristallin_du_partenaire_africain_2026_qpyaxa.png",
   },
   {
     icon: Trophy,
