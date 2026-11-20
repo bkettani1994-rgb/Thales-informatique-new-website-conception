@@ -109,8 +109,8 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
 const navItems = [
   { id: "hero", label: "Accueil" },
   { id: "programme", label: "Programme" },
-  { id: "videos", label: "Vidéos" },
   { id: "lieu", label: "Lieu" },
+  { id: "videos", label: "Vidéos" },
   { id: "dates", label: "Prochaines dates" },
   { id: "contact", label: "Contact" },
 ];
@@ -480,7 +480,7 @@ function ProgrammeSection() {
 
 function VideosSection() {
   return (
-    <section id="videos" className="py-16 lg:py-20 bg-white">
+    <section id="videos" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Revivez les meilleurs moments du Sage Africa Tour</h2>
@@ -509,17 +509,33 @@ function VideosSection() {
 
 function LieuSection() {
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-bg">
+    <section id="lieu" className="py-16 lg:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
         </FadeIn>
+
+        {/* [À VALIDER : photo principale + galerie du lieu — fournies séparément] */}
+        <FadeIn delay={0.05}>
+          <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-sm mb-3">
+            Photo principale du lieu à venir
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div className="grid grid-cols-3 gap-3 mb-10">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="aspect-square rounded-xl overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-xs"
+              >
+                Photo {i + 1}
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <FadeIn delay={0.05}>
-            {/* [À VALIDER : photo du lieu — fournie séparément] */}
-            <div className="rounded-2xl overflow-hidden bg-slate-200 aspect-video mb-5 flex items-center justify-center text-secondary text-sm">
-              Photo du lieu à venir
-            </div>
+          <FadeIn delay={0.15}>
             <h3 className="text-base font-bold text-primary mb-2">Sage Africa Tour Casablanca — Le Carré d&apos;Or</h3>
             <p className="text-sm text-secondary leading-relaxed mb-1">
               <strong className="text-primary">Date :</strong> Mardi 08 décembre 2026, de 14h30 à 18h00
@@ -529,7 +545,7 @@ function LieuSection() {
               Casablanca, Maroc
             </p>
           </FadeIn>
-          <FadeIn delay={0.1}>
+          <FadeIn delay={0.2}>
             <div className="rounded-2xl overflow-hidden border border-slate-200 aspect-[4/3]">
               <iframe
                 title="Localisation — Le Carré d'Or, Casablanca"
@@ -541,6 +557,7 @@ function LieuSection() {
             </div>
           </FadeIn>
         </div>
+
         <div className="text-center mt-10">
           <p className="text-secondary mb-4">Inscrivez-vous pour réserver votre place. À très vite !</p>
           <button
@@ -738,8 +755,8 @@ export default function SageAfricaTourClient() {
       <Hero />
       <IntroSection {...formProps} />
       <ProgrammeSection />
-      <VideosSection />
       <LieuSection />
+      <VideosSection />
       <DatesSection />
       <ContactSection />
       <LpFooter />
