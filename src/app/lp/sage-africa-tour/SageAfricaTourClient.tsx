@@ -168,8 +168,6 @@ const dérouléEvenement = [
   },
 ];
 
-const videoCities = ["Casablanca", "Abidjan", "Dakar"];
-
 const upcomingDates = [
   { city: "Abidjan", date: "16 décembre 2026" },
   { city: "Dakar", date: "À venir" },
@@ -483,26 +481,23 @@ function ProgrammeSection() {
 function VideosSection() {
   return (
     <section id="videos" className="py-16 lg:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Revivez les meilleurs moments du Sage Africa Tour</h2>
-          <p className="text-secondary mb-10">Ambiance, intervenants, démonstrations : découvrez en images les éditions précédentes.</p>
+          <p className="text-secondary mb-10">Ambiance, intervenants, démonstrations : le temps fort de l&apos;édition précédente en vidéo.</p>
         </FadeIn>
-        <div className="grid sm:grid-cols-3 gap-5">
-          {videoCities.map((city, i) => (
-            <FadeIn key={city} delay={i * 0.08}>
-              {/* [À VALIDER : vidéo/photo à intégrer — fournie séparément] */}
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-200">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                    <span className="w-0 h-0 border-y-[7px] border-y-transparent border-l-[11px] border-l-cta ml-1" aria-hidden="true" />
-                  </span>
-                </div>
-                <span className="absolute bottom-3 left-3 text-white text-sm font-bold drop-shadow">{city}</span>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+        <FadeIn delay={0.05}>
+          <div className="aspect-video rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+            <iframe
+              title="Sage Africa Tour — temps forts de l'édition précédente"
+              src="https://www.youtube.com/embed/TMpRiiIBqak"
+              className="w-full h-full border-0"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
