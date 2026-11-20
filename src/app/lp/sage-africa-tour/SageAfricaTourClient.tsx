@@ -441,7 +441,7 @@ function IntroSection(props: {
 
 function ProgrammeSection() {
   return (
-    <section id="programme" className="py-16 lg:py-20 bg-white">
+    <section id="programme" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Programme</h2>
@@ -489,7 +489,7 @@ function ProgrammeSection() {
 
 function VideosSection() {
   return (
-    <section id="videos" className="py-16 lg:py-20 bg-bg">
+    <section id="videos" className="py-16 lg:py-20 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Revivez les meilleurs moments du Sage Africa Tour</h2>
@@ -533,7 +533,7 @@ function LieuSection() {
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="grid grid-cols-6 gap-2 mb-10">
+          <div className="grid grid-cols-6 gap-2">
             {lieuGalleryImages.map((label, i) => (
               <button
                 key={label}
@@ -550,9 +550,20 @@ function LieuSection() {
             ))}
           </div>
         </FadeIn>
+      </div>
+    </section>
+  );
+}
 
+function LocalisationSection() {
+  return (
+    <section id="localisation" className="py-16 lg:py-20 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Comment s&apos;y rendre</h2>
+        </FadeIn>
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <FadeIn delay={0.15}>
+          <FadeIn delay={0.05}>
             <h3 className="text-base font-bold text-primary mb-2">Sage Africa Tour Casablanca — Le Carré d&apos;Or</h3>
             <p className="text-sm text-secondary leading-relaxed mb-1">
               <strong className="text-primary">Date :</strong> Mardi 08 décembre 2026, de 14h30 à 18h00
@@ -562,7 +573,7 @@ function LieuSection() {
               Casablanca, Maroc
             </p>
           </FadeIn>
-          <FadeIn delay={0.2}>
+          <FadeIn delay={0.1}>
             <div className="rounded-2xl overflow-hidden border border-slate-200 aspect-[4/3]">
               <iframe
                 title="Localisation — Le Carré d'Or, Casablanca"
@@ -574,7 +585,6 @@ function LieuSection() {
             </div>
           </FadeIn>
         </div>
-
         <div className="text-center mt-10">
           <p className="text-secondary mb-4">Inscrivez-vous pour réserver votre place. À très vite !</p>
           <button
@@ -595,7 +605,7 @@ function LieuSection() {
 
 function DatesSection() {
   return (
-    <section id="dates" className="py-16 lg:py-20 bg-white">
+    <section id="dates" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Sage vient à votre rencontre, près de chez vous</h2>
@@ -633,7 +643,7 @@ function DatesSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="py-16 lg:py-20 bg-bg">
+    <section id="contact" className="py-16 lg:py-20 bg-white">
       <div className="max-w-md mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <span className="w-14 h-14 rounded-full bg-cta/10 flex items-center justify-center mx-auto mb-5">
@@ -772,6 +782,7 @@ export default function SageAfricaTourClient() {
       <Hero />
       <IntroSection {...formProps} />
       <LieuSection />
+      <LocalisationSection />
       <ProgrammeSection />
       <VideosSection />
       <DatesSection />
