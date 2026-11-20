@@ -116,12 +116,12 @@ const navItems = [
 ];
 
 const lieuGalleryImages = [
-  "Vue extérieure",
-  "Façade",
-  "Salle principale",
-  "Espace networking",
-  "Signalétique",
-  "Vue d'ensemble",
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-1_yr45pd.webp", alt: "Le Carré d'Or — photo 1" },
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-2_oc5gkg.webp", alt: "Le Carré d'Or — photo 2" },
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-3_ujeo19.webp", alt: "Le Carré d'Or — photo 3" },
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-4_ketqei.webp", alt: "Le Carré d'Or — photo 4" },
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-6_cvzu3c.webp", alt: "Le Carré d'Or — photo 5" },
+  { src: "https://res.cloudinary.com/dmutnjgp8/image/upload/v1795193890/le-carre-dor-5_iicg1h.webp", alt: "Le Carré d'Or — photo 6" },
 ];
 
 const programmeHighlights = [
@@ -526,26 +526,29 @@ function LieuSection() {
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
         </FadeIn>
 
-        {/* [À VALIDER : galerie photos du lieu — fournie séparément] */}
         <FadeIn delay={0.05}>
-          <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-sm mb-3">
-            Photo du lieu à venir — {lieuGalleryImages[selected]}
+          <div className="w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 mb-3 flex items-center justify-center max-h-[320px] sm:max-h-[420px] lg:max-h-[520px]">
+            <img
+              src={lieuGalleryImages[selected].src}
+              alt={lieuGalleryImages[selected].alt}
+              className="w-full h-full object-contain"
+            />
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-6 gap-2">
-            {lieuGalleryImages.map((label, i) => (
+            {lieuGalleryImages.map((img, i) => (
               <button
-                key={label}
+                key={img.src}
                 type="button"
                 onClick={() => setSelected(i)}
-                aria-label={`Afficher la photo : ${label}`}
+                aria-label={`Afficher ${img.alt}`}
                 aria-pressed={selected === i}
-                className={`aspect-square rounded-lg overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-[9px] sm:text-[10px] leading-tight px-1 text-center cursor-pointer transition-all ${
+                className={`aspect-square rounded-lg overflow-hidden bg-slate-100 cursor-pointer transition-all ${
                   selected === i ? "ring-2 ring-cta ring-offset-2" : "opacity-60 hover:opacity-100"
                 }`}
               >
-                {label}
+                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
