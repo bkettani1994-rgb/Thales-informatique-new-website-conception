@@ -558,34 +558,32 @@ function LieuSection() {
 function LocalisationSection() {
   return (
     <section id="localisation" className="py-16 lg:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Comment s&apos;y rendre</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6">Comment s&apos;y rendre</h2>
+          <h3 className="text-base font-bold text-primary mb-2">Sage Africa Tour Casablanca — Le Carré d&apos;Or</h3>
+          <p className="text-sm text-secondary leading-relaxed mb-1">
+            <strong className="text-primary">Date :</strong> Mardi 08 décembre 2026, de 14h30 à 18h00
+          </p>
+          <p className="text-sm text-secondary leading-relaxed mb-8">
+            <strong className="text-primary">Lieu :</strong> Le Carré d&apos;Or – Angle route de l&apos;Oasis et rue Zanzibar, Oasis, 20000
+            Casablanca, Maroc
+          </p>
         </FadeIn>
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <FadeIn delay={0.05}>
-            <h3 className="text-base font-bold text-primary mb-2">Sage Africa Tour Casablanca — Le Carré d&apos;Or</h3>
-            <p className="text-sm text-secondary leading-relaxed mb-1">
-              <strong className="text-primary">Date :</strong> Mardi 08 décembre 2026, de 14h30 à 18h00
-            </p>
-            <p className="text-sm text-secondary leading-relaxed">
-              <strong className="text-primary">Lieu :</strong> Le Carré d&apos;Or – Angle route de l&apos;Oasis et rue Zanzibar, Oasis, 20000
-              Casablanca, Maroc
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl overflow-hidden border border-slate-200 aspect-[4/3]">
-              <iframe
-                title="Localisation — Le Carré d'Or, Casablanca"
-                src="https://www.google.com/maps?q=Le+Carr%C3%A9+d%27Or+Casablanca&output=embed"
-                className="w-full h-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </FadeIn>
-        </div>
-        <div className="text-center mt-10">
+
+        <FadeIn delay={0.1}>
+          <div className="w-full rounded-2xl overflow-hidden border border-slate-200 aspect-[4/3] sm:aspect-video lg:aspect-[21/9]">
+            <iframe
+              title="Localisation — Le Carré d'Or, Casablanca"
+              src="https://www.google.com/maps?q=Le+Carr%C3%A9+d%27Or+Casablanca&output=embed"
+              className="w-full h-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </FadeIn>
+
+        <div className="mt-10">
           <p className="text-secondary mb-4">Inscrivez-vous pour réserver votre place. À très vite !</p>
           <button
             onClick={() => scrollToId("inscription", "lieu")}
