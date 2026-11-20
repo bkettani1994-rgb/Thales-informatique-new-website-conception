@@ -108,11 +108,20 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
 
 const navItems = [
   { id: "hero", label: "Accueil" },
-  { id: "programme", label: "Programme" },
   { id: "lieu", label: "Lieu" },
+  { id: "programme", label: "Programme" },
   { id: "videos", label: "Vidéos" },
   { id: "dates", label: "Prochaines dates" },
   { id: "contact", label: "Contact" },
+];
+
+const lieuGalleryImages = [
+  "Vue extérieure",
+  "Façade",
+  "Salle principale",
+  "Espace networking",
+  "Signalétique",
+  "Vue d'ensemble",
 ];
 
 const programmeHighlights = [
@@ -432,7 +441,7 @@ function IntroSection(props: {
 
 function ProgrammeSection() {
   return (
-    <section id="programme" className="py-16 lg:py-20 bg-bg">
+    <section id="programme" className="py-16 lg:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Programme</h2>
@@ -508,28 +517,36 @@ function VideosSection() {
 ───────────────────────────────────────────────────────── */
 
 function LieuSection() {
+  const [selected, setSelected] = useState(0);
+
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-white">
+    <section id="lieu" className="py-16 lg:py-20 bg-bg">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
         </FadeIn>
 
-        {/* [À VALIDER : photo principale + galerie du lieu — fournies séparément] */}
+        {/* [À VALIDER : galerie photos du lieu — fournie séparément] */}
         <FadeIn delay={0.05}>
           <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-sm mb-3">
-            Photo principale du lieu à venir
+            Photo du lieu à venir — {lieuGalleryImages[selected]}
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="grid grid-cols-3 gap-3 mb-10">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-square rounded-xl overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-xs"
+          <div className="grid grid-cols-6 gap-2 mb-10">
+            {lieuGalleryImages.map((label, i) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setSelected(i)}
+                aria-label={`Afficher la photo : ${label}`}
+                aria-pressed={selected === i}
+                className={`aspect-square rounded-lg overflow-hidden bg-slate-200 flex items-center justify-center text-secondary text-[9px] sm:text-[10px] leading-tight px-1 text-center cursor-pointer transition-all ${
+                  selected === i ? "ring-2 ring-cta ring-offset-2" : "opacity-60 hover:opacity-100"
+                }`}
               >
-                Photo {i + 1}
-              </div>
+                {label}
+              </button>
             ))}
           </div>
         </FadeIn>
@@ -754,8 +771,8 @@ export default function SageAfricaTourClient() {
       <Header />
       <Hero />
       <IntroSection {...formProps} />
-      <ProgrammeSection />
       <LieuSection />
+      <ProgrammeSection />
       <VideosSection />
       <DatesSection />
       <ContactSection />
