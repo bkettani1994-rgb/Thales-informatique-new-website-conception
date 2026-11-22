@@ -17,6 +17,8 @@ import {
   Mail,
   Phone,
   Loader2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -529,46 +531,100 @@ function VideosSection() {
    Lieu
 ───────────────────────────────────────────────────────── */
 
+function circularOffset(index: number, current: number, total: number) {
+  let offset = index - current;
+  if (offset > total / 2) offset -= total;
+  if (offset < -total / 2) offset += total;
+  return offset;
+}
+
 function LieuSection() {
-  const [selected, setSelected] = useState(0);
+  const [current, setCurrent] = useState(0);
+  const total = lieuGalleryImages.length;
+
+  const goTo = (index: number) => setCurrent(((index % total) + total) % total);
 
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-cta">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <section id="lieu" className="py-16 lg:py-20 bg-cta overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">Lieu</h2>
-            <p className="text-sm font-semibold text-white/80 mt-1">Le Carré d&apos;Or</p>
+          <span className="inline-flex items-center gap-2 border border-white/40 rounded-full px-5 py-2 text-white font-bold text-sm mb-6">
+            <MapPin size={16} aria-hidden="true" /> Casablanca
+          </span>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="hidden sm:block h-px w-10 bg-white/40" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">Le lieu de l&apos;événement</h2>
+            <span className="hidden sm:block h-px w-10 bg-white/40" />
           </div>
+          <p className="text-white/85 max-w-xl mx-auto mb-10">
+            Le Carré d&apos;Or vous accueille dans un cadre moderne et raffiné, offrant les meilleures conditions pour des échanges, des
+            démonstrations et un networking de qualité.
+          </p>
         </FadeIn>
 
         <FadeIn delay={0.05}>
-          <div className="w-full rounded-2xl overflow-hidden bg-white/10 border border-white/20 mb-3 flex items-center justify-center max-h-[320px] sm:max-h-[420px] lg:max-h-[520px]">
-            <img
-              src={lieuGalleryImages[selected].src}
-              alt={lieuGalleryImages[selected].alt}
-              className="w-full h-full object-contain"
-            />
+          <div className="relative h-[280px] sm:h-[360px] lg:h-[440px] flex items-center justify-center">
+            {lieuGalleryImages.map((img, i) => {
+              const offset = circularOffset(i, current, total);
+              const abs = Math.abs(offset);
+              const hidden = abs > 2;
+              const scale = abs === 0 ? 1 : abs === 1 ? 0.78 : 0.6;
+              const rotate = abs === 0 ? 0 : (offset > 0 ? 1 : -1) * (abs === 1 ? 8 : 14);
+              const opacity = hidden ? 0 : abs === 0 ? 1 : abs === 1 ? 0.9 : 0.55;
+
+              return (
+                <div
+                  key={img.src}
+                  className="absolute rounded-2xl overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 ease-out"
+                  style={{
+                    width: "min(62%, 440px)",
+                    aspectRatio: "4 / 3",
+                    transform: `translateX(${offset * 58}%) scale(${scale}) rotate(${rotate}deg)`,
+                    zIndex: 10 - abs,
+                    opacity,
+                    pointerEvents: offset === 0 ? "auto" : "none",
+                  }}
+                >
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                </div>
+              );
+            })}
+
+            <button
+              type="button"
+              onClick={() => goTo(current - 1)}
+              aria-label="Photo précédente"
+              className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center cursor-pointer hover:bg-white/25 transition-colors"
+            >
+              <ChevronLeft size={20} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(current + 1)}
+              aria-label="Photo suivante"
+              className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center cursor-pointer hover:bg-white/25 transition-colors"
+            >
+              <ChevronRight size={20} aria-hidden="true" />
+            </button>
           </div>
         </FadeIn>
-        <FadeIn delay={0.1}>
-          <div className="grid grid-cols-6 gap-2">
-            {lieuGalleryImages.map((img, i) => (
-              <button
-                key={img.src}
-                type="button"
-                onClick={() => setSelected(i)}
-                aria-label={`Afficher ${img.alt}`}
-                aria-pressed={selected === i}
-                className={`aspect-square rounded-lg overflow-hidden bg-white/10 cursor-pointer transition-all ${
-                  selected === i ? "ring-2 ring-white" : "opacity-60 hover:opacity-100"
-                }`}
-              >
-                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        </FadeIn>
+
+        <div className="flex items-center justify-center mt-6">
+          {lieuGalleryImages.map((img, i) => (
+            <button
+              key={img.src}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`Aller à la photo ${i + 1}`}
+              aria-pressed={current === i}
+              className="p-2 cursor-pointer"
+            >
+              <span
+                className={`block w-2.5 h-2.5 rounded-full transition-colors ${current === i ? "bg-white" : "bg-white/40 hover:bg-white/60"}`}
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
