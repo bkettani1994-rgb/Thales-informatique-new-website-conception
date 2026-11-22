@@ -233,13 +233,17 @@ function Header() {
 function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-primary via-cta to-accent pt-14 pb-24 sm:pt-16 sm:pb-28">
-      <div className="hidden lg:block absolute inset-0" aria-hidden="true">
+      <div className="hidden lg:block absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
           src="https://res.cloudinary.com/diptsoc4h/image/upload/v1795357712/Wf8vz0O0gh7zlEYcXDx6cBX3Tbl1buNqkBgX2JSw_kahbg0.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-right"
+          className="absolute top-0 right-0 w-[55%] h-full object-cover object-center"
+          style={{
+            maskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
+            WebkitMaskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/30 to-transparent" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
