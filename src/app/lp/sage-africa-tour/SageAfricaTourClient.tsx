@@ -441,10 +441,10 @@ function IntroSection(props: {
 
 function ProgrammeSection() {
   return (
-    <section id="programme" className="py-16 lg:py-20 bg-accent/5">
+    <section id="programme" className="py-16 lg:py-20 bg-cta">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Programme</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-10">Programme</h2>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-6">
           <FadeIn delay={0.05}>
@@ -475,7 +475,7 @@ function ProgrammeSection() {
             </div>
           </FadeIn>
         </div>
-        <p className="text-center text-sm text-secondary mt-8">
+        <p className="text-center text-sm text-white mt-8">
           Les quatre ateliers ont lieu en même temps : vous choisissez le vôtre lors de l&apos;inscription.
         </p>
       </div>
@@ -520,14 +520,14 @@ function LieuSection() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-accent/10">
+    <section id="lieu" className="py-16 lg:py-20 bg-cta">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">Lieu</h2>
         </FadeIn>
 
         <FadeIn delay={0.05}>
-          <div className="w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 mb-3 flex items-center justify-center max-h-[320px] sm:max-h-[420px] lg:max-h-[520px]">
+          <div className="w-full rounded-2xl overflow-hidden bg-white/10 border border-white/20 mb-3 flex items-center justify-center max-h-[320px] sm:max-h-[420px] lg:max-h-[520px]">
             <img
               src={lieuGalleryImages[selected].src}
               alt={lieuGalleryImages[selected].alt}
@@ -544,8 +544,8 @@ function LieuSection() {
                 onClick={() => setSelected(i)}
                 aria-label={`Afficher ${img.alt}`}
                 aria-pressed={selected === i}
-                className={`aspect-square rounded-lg overflow-hidden bg-slate-100 cursor-pointer transition-all ${
-                  selected === i ? "ring-2 ring-cta ring-offset-2" : "opacity-60 hover:opacity-100"
+                className={`aspect-square rounded-lg overflow-hidden bg-white/10 cursor-pointer transition-all ${
+                  selected === i ? "ring-2 ring-white" : "opacity-60 hover:opacity-100"
                 }`}
               >
                 <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
