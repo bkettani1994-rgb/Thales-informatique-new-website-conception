@@ -17,6 +17,7 @@ import {
   Mail,
   Phone,
   Loader2,
+  Landmark,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -233,6 +234,12 @@ function Header() {
 function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-primary via-cta to-accent pt-14 pb-24 sm:pt-16 sm:pb-28">
+      {/* [À VALIDER : photo de la Mosquée Hassan II (Casablanca) — remplacer l'icône par une <img> (absolute inset-0 object-cover) une fois le visuel fourni] */}
+      <div className="hidden lg:block absolute inset-0" aria-hidden="true">
+        <Landmark className="absolute right-[10%] top-1/2 -translate-y-1/2 w-40 h-40 text-white/10" strokeWidth={1} />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent" />
+      </div>
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <FadeIn>
           <span className="inline-block bg-white/15 text-white text-[11px] font-bold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
