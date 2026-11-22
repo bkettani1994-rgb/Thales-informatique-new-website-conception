@@ -563,7 +563,7 @@ function LieuSection() {
         </FadeIn>
 
         <FadeIn delay={0.05}>
-          <div className="relative h-[280px] sm:h-[360px] lg:h-[440px] flex items-center justify-center">
+          <div className="relative h-[340px] sm:h-[440px] lg:h-[600px] flex items-center justify-center">
             {lieuGalleryImages.map((img, i) => {
               const offset = circularOffset(i, current, total);
               const abs = Math.abs(offset);
@@ -577,7 +577,7 @@ function LieuSection() {
                   key={img.src}
                   className="absolute rounded-2xl overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 ease-out"
                   style={{
-                    width: "min(62%, 440px)",
+                    width: "min(82%, 640px)",
                     aspectRatio: "4 / 3",
                     transform: `translateX(${offset * 58}%) scale(${scale}) rotate(${rotate}deg)`,
                     zIndex: 10 - abs,
