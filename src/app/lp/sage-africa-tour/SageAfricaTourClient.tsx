@@ -536,7 +536,10 @@ function LieuSection() {
     <section id="lieu" className="py-16 lg:py-20 bg-cta">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">Lieu</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">Lieu</h2>
+            <p className="text-sm font-semibold text-white/80 mt-1">Le Carré d&apos;Or</p>
+          </div>
         </FadeIn>
 
         <FadeIn delay={0.05}>
