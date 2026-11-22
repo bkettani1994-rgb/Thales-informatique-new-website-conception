@@ -441,7 +441,7 @@ function IntroSection(props: {
 
 function ProgrammeSection() {
   return (
-    <section id="programme" className="py-16 lg:py-20 bg-bg">
+    <section id="programme" className="py-16 lg:py-20 bg-cta/5">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Programme</h2>
@@ -520,7 +520,7 @@ function LieuSection() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-bg">
+    <section id="lieu" className="py-16 lg:py-20 bg-sky-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
@@ -606,7 +606,7 @@ function LocalisationSection() {
 
 function DatesSection() {
   return (
-    <section id="dates" className="py-16 lg:py-20 bg-bg">
+    <section id="dates" className="py-16 lg:py-20 bg-amber-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Sage vient à votre rencontre, près de chez vous</h2>
@@ -617,7 +617,7 @@ function DatesSection() {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
           {upcomingDates.map((d, i) => (
             <FadeIn key={d.city} delay={i * 0.05}>
-              <div className="bg-bg rounded-xl border border-slate-200 p-4 h-full">
+              <div className="bg-white rounded-xl border border-slate-200 p-4 h-full">
                 <p className="text-sm font-bold text-primary mb-1">{d.city}</p>
                 <p className="text-xs text-secondary mb-2">{d.date}</p>
                 {d.date !== "À venir" && (
