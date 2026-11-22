@@ -441,7 +441,7 @@ function IntroSection(props: {
 
 function ProgrammeSection() {
   return (
-    <section id="programme" className="py-16 lg:py-20 bg-cta/5">
+    <section id="programme" className="py-16 lg:py-20 bg-accent/5">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center mb-10">Programme</h2>
@@ -520,7 +520,7 @@ function LieuSection() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <section id="lieu" className="py-16 lg:py-20 bg-sky-50">
+    <section id="lieu" className="py-16 lg:py-20 bg-accent/10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-8">Lieu</h2>
