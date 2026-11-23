@@ -532,7 +532,7 @@ function ProgrammeSection() {
 
 function VideosSection() {
   return (
-    <section id="videos" className="py-16 lg:py-20 bg-amber-50">
+    <section id="videos" className="py-16 lg:py-20 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Revivez les meilleurs moments du Sage Africa Tour</h2>
