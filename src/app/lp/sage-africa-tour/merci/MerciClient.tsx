@@ -36,7 +36,7 @@ export default function MerciClient() {
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-4">Votre inscription est confirmée.</h1>
         <p className="text-secondary leading-relaxed mb-6">
-          Un e-mail de confirmation vous sera envoyé par notre équipe. On vous attend au Sage Africa Tour !
+          Un appel de confirmation vous sera passé par notre équipe. On vous attend au Sage Africa Tour !
         </p>
         <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-8 text-left space-y-2">
           <p className="flex items-center gap-2 text-sm text-secondary">
