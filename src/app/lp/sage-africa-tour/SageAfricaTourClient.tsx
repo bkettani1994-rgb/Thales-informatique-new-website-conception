@@ -113,7 +113,6 @@ const navItems = [
   { id: "lieu", label: "Lieu" },
   { id: "programme", label: "Programme" },
   { id: "videos", label: "Vidéos" },
-  { id: "dates", label: "Prochaines dates" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -177,14 +176,6 @@ const dérouléEvenement = [
     title: "Cocktail de clôture & networking",
     desc: "Partagez les échanges avec notre équipe, nos partenaires et les autres participants.",
   },
-];
-
-const upcomingDates = [
-  { city: "Abidjan", date: "16 décembre 2026" },
-  { city: "Dakar", date: "À venir" },
-  { city: "Tunis", date: "À venir" },
-  { city: "Yaoundé", date: "À venir" },
-  { city: "Libreville", date: "À venir" },
 ];
 
 /* ─────────────────────────────────────────────────────────
@@ -504,7 +495,7 @@ function ProgrammeSection() {
 
 function VideosSection() {
   return (
-    <section id="videos" className="py-16 lg:py-20 bg-white">
+    <section id="videos" className="py-16 lg:py-20 bg-amber-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <FadeIn>
           <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Revivez les meilleurs moments du Sage Africa Tour</h2>
@@ -673,44 +664,6 @@ function LocalisationSection() {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Prochaines dates
-───────────────────────────────────────────────────────── */
-
-function DatesSection() {
-  return (
-    <section id="dates" className="py-16 lg:py-20 bg-amber-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2">Sage vient à votre rencontre, près de chez vous</h2>
-          <p className="text-secondary mb-10 max-w-2xl mx-auto">
-            Le Sage Africa Tour poursuit sa route en Afrique francophone. Retrouvez nos experts et partenaires lors des prochaines étapes.
-          </p>
-        </FadeIn>
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-          {upcomingDates.map((d, i) => (
-            <FadeIn key={d.city} delay={i * 0.05}>
-              <div className="bg-white rounded-xl border border-slate-200 p-4 h-full">
-                <p className="text-sm font-bold text-primary mb-1">{d.city}</p>
-                <p className="text-xs text-secondary mb-2">{d.date}</p>
-                {d.date !== "À venir" && (
-                  <button
-                    onClick={() => scrollToId("inscription", `dates-${d.city}`)}
-                    className="text-xs font-bold text-cta hover:underline cursor-pointer"
-                  >
-                    Je m&apos;inscris
-                  </button>
-                )}
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-        <p className="text-xs text-secondary mt-6">Les dates et inscriptions pour les autres villes seront annoncées prochainement.</p>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────
    Contact
 ───────────────────────────────────────────────────────── */
 
@@ -858,7 +811,6 @@ export default function SageAfricaTourClient() {
       <LocalisationSection />
       <ProgrammeSection />
       <VideosSection />
-      <DatesSection />
       <ContactSection />
       <LpFooter />
       <MobileStickyBar />
