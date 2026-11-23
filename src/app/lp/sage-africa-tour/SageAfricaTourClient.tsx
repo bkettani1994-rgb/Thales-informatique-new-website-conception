@@ -239,7 +239,7 @@ function Hero() {
         <img
           src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1795424876/arman-khalili-UPp3qJaxhBs-unsplash_hnmu5y.webp"
           alt=""
-          className="absolute top-0 right-0 w-[55%] h-full object-cover object-center"
+          className="absolute top-0 right-0 w-[55%] h-full object-contain object-center"
           style={{
             maskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
             WebkitMaskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
