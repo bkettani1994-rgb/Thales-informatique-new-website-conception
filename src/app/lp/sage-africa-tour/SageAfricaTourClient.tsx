@@ -12,13 +12,18 @@ import {
   Users,
   TrendingUp,
   Building2,
-  Calculator,
+  Briefcase,
   CheckCircle2,
   Mail,
   Phone,
   Loader2,
   ChevronLeft,
   ChevronRight,
+  Layers,
+  Handshake,
+  Coffee,
+  Cpu,
+  Settings,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────────────────
@@ -149,7 +154,7 @@ const segments = [
     desc: "Factorial : la plateforme RH qui centralise, automatise et fait grandir vos équipes.",
   },
   {
-    icon: Calculator,
+    icon: Briefcase,
     title: "Experts-comptables",
     desc: "En avant-première : la nouvelle offre Sage pensée pour les cabinets.",
   },
@@ -158,21 +163,25 @@ const segments = [
 const dérouléEvenement = [
   {
     time: "14h30 – 15h00",
+    icon: Coffee,
     title: "Accueil & café de bienvenue",
     desc: "L'occasion de rencontrer l'équipe Thalès Informatique et les autres participants.",
   },
   {
     time: "15h00 – 16h00",
+    icon: Cpu,
     title: "IA & facturation électronique : ne subissez pas le changement, pilotez-le",
     desc: "Les enjeux de la réforme de la facturation électronique au Maroc, expliqués simplement.",
   },
   {
     time: "16h00 – 17h00",
+    icon: Settings,
     title: "Ateliers thématiques au choix",
     desc: "Quatre ateliers organisés selon votre profil et vos priorités.",
   },
   {
     time: "17h00 – 18h00",
+    icon: Users,
     title: "Cocktail de clôture & networking",
     desc: "Partagez les échanges avec notre équipe, nos partenaires et les autres participants.",
   },
@@ -450,40 +459,68 @@ function ProgrammeSection() {
     <section id="programme" className="py-16 lg:py-20 bg-cta">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-10">Programme</h2>
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 border border-white/40 rounded-full px-5 py-2 text-white font-bold text-sm mb-6">
+              <Calendar size={16} aria-hidden="true" /> Programme
+            </span>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <span className="hidden sm:block h-px w-10 bg-white/40" />
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">Au programme de l&apos;événement</h2>
+              <span className="hidden sm:block h-px w-10 bg-white/40" />
+            </div>
+            <p className="text-white/85 max-w-xl mx-auto">
+              Les quatre ateliers ont lieu en même temps : vous choisissez le vôtre lors de l&apos;inscription.
+            </p>
+          </div>
         </FadeIn>
+
         <div className="grid md:grid-cols-2 gap-6">
           <FadeIn delay={0.05}>
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 h-full">
-              <h3 className="text-xs font-bold text-cta uppercase tracking-widest mb-5">Déroulé de l&apos;événement</h3>
-              <ol className="space-y-5">
-                {dérouléEvenement.map((item) => (
-                  <li key={item.time}>
-                    <p className="text-sm font-bold text-cta mb-1">{item.time}</p>
-                    <p className="text-sm font-semibold text-primary mb-1 leading-snug">{item.title}</p>
-                    <p className="text-xs text-secondary leading-relaxed">{item.desc}</p>
-                  </li>
-                ))}
-              </ol>
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 h-full">
+              <span className="inline-flex items-center gap-2 bg-cta/10 text-cta font-bold text-xs uppercase tracking-wide rounded-full px-4 py-2 mb-6">
+                <Layers size={15} aria-hidden="true" /> Déroulé de l&apos;événement
+              </span>
+              <div className="relative">
+                <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-slate-200" aria-hidden="true" />
+                <ol className="space-y-6">
+                  {dérouléEvenement.map((item) => (
+                    <li key={item.time} className="relative pl-8">
+                      <span className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full bg-white border-2 border-cta" aria-hidden="true" />
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="bg-cta text-white text-xs font-bold rounded-full px-3 py-1.5 whitespace-nowrap">{item.time}</span>
+                        <span className="w-9 h-9 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
+                          <item.icon size={16} className="text-cta" aria-hidden="true" />
+                        </span>
+                      </div>
+                      <p className="text-sm font-bold text-primary mb-1 leading-snug">{item.title}</p>
+                      <p className="text-xs text-secondary leading-relaxed">{item.desc}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 h-full">
-              <h3 className="text-xs font-bold text-cta uppercase tracking-widest mb-5">Ateliers au choix</h3>
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 h-full">
+              <span className="inline-flex items-center gap-2 bg-cta/10 text-cta font-bold text-xs uppercase tracking-wide rounded-full px-4 py-2 mb-6">
+                <Handshake size={15} aria-hidden="true" /> Ateliers au choix
+              </span>
               <div className="space-y-5">
                 {segments.map((seg) => (
-                  <div key={seg.title}>
-                    <p className="text-sm font-bold text-primary mb-1">{seg.title}</p>
-                    <p className="text-xs text-secondary leading-relaxed">{seg.desc}</p>
+                  <div key={seg.title} className="flex items-start gap-3">
+                    <span className="w-9 h-9 rounded-lg bg-cta/10 flex items-center justify-center shrink-0">
+                      <seg.icon size={16} className="text-cta" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-bold text-primary mb-1">{seg.title}</p>
+                      <p className="text-xs text-secondary leading-relaxed">{seg.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </FadeIn>
         </div>
-        <p className="text-center text-sm text-white mt-8">
-          Les quatre ateliers ont lieu en même temps : vous choisissez le vôtre lors de l&apos;inscription.
-        </p>
       </div>
     </section>
   );
