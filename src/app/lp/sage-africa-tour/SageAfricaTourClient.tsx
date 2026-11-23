@@ -239,7 +239,7 @@ function Hero() {
         <img
           src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1795426574/Mosqu%C3%A9e_Hassan_II_au_coucher_du_soleil_vb7yde.webp"
           alt=""
-          className="absolute top-0 right-0 w-[55%] h-full object-contain object-center"
+          className="absolute top-0 right-0 w-[55%] h-full object-cover object-center"
           style={{
             maskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
             WebkitMaskImage: "radial-gradient(circle at top right, black 30%, transparent 72%)",
