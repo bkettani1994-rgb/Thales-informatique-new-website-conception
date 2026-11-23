@@ -237,7 +237,7 @@ function Hero() {
     <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-primary via-cta to-accent pt-14 pb-24 sm:pt-16 sm:pb-28">
       <div className="hidden lg:block absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
-          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1795424876/arman-khalili-UPp3qJaxhBs-unsplash_hnmu5y.webp"
+          src="https://res.cloudinary.com/dmutnjgp8/image/upload/v1795426574/Mosqu%C3%A9e_Hassan_II_au_coucher_du_soleil_vb7yde.webp"
           alt=""
           className="absolute top-0 right-0 w-[55%] h-full object-contain object-center"
           style={{
