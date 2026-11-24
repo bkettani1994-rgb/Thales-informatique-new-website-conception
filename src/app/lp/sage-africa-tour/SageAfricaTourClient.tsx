@@ -851,6 +851,18 @@ export default function SageAfricaTourClient() {
     setErrorMsg("");
 
     if (form.website) return; // honeypot rempli → bot
+    if (!form.nom.trim()) {
+      setErrorMsg("Merci d'indiquer votre nom et prénom.");
+      return;
+    }
+    if (!form.entreprise.trim()) {
+      setErrorMsg("Merci d'indiquer votre entreprise.");
+      return;
+    }
+    if (!form.fonction) {
+      setErrorMsg("Merci de sélectionner votre fonction.");
+      return;
+    }
     if (!isProEmail(form.email)) {
       setErrorMsg("Merci d'indiquer votre email professionnel.");
       return;
