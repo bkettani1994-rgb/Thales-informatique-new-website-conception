@@ -83,6 +83,7 @@ type FormFields = {
   entreprise: string;
   email: string;
   telephone: string;
+  atelier: string;
   consentement: boolean;
   website: string; // honeypot
 };
@@ -289,98 +290,168 @@ function RegistrationForm({
   id,
   form,
   setField,
+  step,
   loading,
   errorMsg,
-  handleSubmit,
+  handleStep1Submit,
+  handleFinalSubmit,
+  goBackToStep1,
 }: {
   id?: string;
   form: FormFields;
   setField: <K extends keyof FormFields>(key: K, value: FormFields[K]) => void;
+  step: 1 | 2;
   loading: boolean;
   errorMsg: string;
-  handleSubmit: (e: React.FormEvent) => void;
+  handleStep1Submit: (e: React.FormEvent) => void;
+  handleFinalSubmit: (e: React.FormEvent) => void;
+  goBackToStep1: () => void;
 }) {
   const fieldClass =
     "w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white text-primary text-sm placeholder:text-slate-400 focus:border-cta focus:ring-1 focus:ring-cta outline-none";
 
   return (
     <div id={id} className="bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-7">
-      <h3 className="text-base font-bold text-primary mb-3">Sage Africa Tour Casablanca 2026</h3>
-      <div className="space-y-1.5 text-sm text-secondary mb-4">
-        <p className="flex items-center gap-2">
-          <Calendar size={14} className="text-cta shrink-0" aria-hidden="true" /> Mardi 08 décembre 2026
-        </p>
-        <p className="flex items-center gap-2">
-          <Clock size={14} className="text-cta shrink-0" aria-hidden="true" /> 14h30 – 18h00
-        </p>
-        <p className="flex items-center gap-2">
-          <MapPin size={14} className="text-cta shrink-0" aria-hidden="true" /> Le Carré d&apos;Or, Casablanca
-        </p>
-      </div>
-      <span className="inline-block bg-cta/10 text-cta text-xs font-bold px-3 py-1.5 rounded-full mb-5">Gratuit · Places limitées</span>
+      {step === 1 ? (
+        <>
+          <h3 className="text-base font-bold text-primary mb-3">Sage Africa Tour Casablanca 2026</h3>
+          <div className="space-y-1.5 text-sm text-secondary mb-4">
+            <p className="flex items-center gap-2">
+              <Calendar size={14} className="text-cta shrink-0" aria-hidden="true" /> Mardi 08 décembre 2026
+            </p>
+            <p className="flex items-center gap-2">
+              <Clock size={14} className="text-cta shrink-0" aria-hidden="true" /> 14h30 – 18h00
+            </p>
+            <p className="flex items-center gap-2">
+              <MapPin size={14} className="text-cta shrink-0" aria-hidden="true" /> Le Carré d&apos;Or, Casablanca
+            </p>
+          </div>
+          <span className="inline-block bg-cta/10 text-cta text-xs font-bold px-3 py-1.5 rounded-full mb-5">Gratuit · Places limitées</span>
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-3">
-        <div className="absolute left-[-9999px]" aria-hidden="true">
-          <label htmlFor="website-sat">Site web</label>
-          <input id="website-sat" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => setField("website", e.target.value)} />
-        </div>
+          <form onSubmit={handleStep1Submit} noValidate className="space-y-3">
+            <div className="absolute left-[-9999px]" aria-hidden="true">
+              <label htmlFor="website-sat">Site web</label>
+              <input id="website-sat" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => setField("website", e.target.value)} />
+            </div>
 
-        <input
-          type="text" placeholder="Nom et prénom *" required value={form.nom}
-          onChange={(e) => setField("nom", e.target.value)}
-          className={fieldClass}
-        />
-        <input
-          type="text" placeholder="Entreprise *" required value={form.entreprise}
-          onChange={(e) => setField("entreprise", e.target.value)}
-          className={fieldClass}
-        />
-        <select
-          aria-label="Votre fonction"
-          required value={form.fonction} onChange={(e) => setField("fonction", e.target.value)}
-          className={fieldClass}
-        >
-          <option value="">Fonction *</option>
-          {["Dirigeant / DG", "DAF / RAF", "DSI", "DRH", "Expert-comptable", "Autre"].map((f) => <option key={f} value={f}>{f}</option>)}
-        </select>
-        <input
-          type="tel" placeholder="Téléphone *" required value={form.telephone}
-          onChange={(e) => setField("telephone", e.target.value)}
-          className={fieldClass}
-        />
-        <input
-          type="email" placeholder="Email professionnel *" required value={form.email}
-          onChange={(e) => setField("email", e.target.value)}
-          className={fieldClass}
-        />
+            <input
+              type="text" placeholder="Nom et prénom *" required value={form.nom}
+              onChange={(e) => setField("nom", e.target.value)}
+              className={fieldClass}
+            />
+            <input
+              type="text" placeholder="Entreprise *" required value={form.entreprise}
+              onChange={(e) => setField("entreprise", e.target.value)}
+              className={fieldClass}
+            />
+            <select
+              aria-label="Votre fonction"
+              required value={form.fonction} onChange={(e) => setField("fonction", e.target.value)}
+              className={fieldClass}
+            >
+              <option value="">Fonction *</option>
+              {["Dirigeant / DG", "DAF / RAF", "DSI", "DRH", "Expert-comptable", "Autre"].map((f) => <option key={f} value={f}>{f}</option>)}
+            </select>
+            <input
+              type="tel" placeholder="Téléphone *" required value={form.telephone}
+              onChange={(e) => setField("telephone", e.target.value)}
+              className={fieldClass}
+            />
+            <input
+              type="email" placeholder="Email professionnel *" required value={form.email}
+              onChange={(e) => setField("email", e.target.value)}
+              className={fieldClass}
+            />
 
-        <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
-          <input
-            type="checkbox" required checked={form.consentement}
-            onChange={(e) => setField("consentement", e.target.checked)}
-            className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
-          />
-          <span className="text-xs text-secondary leading-relaxed">
-            J&apos;accepte que Thalès Informatique utilise ces informations pour confirmer mon inscription, conformément à la loi 09-08. Voir la{" "}
-            <Link href="/politique-de-confidentialite" className="text-cta underline">politique de confidentialité</Link>.
-          </span>
-        </label>
+            <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
+              <input
+                type="checkbox" required checked={form.consentement}
+                onChange={(e) => setField("consentement", e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded border-slate-300 text-cta focus:ring-cta focus:ring-1 cursor-pointer"
+              />
+              <span className="text-xs text-secondary leading-relaxed">
+                J&apos;accepte que Thalès Informatique utilise ces informations pour confirmer mon inscription, conformément à la loi 09-08. Voir la{" "}
+                <Link href="/politique-de-confidentialite" className="text-cta underline">politique de confidentialité</Link>.
+              </span>
+            </label>
 
-        {errorMsg && (
-          <p role="alert" className="text-xs text-signal-dark bg-signal/10 border border-signal/30 rounded-lg px-3 py-2">
-            {errorMsg}
+            {errorMsg && (
+              <p role="alert" className="text-xs text-signal-dark bg-signal/10 border border-signal/30 rounded-lg px-3 py-2">
+                {errorMsg}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-hover transition-colors duration-200 cursor-pointer"
+            >
+              Continuer <ArrowRight size={16} aria-hidden="true" />
+            </button>
+          </form>
+        </>
+      ) : (
+        <form onSubmit={handleFinalSubmit}>
+          <p className="text-sm font-bold text-primary mb-1">
+            Quel atelier souhaitez-vous rejoindre de 16h00 à 17h00 ?
           </p>
-        )}
+          <p className="text-xs text-secondary mb-5">Un seul atelier possible, choisissez celui qui correspond le mieux à votre profil.</p>
 
-        <button
-          type="submit" disabled={loading}
-          className="w-full inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-hover transition-colors duration-200 disabled:opacity-60 cursor-pointer"
-        >
-          {loading ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
-          {loading ? "Envoi en cours..." : "Je réserve ma place"}
-          {!loading && <ArrowRight size={16} aria-hidden="true" />}
-        </button>
-      </form>
+          <div className="space-y-2.5 mb-4">
+            {segments.map((seg) => {
+              const selected = form.atelier === seg.title;
+              return (
+                <button
+                  key={seg.title}
+                  type="button"
+                  onClick={() => setField("atelier", seg.title)}
+                  aria-pressed={selected}
+                  className={`w-full text-left rounded-xl border p-3 transition-colors cursor-pointer ${
+                    selected ? "border-cta bg-cta/5" : "border-slate-200 hover:border-cta/40"
+                  }`}
+                >
+                  <div className="flex items-start gap-2.5">
+                    <span
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                        selected ? "bg-cta text-white" : "bg-cta/10 text-cta"
+                      }`}
+                    >
+                      <seg.icon size={16} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-bold text-primary mb-0.5">{seg.title}</p>
+                      <p className="text-xs text-secondary leading-relaxed">{seg.desc}</p>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {errorMsg && (
+            <p role="alert" className="text-xs text-signal-dark bg-signal/10 border border-signal/30 rounded-lg px-3 py-2 mb-4">
+              {errorMsg}
+            </p>
+          )}
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={goBackToStep1}
+              className="text-sm font-semibold text-secondary hover:text-primary transition-colors cursor-pointer shrink-0"
+            >
+              ← Retour
+            </button>
+            <button
+              type="submit" disabled={loading}
+              className="flex-1 inline-flex items-center justify-center gap-2 bg-cta text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-hover transition-colors duration-200 disabled:opacity-60 cursor-pointer"
+            >
+              {loading ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
+              {loading ? "Envoi en cours..." : "Je confirme mon inscription"}
+              {!loading && <ArrowRight size={16} aria-hidden="true" />}
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }
@@ -388,9 +459,12 @@ function RegistrationForm({
 function IntroSection(props: {
   form: FormFields;
   setField: <K extends keyof FormFields>(key: K, value: FormFields[K]) => void;
+  step: 1 | 2;
   loading: boolean;
   errorMsg: string;
-  handleSubmit: (e: React.FormEvent) => void;
+  handleStep1Submit: (e: React.FormEvent) => void;
+  handleFinalSubmit: (e: React.FormEvent) => void;
+  goBackToStep1: () => void;
 }) {
   return (
     <section className="py-16 lg:py-20 bg-white">
@@ -837,8 +911,9 @@ export default function SageAfricaTourClient() {
   const router = useRouter();
 
   const [form, setForm] = useState<FormFields>({
-    nom: "", fonction: "", entreprise: "", email: "", telephone: "", consentement: false, website: "",
+    nom: "", fonction: "", entreprise: "", email: "", telephone: "", atelier: "", consentement: false, website: "",
   });
+  const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -846,7 +921,7 @@ export default function SageAfricaTourClient() {
     setForm((f) => ({ ...f, [key]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
 
@@ -876,6 +951,23 @@ export default function SageAfricaTourClient() {
       return;
     }
 
+    setStep(2);
+  };
+
+  const goBackToStep1 = () => {
+    setErrorMsg("");
+    setStep(1);
+  };
+
+  const handleFinalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
+
+    if (!form.atelier) {
+      setErrorMsg("Merci de choisir un atelier pour continuer.");
+      return;
+    }
+
     setLoading(true);
     const utm = getUtmParams();
     const payload = {
@@ -899,7 +991,7 @@ export default function SageAfricaTourClient() {
     }
   };
 
-  const formProps = { form, setField, loading, errorMsg, handleSubmit };
+  const formProps = { form, setField, step, loading, errorMsg, handleStep1Submit, handleFinalSubmit, goBackToStep1 };
 
   return (
     <main className="overflow-x-hidden bg-bg pb-20 lg:pb-0">
