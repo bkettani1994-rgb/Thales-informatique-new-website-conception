@@ -715,13 +715,13 @@ function ContactSection() {
           <h2 className="text-xl font-bold text-primary mb-2">Contact</h2>
           <p className="text-secondary mb-5">Avez-vous une question sur l&apos;événement ?</p>
           <p className="text-sm text-secondary mb-6">
-            Contactez-nous : <a href="mailto:contact@thales.ma" className="text-cta font-semibold hover:underline">contact@thales.ma</a>
+            Contactez-nous : <a href="mailto:info@thales.ma" className="text-cta font-semibold hover:underline">info@thales.ma</a>
           </p>
           <a
-            href="tel:+212522548780"
+            href="tel:+212661168354"
             className="inline-flex items-center gap-2 border border-slate-200 text-primary font-semibold px-6 py-3 rounded-xl hover:border-cta/40 hover:bg-cta/5 transition-colors"
           >
-            <Phone size={16} aria-hidden="true" /> +212 5 22 54 87 80
+            <Phone size={16} aria-hidden="true" /> 06 61 16 83 54
           </a>
         </FadeIn>
       </div>
